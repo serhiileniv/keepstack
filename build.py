@@ -394,7 +394,6 @@ def page(title, desc, body, path, extra_head="", groups=()):
     """path is the site-relative directory, '' for the root."""
     canonical = f"{SITE_URL}/{path}".rstrip("/") + ("/" if path else "")
     depth = "../" * (len(pathlib.PurePath(path).parts)) if path else ""
-    nav = f'<a href="{depth or "/"}">All tools</a><a href="{REPO_URL}" rel="noopener">Source</a>'
     _ = groups
     return f"""<!doctype html>
 <html lang="en">
@@ -422,7 +421,6 @@ def page(title, desc, body, path, extra_head="", groups=()):
 <header class="site">
   <div class="wrap">
     <a class="logo" href="{depth or '/'}">{MARK}<span class="name">{html.escape(SITE_NAME)}</span></a>
-    <nav>{nav}</nav>
     <a class="ghost" href="{REPO_URL}" rel="noopener">GitHub &#8599;</a>
   </div>
 </header>
@@ -431,8 +429,12 @@ def page(title, desc, body, path, extra_head="", groups=()):
 </main>
 <footer class="site">
   <div class="wrap">
-    <span>{html.escape(AUTHOR)}</span>
-    <a href="{REPO_URL}" rel="noopener">github.com/serhiileniv/ai-hub</a>
+    <p class="claim">Every date on this site was set by hand, on the day I checked the thing.
+       Nothing here is written by a bot &mdash; that is the only promise the site makes.</p>
+    <div class="ends">
+      <span>{html.escape(AUTHOR)} &middot; built {datetime.date.today().strftime('%-d %b %Y')}</span>
+      <a href="{REPO_URL}/issues/new" rel="noopener">Something out of date? Tell me &#8599;</a>
+    </div>
   </div>
 </footer>
 </body>
