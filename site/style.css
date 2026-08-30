@@ -1,11 +1,18 @@
 /* ============================================================================
    AI Hub — Space Black.
 
-   A one-off dark treatment. The brand kit (~/.claude/skills/brand) is light-mode
-   only and says so deliberately, so nothing here overrides it: the neutral stack
-   is borrowed wholesale, and the only brand value carried across is Muted Blue
-   #6F9EAA — which the kit forbids as text at 2.71:1 on off-white, and which
-   clears 7.4:1 on this ground. Going dark is what makes the accent usable as type.
+   Two stones. Emerald is the accent everywhere; ruby is reserved for entries I
+   built, so the second colour means something instead of decorating.
+
+   Ruby cannot be text. #C4304A is 3.65:1 on this ground and #D93C57 is 4.46:1 —
+   both under AA — and every red that passes stops looking like ruby. So ruby is
+   a fill (white on it is 5.43:1) and --ruby-tx is held back for the rare case it
+   has to be type. Red/green is also the pair colour-blind readers lose first, so
+   the two never encode the same axis: emerald is chrome, ruby means "mine", and
+   the mine pill carries the word as well as the colour.
+
+   This departs from ~/.claude/skills/brand, which is a light kit built on Muted
+   Blue. Nothing here overrides it — this is the site's palette, not the brand's.
    ========================================================================= */
 :root{
   --bg:#0a0a0a;
@@ -18,10 +25,12 @@
   --fg:#ffffff;
   --muted:#a3a3a3;
   --dim:#6b6b6b;
-  --accent:#6F9EAA;
-  --accent-hi:#9FC4CE;
-  --accent-dim:rgba(111,158,170,.13);
-  --warm:#C08A6E;
+  --accent:#2ECC94;                    /* emerald   9.60:1 — safe as text      */
+  --accent-hi:#7FE0BC;                 /*          12.53:1                     */
+  --accent-dim:rgba(46,204,148,.12);
+  --ruby:#C4304A;                      /* FILL ONLY 3.65:1 — never type        */
+  --ruby-tx:#E85C75;                   /*           5.86:1 — ruby as type      */
+  --warm:#E0A33E;                      /* amber     8.94:1 — stale, not ruby   */
 
   --f-brand:'Montserrat','Helvetica Neue',Arial,sans-serif;
   --f-ui:'Inter',system-ui,-apple-system,'Helvetica Neue',Arial,sans-serif;
@@ -81,7 +90,7 @@ header.site nav a:hover{color:var(--fg);background:var(--card-hi)}
 .hero{border-bottom:1px solid var(--line);padding:70px 0 58px;position:relative;
   overflow:hidden}
 .hero::before{content:'';position:absolute;inset:-40% 40% 20% -20%;
-  background:radial-gradient(closest-side,rgba(111,158,170,.10),transparent 70%);
+  background:radial-gradient(closest-side,rgba(46,204,148,.09),transparent 70%);
   pointer-events:none}
 @media(min-width:1024px){.hero{padding:92px 0 76px}}
 .hero .inner{position:relative;max-width:790px}
@@ -129,8 +138,7 @@ header.site nav a:hover{color:var(--fg);background:var(--card-hi)}
 .pill{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.07em;
   text-transform:uppercase;color:var(--dim);border:1px solid var(--line-2);
   border-radius:5px;padding:3px 8px;white-space:nowrap}
-.pill.mine{color:var(--accent-hi);border-color:rgba(111,158,170,.3);
-  background:var(--accent-dim)}
+.pill.mine{color:#fff;border-color:transparent;background:var(--ruby)}
 
 /* ---------------------------------------------------------------- entry -- */
 .entry{padding:52px 0 0}
@@ -151,7 +159,7 @@ header.site nav a:hover{color:var(--fg);background:var(--card-hi)}
 .facts dd.stale{color:var(--warm)}
 .ext{display:inline-flex;align-items:center;gap:8px;margin-top:22px;
   font-family:var(--f-mono);font-size:13px;color:var(--accent-hi);
-  border:1px solid rgba(111,158,170,.28);background:var(--accent-dim);
+  border:1px solid rgba(46,204,148,.28);background:var(--accent-dim);
   border-radius:var(--r);padding:10px 15px;word-break:break-all;transition:.18s}
 .ext:hover{border-color:var(--accent)}
 .notice{margin-top:20px;border-left:2px solid var(--warm);padding:2px 0 2px 16px;
@@ -165,7 +173,7 @@ header.site nav a:hover{color:var(--fg);background:var(--card-hi)}
 .prose em{color:var(--fg)}
 .prose ul,.prose ol{color:#cfcfcf;padding-left:22px;margin:0 0 1.15em}
 .prose li{margin-bottom:7px}
-.prose a{color:var(--accent-hi);border-bottom:1px solid rgba(111,158,170,.4)}
+.prose a{color:var(--accent-hi);border-bottom:1px solid rgba(46,204,148,.4)}
 .prose a:hover{border-bottom-color:var(--accent-hi)}
 .prose blockquote{margin:0 0 1.2em;border-left:2px solid var(--line-3);
   padding-left:18px;color:var(--muted)}

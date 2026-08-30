@@ -20,12 +20,14 @@ SITE_URL = "https://ai-hub-dg0.pages.dev"
 SITE_NAME = "AI Hub"
 REPO_URL = "https://github.com/serhiileniv/ai-hub"
 
-# A bookmark with a tick cut into it — "earned a permanent place", as one shape.
-# Inline rather than an <img> so it needs no second request and inherits nothing.
+# Two stones: an emerald and a ruby, overlapping. Emerald is the accent throughout;
+# ruby is reserved for entries I built, so the second colour carries a meaning
+# rather than decorating. Inline so it costs no second request.
 MARK = ('<svg class="mark" width="32" height="32" viewBox="0 0 40 40" aria-hidden="true">'
-        '<path d="M11 7h18v27l-9-7-9 7Z" fill="#6F9EAA"/>'
-        '<path d="M15.5 17.5 19 21l6-6.5" fill="none" stroke="#0a0a0a" stroke-width="3.3" '
-        'stroke-linecap="round" stroke-linejoin="round"/></svg>')
+        '<path d="M23 12h9l4 5-8.5 12L19 17Z" fill="#C4304A"/>'
+        '<path d="M9 10h11l5 6-10.5 15L4 16Z" fill="#2ECC94"/>'
+        '<path d="M4 16h21" stroke="#0a0a0a" stroke-width="1.8" opacity=".5"/></svg>')
+
 AUTHOR = "Serhii Leniv"
 TAGLINE = ("Agent skills, configs and tools I run on real work. Nothing ranked, "
            "nothing filler — every entry carries the day I last confirmed it works.")

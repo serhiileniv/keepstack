@@ -152,3 +152,36 @@ dark treatment is a decision for me rather than a value to derive. This is that 
 currently lives only in `site/style.css`. `#6F9EAA` is banned as text there (2.71:1 on off-white)
 but clears 7.4:1 on `#0a0a0a` — going dark is what makes the brand accent usable as type. If this
 sticks, it belongs back in the kit as an agreed dark set.
+
+---
+
+## D12 — Two stones: emerald and ruby. Supersedes the palette half of D11 *(2026-08-30)*
+
+The mark is an emerald and a ruby overlapping. **Emerald `#2ECC94` is the accent everywhere.
+Ruby `#C4304A` is reserved for entries I built** — the rare stones — so the second colour carries
+a meaning rather than decorating.
+
+**Why:** the hub is a stash of things worth keeping, and gems say that in one shape. Giving ruby
+a job (`mine`) rather than a mood is what stops it being a second colour for its own sake.
+
+**Two constraints that shaped it, both measured rather than guessed:**
+
+- **Ruby cannot be text.** `#C4304A` is 3.65:1 on `#0a0a0a` and `#D93C57` is 4.46:1 — both fail
+  AA — and every red that passes stops reading as ruby. So ruby is a **fill** (white on it is
+  5.43:1, which is what the `mine` pill is), and `--ruby-tx #E85C75` (5.86:1) is held back for
+  the rare case it must be type.
+- **Red and green is the pair colour-blind readers lose first.** Safe here only because the two
+  never encode the same axis: emerald is chrome, ruby means *mine*, and the `mine` pill carries
+  the word as well as the colour. If ruby ever becomes the sole signal for something, this breaks.
+
+Stale dates moved from Soft Brown to amber `#E0A33E` (8.94:1), because a brown-red warning beside
+a ruby-red badge was two reds meaning two different things.
+
+**This departs from the brand kit.** `~/.claude/skills/brand` is a light palette built on Muted
+Blue `#6F9EAA`, and D11 carried that one value across. This doesn't. The kit is untouched and
+still governs everything else; emerald and ruby are the *site's* palette, not the brand's. If the
+site becomes the public face, that's a conversation about the kit, not a thing to fix quietly.
+
+**Still open:** the name. `AI Hub` is a category label rather than a name — `Stash` was the
+strongest alternative and matches the metaphor — but renaming touches the repo, canonical URLs
+and the deployed domain, so it stays until decided deliberately.

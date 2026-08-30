@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Emerald &amp; ruby</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0a0a0a;--card:#111;--card-hi:#141414;--line:#1f1f1f;--line-2:#262626;--line-3:#333;
+  --fg:#fff;--muted:#a3a3a3;--dim:#6b6b6b;
+  --em:#2ECC94;        /* emerald — 9.6:1 on #0a0a0a, safe as text */
+  --em-hi:#7FE0BC;
+  --em-dim:rgba(46,204,148,.12);
+  --ruby:#C4304A;      /* ruby — 3.65:1, FILL ONLY, never text */
+  --ruby-tx:#E85C75;   /* the only ruby that passes as text, 5.86:1 */
+  --f-brand:'Montserrat',sans-serif;--f-ui:'Inter',system-ui,sans-serif;
+  --f-mono:'JetBrains Mono',ui-monospace,Menlo,monospace;
+}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--f-ui);font-size:15px;
+  line-height:1.6;-webkit-font-smoothing:antialiased}
+h1,h2,h3{margin:0;letter-spacing:-.02em;line-height:1.15}
+p{margin:0}
+code{font-family:var(--f-mono);font-size:.87em}
+.wrap{max-width:1140px;margin:0 auto;padding:0 28px}
+header{border-bottom:1px solid var(--line);padding:46px 0 32px}
+header h1{font-family:var(--f-brand);font-size:30px}
+header p{color:var(--muted);margin-top:11px;max-width:66ch}
+h2.sec{font-family:var(--f-brand);font-size:22px;margin:48px 0 6px}
+p.lead{color:var(--muted);margin-bottom:22px;max-width:74ch}
+
+.warn{margin-top:18px;border:1px solid rgba(232,92,117,.3);background:rgba(196,48,74,.10);
+  border-radius:10px;padding:16px 20px;color:var(--muted);font-size:14px;max-width:78ch}
+.warn b{color:var(--ruby-tx);font-weight:600}
+
+.row{display:grid;grid-template-columns:repeat(auto-fill,minmax(258px,1fr));gap:14px}
+.box{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px;
+  display:flex;flex-direction:column;gap:15px}
+.box:hover{border-color:var(--line-3);background:var(--card-hi)}
+.box .hd{display:flex;align-items:baseline;justify-content:space-between;gap:10px}
+.box h3{font-size:16.5px}
+.box .id{font-family:var(--f-mono);font-size:11px;color:var(--em);
+  border:1px solid rgba(46,204,148,.3);border-radius:4px;padding:2px 8px}
+.box .why{color:var(--muted);font-size:13.5px}
+.sizes{display:flex;align-items:center;gap:20px;padding:18px;border:1px solid var(--line);
+  border-radius:8px;background:#0d0d0d}
+.sizes .s{display:flex;flex-direction:column;align-items:center;gap:6px}
+.sizes .s span{font-family:var(--f-mono);font-size:9.5px;color:var(--dim)}
+.lock{display:flex;align-items:center;gap:10px}
+.lock .nm{font-family:var(--f-brand);font-weight:700;font-size:19px;letter-spacing:-.025em}
+svg{display:block}
+
+/* live demo of the palette */
+.demo{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--card)}
+.demo .bar{display:flex;align-items:center;justify-content:space-between;gap:20px;
+  padding:15px 22px;border-bottom:1px solid var(--line);background:var(--bg)}
+.demo .bar nav{display:flex;gap:18px;font-size:13.5px;color:var(--muted);font-weight:500}
+.demo .body{padding:30px 22px}
+.demo h4{font-family:var(--f-brand);font-size:26px;font-weight:700;letter-spacing:-.025em;
+  margin:0 0 10px;line-height:1.14}
+.demo h4 span{display:block;color:var(--em)}
+.demo .tag{color:var(--muted);font-size:14.5px;max-width:52ch}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px;
+  padding:0 22px 24px}
+.c{background:var(--card-hi);border:1px solid var(--line);border-radius:10px;padding:17px;
+  display:flex;flex-direction:column;gap:9px}
+.c:hover{border-color:var(--line-3)}
+.c .t{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.c h5{margin:0;font-size:16px;letter-spacing:-.015em}
+.c p{color:var(--muted);font-size:13.5px}
+.c .f{margin-top:auto;padding-top:11px;border-top:1px solid var(--line);display:flex;
+  justify-content:space-between;font-family:var(--f-mono);font-size:11px;color:var(--dim)}
+.pill{font-family:var(--f-mono);font-size:10px;letter-spacing:.07em;text-transform:uppercase;
+  color:var(--dim);border:1px solid var(--line-2);border-radius:5px;padding:3px 7px}
+.pill.mine{color:#fff;border-color:transparent;background:var(--ruby)}
+
+.sw{display:flex;gap:10px;flex-wrap:wrap;margin-top:6px}
+.sw div{border:1px solid var(--line);border-radius:8px;padding:9px 13px;background:var(--card);
+  font-family:var(--f-mono);font-size:11.5px;color:var(--muted);display:flex;
+  align-items:center;gap:9px}
+.sw i{width:15px;height:15px;border-radius:4px;display:block;
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.12)}
+footer{padding:56px 0 90px}
+</style>
+</head>
+<body>
+
+<header class="wrap">
+  <h1>Emerald &amp; ruby</h1>
+  <p>The stash metaphor, with the second colour given a job rather than left as decoration:
+     <b style="color:#2ECC94">emerald is the accent</b>, and
+     <b style="color:#E85C75">ruby marks the ones you built</b> — the rare stones.</p>
+  <div class="warn">
+    <b>Ruby can't be text.</b> A true ruby red is <code>#C4304A</code> at <b>3.65:1</b> on this
+    ground — under the 4.5:1 minimum. <code>#D93C57</code> is 4.46:1 and still fails. Only pinker
+    reds pass, and they stop looking like ruby. So ruby is a <b>fill</b> (white on it is 5.4:1),
+    and <code>#E85C75</code> is held back for the rare case where it has to be type.
+    <br><br>
+    Second thing: red and green are the pair colour-blind readers lose first. That's fine here
+    only because they never encode the same axis — emerald is chrome, ruby means <em>mine</em>,
+    and the <code>mine</code> pill says the word too. Don't ever let ruby alone carry a meaning.
+  </div>
+</header>
+
+<div class="wrap">
+
+<h2 class="sec">The cut</h2>
+<p class="lead">Four gem shapes. The step-cut rectangle is literally called an emerald cut, which
+   is either perfect or too on-the-nose depending on your mood.</p>
+
+<div class="row">
+
+  <div class="box">
+    <div class="hd"><h3>Emerald cut</h3><span class="id">G1</span></div>
+    <p class="why">A step cut — clipped corners, two facet lines. Calmest, and the most legible
+      small because it's mostly one solid mass.</p>
+    <div class="sizes">
+      <div class="s"><svg width="40" height="40" viewBox="0 0 40 40"><path d="M13 6h14l6 6v16l-6 6H13l-6-6V12Z" fill="#2ECC94"/><path d="M11 13h18M11 27h18" stroke="#0a0a0a" stroke-width="2" opacity=".55"/></svg><span>40</span></div>
+      <div class="s"><svg width="32" height="32" viewBox="0 0 40 40"><path d="M13 6h14l6 6v16l-6 6H13l-6-6V12Z" fill="#2ECC94"/><path d="M11 13h18M11 27h18" stroke="#0a0a0a" stroke-width="2.4" opacity=".55"/></svg><span>32</span></div>
+      <div class="s"><svg width="16" height="16" viewBox="0 0 40 40"><path d="M12 4h16l6 6v20l-6 6H12l-6-6V10Z" fill="#2ECC94"/><path d="M9 13h22M9 27h22" stroke="#0a0a0a" stroke-width="4" opacity=".55"/></svg><span>16</span></div>
+    </div>
+    <div class="lock"><svg width="30" height="30" viewBox="0 0 40 40"><path d="M13 6h14l6 6v16l-6 6H13l-6-6V12Z" fill="#2ECC94"/><path d="M11 13h18M11 27h18" stroke="#0a0a0a" stroke-width="2.1" opacity=".55"/></svg><span class="nm">Stash</span></div>
+  </div>
+
+  <div class="box">
+    <div class="hd"><h3>Brilliant</h3><span class="id">G2</span></div>
+    <p class="why">Table on top, pavilion below, facets meeting at a point. The shape everyone
+      reads instantly as “gem”.</p>
+    <div class="sizes">
+      <div class="s"><svg width="40" height="40" viewBox="0 0 40 40"><path d="M12 9h16l6 8-14 16L6 17Z" fill="#2ECC94"/><path d="M6 17h28M12 9l2 8M28 9l-2 8M14 17l6 16M26 17l-6 16" stroke="#0a0a0a" stroke-width="1.7" opacity=".5" fill="none"/></svg><span>40</span></div>
+      <div class="s"><svg width="32" height="32" viewBox="0 0 40 40"><path d="M12 9h16l6 8-14 16L6 17Z" fill="#2ECC94"/><path d="M6 17h28M12 9l2 8M28 9l-2 8M14 17l6 16M26 17l-6 16" stroke="#0a0a0a" stroke-width="2" opacity=".5" fill="none"/></svg><span>32</span></div>
+      <div class="s"><svg width="16" height="16" viewBox="0 0 40 40"><path d="M11 7h18l7 9-16 18L4 16Z" fill="#2ECC94"/><path d="M4 16h32" stroke="#0a0a0a" stroke-width="3.4" opacity=".5"/></svg><span>16</span></div>
+    </div>
+    <div class="lock"><svg width="30" height="30" viewBox="0 0 40 40"><path d="M12 9h16l6 8-14 16L6 17Z" fill="#2ECC94"/><path d="M6 17h28M12 9l2 8M28 9l-2 8M14 17l6 16M26 17l-6 16" stroke="#0a0a0a" stroke-width="1.8" opacity=".5" fill="none"/></svg><span class="nm">Stash</span></div>
+  </div>
+
+  <div class="box">
+    <div class="hd"><h3>Two stones</h3><span class="id">G3</span></div>
+    <p class="why">Emerald and ruby together — the metaphor stated outright. The only mark that
+      needs both colours to work.</p>
+    <div class="sizes">
+      <div class="s"><svg width="40" height="40" viewBox="0 0 40 40"><path d="M23 12h9l4 5-8.5 12L19 17Z" fill="#C4304A"/><path d="M9 10h11l5 6-10.5 15L4 16Z" fill="#2ECC94"/><path d="M4 16h21" stroke="#0a0a0a" stroke-width="1.8" opacity=".5"/></svg><span>40</span></div>
+      <div class="s"><svg width="32" height="32" viewBox="0 0 40 40"><path d="M23 12h9l4 5-8.5 12L19 17Z" fill="#C4304A"/><path d="M9 10h11l5 6-10.5 15L4 16Z" fill="#2ECC94"/><path d="M4 16h21" stroke="#0a0a0a" stroke-width="2.1" opacity=".5"/></svg><span>32</span></div>
+      <div class="s"><svg width="16" height="16" viewBox="0 0 40 40"><path d="M23 12h11l5 6-10 14L19 18Z" fill="#C4304A"/><path d="M7 8h13l6 7-12.5 18L1 15Z" fill="#2ECC94"/></svg><span>16</span></div>
+    </div>
+    <div class="lock"><svg width="30" height="30" viewBox="0 0 40 40"><path d="M23 12h9l4 5-8.5 12L19 17Z" fill="#C4304A"/><path d="M9 10h11l5 6-10.5 15L4 16Z" fill="#2ECC94"/><path d="M4 16h21" stroke="#0a0a0a" stroke-width="1.8" opacity=".5"/></svg><span class="nm">Stash</span></div>
+  </div>
+
+  <div class="box">
+    <div class="hd"><h3>Stone in a vault</h3><span class="id">G4</span></div>
+    <p class="why">The gem inside the bookmark you already chose — keeps “earned a permanent
+      place” and adds what's being kept.</p>
+    <div class="sizes">
+      <div class="s"><svg width="40" height="40" viewBox="0 0 40 40"><path d="M10 6h20v29l-10-7.5L10 35Z" fill="#1a1a1a" stroke="#333" stroke-width="1.5"/><path d="M15 12h10l4 5-9 11-9-11Z" fill="#2ECC94"/></svg><span>40</span></div>
+      <div class="s"><svg width="32" height="32" viewBox="0 0 40 40"><path d="M10 6h20v29l-10-7.5L10 35Z" fill="#1a1a1a" stroke="#333" stroke-width="1.8"/><path d="M15 12h10l4 5-9 11-9-11Z" fill="#2ECC94"/></svg><span>32</span></div>
+      <div class="s"><svg width="16" height="16" viewBox="0 0 40 40"><path d="M8 4h24v33l-12-9-12 9Z" fill="#1a1a1a" stroke="#3a3a3a" stroke-width="2.5"/><path d="M14 11h12l5 6-11 13-11-13Z" fill="#2ECC94"/></svg><span>16</span></div>
+    </div>
+    <div class="lock"><svg width="30" height="30" viewBox="0 0 40 40"><path d="M10 6h20v29l-10-7.5L10 35Z" fill="#1a1a1a" stroke="#333" stroke-width="1.6"/><path d="M15 12h10l4 5-9 11-9-11Z" fill="#2ECC94"/></svg><span class="nm">Stash</span></div>
+  </div>
+
+</div>
+
+<h2 class="sec">The palette, live</h2>
+<p class="lead">Real header, real headline, real cards. <code>ctxline</code> and
+   <code>own-this</code> are yours, so they wear ruby.</p>
+
+<div class="demo">
+  <div class="bar">
+    <div class="lock"><svg width="28" height="28" viewBox="0 0 40 40"><path d="M13 6h14l6 6v16l-6 6H13l-6-6V12Z" fill="#2ECC94"/><path d="M11 13h18M11 27h18" stroke="#0a0a0a" stroke-width="2.1" opacity=".55"/></svg><span class="nm">Stash</span></div>
+    <nav><span>Planning</span><span>Writing &amp; review</span><span>Terminal</span></nav>
+  </div>
+  <div class="body">
+    <h4>Agent tooling that earned<span>a permanent place.</span></h4>
+    <p class="tag">Nothing ranked — if it's here, I use it. Every entry says the day I last
+      confirmed it works.</p>
+  </div>
+  <div class="cards">
+    <div class="c">
+      <div class="t"><h5>ctxline</h5><span class="pill mine">mine</span></div>
+      <p>Model and remaining context in your status line.</p>
+      <div class="f"><span>serhiileniv/ctxline</span><span>30 Aug</span></div>
+    </div>
+    <div class="c">
+      <div class="t"><h5>own-this</h5><span class="pill mine">mine</span></div>
+      <p>Turns a shipped PR into something you can defend.</p>
+      <div class="f"><span>serhiileniv/skills</span><span>30 Aug</span></div>
+    </div>
+    <div class="c">
+      <div class="t"><h5>grilling</h5><span class="pill">skill</span></div>
+      <p>Asks every open question before it writes code.</p>
+      <div class="f"><span>mattpocock/skills</span><span>30 Aug</span></div>
+    </div>
+    <div class="c">
+      <div class="t"><h5>ccstatusline</h5><span class="pill">tool</span></div>
+      <p>The everything status line — widgets, themes, usage.</p>
+      <div class="f"><span>sirmalloc/ccstatusline</span><span>30 Aug</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="sw" style="margin-top:16px">
+  <div><i style="background:#2ECC94"></i>#2ECC94 emerald · 9.6:1 · text ok</div>
+  <div><i style="background:#7FE0BC"></i>#7FE0BC emerald pale · 12.5:1</div>
+  <div><i style="background:#C4304A"></i>#C4304A ruby · fill only</div>
+  <div><i style="background:#E85C75"></i>#E85C75 ruby text · 5.9:1</div>
+  <div><i style="background:#0a0a0a"></i>#0a0a0a ground</div>
+</div>
+
+<h2 class="sec">Names that fit the metaphor</h2>
+<p class="lead">Your own word was “stash”, and it's the best of these.</p>
+
+<div class="row">
+  <div class="box">
+    <div class="hd"><h3>Stash</h3><span class="id">pick</span></div>
+    <p class="why"><code>stash.tools</code> — your word. One syllable, developer-native, and
+      <code>git stash</code> is a friendly collision rather than a confusing one: things you set
+      aside on purpose. Works with or without the gem reading.</p>
+  </div>
+  <div class="box">
+    <div class="hd"><h3>The Vault</h3><span class="id">alt</span></div>
+    <p class="why">Stronger on “permanent place” than stash is, since a vault implies kept rather
+      than parked. Heavier, and slightly crypto-adjacent in this field.</p>
+  </div>
+  <div class="box">
+    <div class="hd"><h3>Carat</h3><span class="id">alt</span></div>
+    <p class="why">A unit of weight for gems — quiet, unusual, no collisions. But it needs the
+      metaphor explained before it means anything, which a name shouldn't.</p>
+  </div>
+  <div class="box">
+    <div class="hd"><h3>Rough &amp; Cut</h3><span class="id">alt</span></div>
+    <p class="why">What you found versus what survived polishing. Good story, too long, and it
+      implies a two-tier list you deliberately removed.</p>
+  </div>
+</div>
+
+<footer></footer>
+</div>
+</body>
+</html>
