@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ccstatusline — AI Hub</title>
+<meta name="description" content="The everything status line — widgets, powerline, themes, usage meters, git and CI, all configured in a TUI Last checked 30 Aug 2026 against claude-code 2.1.251, opus-5.">
+<link rel="canonical" href="https://ai-hub-dg0.pages.dev/e/ccstatusline/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="ccstatusline — AI Hub">
+<meta property="og:description" content="The everything status line — widgets, powerline, themes, usage meters, git and CI, all configured in a TUI Last checked 30 Aug 2026 against claude-code 2.1.251, opus-5.">
+<meta property="og:url" content="https://ai-hub-dg0.pages.dev/e/ccstatusline/">
+<meta property="og:site_name" content="AI Hub">
+<meta name="twitter:card" content="summary">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<meta name="theme-color" content="#0a0a0a">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../style.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"TechArticle",
+"headline":"ccstatusline","description":"The everything status line — widgets, powerline, themes, usage meters, git and CI, all configured in a TUI",
+"dateModified":"2026-08-30",
+"author":{"@type":"Person","name":"Serhii Leniv"}}
+</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site">
+  <div class="wrap">
+    <a class="logo" href="../../">
+      <span class="mark">&#9650;</span><span class="name">AI Hub</span>
+    </a>
+    <nav><a href="../../g/planning/">Planning</a><a href="../../g/writing/">Writing &amp; review</a><a href="../../g/codebase/">Working in a codebase</a><a href="../../g/terminal/">Terminal</a><a href="../../g/services/">Connected services</a></nav>
+    <a class="ghost" href="https://github.com/serhiileniv/ai-hub" rel="noopener">GitHub &#8599;</a>
+  </div>
+</header>
+<main id="main">
+<article class="entry">
+  <div class="wrap narrow">
+    <p class="crumb"><a href="../../">AI Hub</a> &rsaquo;
+       <a href="../../g/terminal/">Terminal</a></p>
+    <h1>ccstatusline</h1>
+    <p class="lede">The everything status line — widgets, powerline, themes, usage meters, git and CI, all configured in a TUI</p>
+    <dl class="facts">
+      <div><dt>Kind</dt><dd>tool</dd></div>
+      <div><dt>Last checked</dt><dd class="fresh">30 Aug 2026</dd></div>
+      <div><dt>Checked against</dt><dd>claude-code 2.1.251, opus-5</dd></div>
+    </dl>
+    <a class="ext" href="https://github.com/sirmalloc/ccstatusline" rel="noopener">https://github.com/sirmalloc/ccstatusline</a>
+    
+    <div class="prose">
+<h3>Why</h3>
+<p>This is the status line most people should start with, and the reason is the TUI: you run it, you see every widget rendered live, you drag them into the order you want, and you&#x27;re done. No config file to learn.</p>
+<p>What it puts on the line goes well past model and context — token counts, session and weekly usage against your limits, git branch, PR and CI state, powerline separators, themes. Context length resets correctly straight after a <code>/compact</code> rather than showing the pre-compaction number, which is the kind of detail you only get from a project that&#x27;s been maintained hard.</p>
+<p>The one thing to know before installing: Claude Code runs the status line command <strong>on every assistant message</strong> and cancels the one still in flight when the next update lands. So every render pays your runtime&#x27;s startup, and a status line that does more work has more to lose in that race. That cost is the whole reason <a href="../ctxline/">ctxline</a> exists — it does one thing so it can be a ~3ms binary. If you want widgets, this is the right trade; if you only ever look at the context number, it isn&#x27;t.</p>
+<h3>Setup</h3>
+<pre><code class="lang-bash">bunx ccstatusline@latest      # or npx ccstatusline@latest</code></pre>
+<p>Opens the configurator and writes <code>~/.claude/settings.json</code> for you. Restart Claude Code afterwards — <code>settings.json</code> is read at startup.</p>
+<h3>Watch out for</h3>
+<p>It writes your <code>statusLine</code> entry in <code>settings.json</code>, so it will replace whatever was there. Back that file up first if you already had one configured.</p>
+    </div>
+  </div>
+  
+</article>
+</main>
+<footer class="site">
+  <div class="wrap">
+    <span>Serhii Leniv</span>
+    <a href="https://github.com/serhiileniv/ai-hub" rel="noopener">github.com/serhiileniv/ai-hub</a>
+  </div>
+</footer>
+</body>
+</html>
