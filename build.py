@@ -386,8 +386,7 @@ def page(title, desc, body, path, extra_head="", groups=()):
     canonical = f"{SITE_URL}/{path}".rstrip("/") + ("/" if path else "")
     depth = "../" * (len(pathlib.PurePath(path).parts)) if path else ""
     shown = groups or GROUPS
-    nav = "".join(f'<a href="{depth or "/"}#{k}">{html.escape(t)}</a>' for k, t in shown)
-    nav += f'<a href="{depth or "/"}#dates">The dates</a>' 
+    nav = "".join(f'<a href="{depth}g/{k}/">{html.escape(t)}</a>' for k, t in shown)
     return f"""<!doctype html>
 <html lang="en">
 <head>
@@ -424,11 +423,8 @@ def page(title, desc, body, path, extra_head="", groups=()):
 </main>
 <footer class="site">
   <div class="wrap">
-    <p><strong>Nothing here is ranked.</strong> If it's on this site I use it. The only claim an
-       entry makes is the day I last confirmed it still works.</p>
-    <p><strong>No schedule.</strong> I re-check in bursts. A date older than {STALE_AFTER_DAYS}
-       days may still be right — I just haven't confirmed it lately, and I'd rather say so.</p>
-    <p class="fine">{html.escape(AUTHOR)} · built {datetime.date.today().strftime('%-d %B %Y')}</p>
+    <span>{html.escape(AUTHOR)}</span>
+    <a href="{REPO_URL}" rel="noopener">github.com/serhiileniv/ai-hub</a>
   </div>
 </footer>
 </body>
@@ -456,67 +452,64 @@ def card(e, depth=""):
 
 
 def build_index(items):
-    stale_n = sum(1 for e in items if is_stale(e))
-    mine_n = sum(1 for e in items if e.get("mine"))
+    present = [(k, t) for k, t in GROUPS if any(e.get("group") == k for e in items)]
     newest = max((as_date(e.get("last_checked")) for e in items
                   if as_date(e.get("last_checked"))), default=None)
-    against = sorted({v for e in items for v in (e.get("checked_against") or [])})
-    tool = next((v for v in against if not v.startswith(("opus", "sonnet", "haiku"))), "—")
-
-    present = [(k, t) for k, t in GROUPS if any(e.get("group") == k for e in items)]
 
     hero = f"""<section class="hero">
   <div class="wrap">
     <div class="inner">
-      <span class="eyebrow"><i></i>Last checked {html.escape(fmt_date(newest))} &middot; {html.escape(', '.join(v for v in against if v.startswith(('opus','sonnet','haiku'))) or '—')}</span>
       <h1>Agent tooling that earned<span>a permanent place.</span></h1>
-      <p class="tag">Skills, configs and small tools I run on real work. Nothing ranked,
-         nothing filler &mdash; every entry carries <b>the day I last confirmed it works</b>.</p>
-      <div class="cta">
-        <a class="btn p" href="#{present[0][0] if present else 'dates'}">Browse the hub</a>
-        <a class="btn s" href="#dates">Why the dates &darr;</a>
-      </div>
-      <div class="strip">
-        <div><div class="k">In the hub</div><div class="v">{len(items)} {'tool' if len(items)==1 else 'tools'}</div></div>
-        <div><div class="k">Built by me</div><div class="v">{mine_n}</div></div>
-        <div><div class="k">Checked against</div><div class="v">{html.escape(tool)}</div></div>
-        <div><div class="k">Overdue</div><div class="v{' warn' if stale_n else ''}">{'<em>none</em>' if not stale_n else stale_n}</div></div>
-      </div>
+      <p class="tag">Skills, configs and small tools I run on real work. Nothing ranked &mdash;
+         if it's here, I use it. Every entry says the day I last confirmed it works.</p>
     </div>
   </div>
 </section>"""
 
-    secs = []
+    rows = []
     for key, title in present:
         b = sorted([e for e in items if e.get("group") == key],
                    key=lambda x: str(x.get("name", "")).lower())
-        cards = "\n".join(card(e) for e in b)
-        secs.append(f"""<section id="{key}" class="group">
+        names = " &middot; ".join(html.escape(e.get("name", "")) for e in b)
+        rows.append(f"""      <a class="gcard" href="g/{key}/">
+        <div class="top"><h2>{html.escape(title)}</h2>
+          <span class="count">{len(b)}</span></div>
+        <p class="names">{names}</p>
+      </a>""")
+
+    body = f"""{hero}
+<section class="group">
   <div class="wrap">
-    <div class="head">
-      <h2>{html.escape(title)}</h2>
-      <span class="count">{len(b)} {'tool' if len(b)==1 else 'tools'}</span>
+    <div class="gindex">
+{chr(10).join(rows)}
     </div>
+  </div>
+</section>"""
+    return page(f"{SITE_NAME} — agent skills, configs and tools, dated and checked",
+                TAGLINE, body, "", groups=present)
+
+
+def build_group(key, title, items):
+    b = sorted([e for e in items if e.get("group") == key],
+               key=lambda x: str(x.get("name", "")).lower())
+    present = [(k, t) for k, t in GROUPS if any(e.get("group") == k for e in items)]
+    cards = "\n".join(card(e, depth="../../") for e in b)
+    body = f"""<section class="ghead">
+  <div class="wrap">
+    <p class="crumb"><a href="../../">{html.escape(SITE_NAME)}</a></p>
+    <h1>{html.escape(title)}</h1>
+  </div>
+</section>
+<section class="group">
+  <div class="wrap">
     <div class="grid">
 {cards}
     </div>
   </div>
-</section>""")
-
-    secs.append(f"""<section class="wrap"><div class="band" id="dates">
-    <h2>Why every entry has a date</h2>
-    <dl>
-      <div class="r"><dt>Last checked</dt><dd>The day <b>I</b> confirmed it still works, against
-        the versions named on the entry. Never written by a bot.</dd></div>
-      <div class="r"><dt>Upstream</dt><dd>The day the project itself last changed. Newer than my
-        check means I'm slightly behind &mdash; the repo will tell you what moved.</dd></div>
-      <div class="r"><dt>No schedule</dt><dd>I re-check in bursts. The date is here so you never
-        have to take my word for how current this is.</dd></div>
-    </dl>
-  </div></section>""")
-
-    return page(f"{SITE_NAME} — agent skills, configs and tools, dated and checked",
-                TAGLINE, hero + "\n" + "\n".join(secs), "", groups=present)
+</section>"""
+    return page(f"{title} — {SITE_NAME}",
+                f"{title}: {len(b)} tools I run, each dated and checked against named versions.",
+                body, f"g/{key}", groups=present)
 
 
 def build_entry(e):
@@ -553,7 +546,7 @@ def build_entry(e):
     body = f"""<article class="entry">
   <div class="wrap narrow">
     <p class="crumb"><a href="../../">{html.escape(SITE_NAME)}</a> &rsaquo;
-       <a href="../../#{e.get('group')}">{html.escape(gtitle)}</a></p>
+       <a href="../../g/{e.get('group')}/">{html.escape(gtitle)}</a></p>
     <h1>{html.escape(e.get('name',''))}{' <span class="pill mine">mine</span>' if e.get('mine') else ''}</h1>
     <p class="lede">{html.escape(e.get('what',''))}</p>
     <dl class="facts">
@@ -620,10 +613,18 @@ def build_readme(items):
 
 def build_site(items):
     SITE.mkdir(exist_ok=True)
-    for old in SITE.glob("e/*"):
-        shutil.rmtree(old, ignore_errors=True)
+    for pat in ("e/*", "g/*"):
+        for old in SITE.glob(pat):
+            shutil.rmtree(old, ignore_errors=True)
     (SITE / "index.html").write_text(build_index(items), encoding="utf-8")
     urls = [f"{SITE_URL}/"]
+    for key, title in GROUPS:
+        if not any(e.get("group") == key for e in items):
+            continue
+        d = SITE / "g" / key
+        d.mkdir(parents=True, exist_ok=True)
+        (d / "index.html").write_text(build_group(key, title, items), encoding="utf-8")
+        urls.append(f"{SITE_URL}/g/{key}/")
     for e in items:
         d = SITE / "e" / e["_slug"]
         d.mkdir(parents=True, exist_ok=True)
