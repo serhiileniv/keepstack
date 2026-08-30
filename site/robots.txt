@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://ai-hub-dg0.pages.dev/sitemap.xml
+Sitemap: https://keepstack.pages.dev/sitemap.xml

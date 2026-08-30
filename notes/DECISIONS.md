@@ -185,3 +185,32 @@ site becomes the public face, that's a conversation about the kit, not a thing t
 **Still open:** the name. `AI Hub` is a category label rather than a name — `Stash` was the
 strongest alternative and matches the metaphor — but renaming touches the repo, canonical URLs
 and the deployed domain, so it stays until decided deliberately.
+
+---
+
+## D13 — Renamed to Keepstack *(2026-08-30)*
+
+`AI Hub` → **Keepstack**. Repo, site, Pages project, and every canonical URL.
+
+**Why:** "AI Hub" is a category label, not a name. Thousands of pages could carry it, it says
+nothing about what's here, and it was never going to be available as a domain. Keepstack says the
+thing in one word — the stack I keep — and it's a compound nobody else is using: `.me`, `.dev`,
+`.sh`, `.io` and `.tools` were all unregistered when checked.
+
+**Why not the prettier options:** `twostones` names the mark exactly and is the most ownable, but
+it's mute — someone seeing it in a link has no idea whether it's tooling or landscaping. `carat`
+is the most elegant single word and carries the gem metaphor, but sits one letter from `caret`,
+which in a developer audience is a typo waiting to happen. The gem metaphor stays where it works,
+which is the logo: visual and instant, no explaining. A name that needs decoding is the problem
+being solved here, not the solution.
+
+**Domain, undecided and deliberately not blocking:** `keepstack.me` is free for a year through the
+GitHub Student Pack, then ~$20–30/yr. `keepstack.dev` is ~$12–15/yr at Cloudflare cost, forever,
+and is on the HSTS preload list. Cheapest complete answer is to take the free `.me` *and* register
+`.dev` for ~$12, make `.dev` canonical and 301 the `.me` at it — because moving domains after
+traffic arrives costs far more than the registration ever does. Until then the site runs on
+`keepstack.pages.dev`.
+
+**Migration:** GitHub redirects `serhiileniv/ai-hub` to the new name indefinitely, so old repo
+links and existing clones keep working. The old Pages project keeps serving until it's pointed at
+the new one; nothing was indexed under it long enough to matter.

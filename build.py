@@ -15,10 +15,13 @@ import sys, re, html, datetime, pathlib, shutil
 ROOT = pathlib.Path(__file__).parent
 ENTRIES, LIBRARY, SITE = ROOT / "entries", ROOT / "library", ROOT / "site"
 
-# Set this before the first deploy — it drives canonical URLs and sitemap.xml.
-SITE_URL = "https://ai-hub-dg0.pages.dev"
-SITE_NAME = "AI Hub"
-REPO_URL = "https://github.com/serhiileniv/ai-hub"
+# Drives canonical URLs and sitemap.xml. The day a domain is registered: change
+# this, rebuild, and add the custom domain in Cloudflare Pages. If more than one
+# domain points here, only ONE goes in this constant — the others must 301 to it,
+# or the same page ranks twice and neither wins.
+SITE_URL = "https://keepstack.pages.dev"
+SITE_NAME = "Keepstack"
+REPO_URL = "https://github.com/serhiileniv/keepstack"
 
 # Two stones: an emerald and a ruby, overlapping. Emerald is the accent throughout;
 # ruby is reserved for entries I built, so the second colour carries a meaning
