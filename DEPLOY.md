@@ -61,9 +61,27 @@ What's left to you, once there are real entries:
   "why I stopped using <tool>" are queries with real volume and almost no honest answers.
   The `dropped` entries are the strongest SEO asset here for exactly that reason.
 
+## What runs by itself
+
+Two workflows in `.github/workflows/`. Both need the repo pushed to GitHub first.
+
+| Workflow | When | What it does |
+|---|---|---|
+| `build.yml` | every push touching `entries/`, `library/`, `build.py` | `--check`, render, commit `README.md` + `site/`. You never rebuild by hand. |
+| `sync.yml` | Mondays 06:00 UTC, or manual | `--sync` pulls each upstream's own one-line description and last-push date into the entry and commits; then `--drift` opens **one** issue listing entries whose upstream moved after the date you last checked them. |
+
+**The line neither workflow crosses:** nothing automated ever writes `last_checked` or
+`checked_against`. Those mean *you* looked. A bot bumping them would make every date on the site
+a lie, which is the only claim this project makes. Sync refreshes facts; drift raises a hand.
+
+Opt an entry out of description sync with `sync: false`. An entry whose URL points *inside* a
+repo (a skill in a monorepo) only ever syncs its upstream date, never the repo's description.
+
 ## The working loop
 
 ```bash
+python3 build.py --sync      # pull upstream descriptions + dates
+python3 build.py --drift     # whose upstream moved since I last looked
 python3 build.py --stale     # what's overdue — start a burst here
 # re-check, edit entries/, bump last_checked + checked_against
 python3 build.py --check     # gate: fails empty checked_against, thin 'dropped' text

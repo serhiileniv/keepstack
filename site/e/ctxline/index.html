@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ctxline — AI Hub</title>
+<meta name="description" content="Model and context size in your Claude Code status line. Nothing else. Verdict: using. Last checked 30 Aug 2026 against claude-code 2.1.251, opus-5.">
+<link rel="canonical" href="https://ai-hub-dg0.pages.dev/e/ctxline/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="ctxline — AI Hub">
+<meta property="og:description" content="Model and context size in your Claude Code status line. Nothing else. Verdict: using. Last checked 30 Aug 2026 against claude-code 2.1.251, opus-5.">
+<meta property="og:url" content="https://ai-hub-dg0.pages.dev/e/ctxline/">
+<meta property="og:site_name" content="AI Hub">
+<meta name="twitter:card" content="summary">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../style.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"TechArticle",
+"headline":"ctxline","description":"Model and context size in your Claude Code status line. Nothing else.",
+"dateModified":"2026-08-30",
+"author":{"@type":"Person","name":"Serhii Leniv"}}
+</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site">
+  <div class="wrap">
+    <a class="brand" href="../../">AI Hub</a>
+    <nav><a href="../../#using">Using</a><a href="../../#dropped">Dropped</a><a href="../../#watching">Watching</a></nav>
+  </div>
+</header>
+<main id="main">
+<article class="entry">
+  <div class="wrap narrow">
+    <p class="crumb"><a href="../../">AI Hub</a> ›
+       <a href="../../#using">Using</a></p>
+    <h1>ctxline</h1>
+    <p class="lede">Model and context size in your Claude Code status line. Nothing else.</p>
+    <dl class="facts">
+      <div><dt>Verdict</dt><dd class="v-using">using</dd></div>
+      <div><dt>Kind</dt><dd>tool</dd></div>
+      <div><dt>Last checked</dt><dd class="date fresh">30 Aug 2026</dd></div>
+      <div><dt>Checked against</dt><dd>claude-code 2.1.251, opus-5</dd></div>
+      <div><dt>Upstream pushed</dt><dd>21 Aug 2026</dd></div>
+    </dl>
+    <a class="ext" href="https://github.com/serhiileniv/ctxline" rel="noopener">https://github.com/serhiileniv/ctxline</a>
+    
+    <div class="prose">
+<h3>Why</h3>
+<p>I wrote it because every status line I saw either printed nothing I needed or printed ten things I didn&#x27;t. The one fact that changes what I do next is how full the context window is, so that&#x27;s the only number on the line:</p>
+<pre><code>Opus 5 · 40k/1M</code></pre>
+<p>The count is colored by pressure — green normally, yellow past 60%, bold rose past 85%. The model name is deliberately the quietest thing there: it changes at most once a session, so color on the line means exactly one thing, which is how much room is left.</p>
+<p>It&#x27;s Rust for one reason. Claude Code <strong>cancels an in-flight status line script</strong> when a new update arrives, so startup time is the only property that matters — a Node or Python script pays its interpreter boot on every assistant message and loses the race. The binary is ~330KB and runs in about 3ms. Claude Code already pipes a JSON payload containing a <code>context_window</code> object, so this is a pure <code>stdin → stdout</code> filter: no transcript parsing, no subprocesses, no I/O of its own.</p>
+<h3>Setup</h3>
+<pre><code class="lang-bash">curl -fsSL https://raw.githubusercontent.com/serhiileniv/ctxline/main/install.sh | sh</code></pre>
+<p>Downloads the binary into <code>~/.local/bin</code>, points <code>~/.claude/settings.json</code> at it, and backs that file up first if it already existed.</p>
+<h3>Watch out for</h3>
+<p><code>settings.json</code> is read at <strong>startup</strong>. Restart Claude Code after installing or the line won&#x27;t change.</p>
+    </div>
+  </div>
+  
+</article>
+</main>
+<footer class="site">
+  <div class="wrap">
+    <p><strong>Why the dates.</strong> Every <em>awesome-</em> list is undated, so within months
+       you can't tell what still works. A date you can weigh beats a recommendation you can't.</p>
+    <p><strong>No schedule.</strong> I re-check in bursts. An entry marked overdue may still be
+       right — I just haven't confirmed it lately, and I'd rather say so than hide it.</p>
+    <p class="fine">Serhii Leniv · built 30 August 2026</p>
+  </div>
+</footer>
+</body>
+</html>

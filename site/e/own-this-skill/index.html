@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>own-this — a study guide for work you just shipped — AI Hub</title>
+<meta name="description" content="Generates a standalone HTML study guide for a finished bug fix, PR or feature so you can defend it Verdict: using. Last checked 30 Aug 2026 against claude-code 2.1.251, opus-5.">
+<link rel="canonical" href="https://ai-hub-dg0.pages.dev/e/own-this-skill/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="own-this — a study guide for work you just shipped — AI Hub">
+<meta property="og:description" content="Generates a standalone HTML study guide for a finished bug fix, PR or feature so you can defend it Verdict: using. Last checked 30 Aug 2026 against claude-code 2.1.251, opus-5.">
+<meta property="og:url" content="https://ai-hub-dg0.pages.dev/e/own-this-skill/">
+<meta property="og:site_name" content="AI Hub">
+<meta name="twitter:card" content="summary">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../style.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"TechArticle",
+"headline":"own-this — a study guide for work you just shipped","description":"Generates a standalone HTML study guide for a finished bug fix, PR or feature so you can defend it",
+"dateModified":"2026-08-30",
+"author":{"@type":"Person","name":"Serhii Leniv"}}
+</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site">
+  <div class="wrap">
+    <a class="brand" href="../../">AI Hub</a>
+    <nav><a href="../../#using">Using</a><a href="../../#dropped">Dropped</a><a href="../../#watching">Watching</a></nav>
+  </div>
+</header>
+<main id="main">
+<article class="entry">
+  <div class="wrap narrow">
+    <p class="crumb"><a href="../../">AI Hub</a> ›
+       <a href="../../#using">Using</a></p>
+    <h1>own-this — a study guide for work you just shipped</h1>
+    <p class="lede">Generates a standalone HTML study guide for a finished bug fix, PR or feature so you can defend it</p>
+    <dl class="facts">
+      <div><dt>Verdict</dt><dd class="v-using">using</dd></div>
+      <div><dt>Kind</dt><dd>skill</dd></div>
+      <div><dt>Last checked</dt><dd class="date fresh">30 Aug 2026</dd></div>
+      <div><dt>Checked against</dt><dd>claude-code 2.1.251, opus-5</dd></div>
+      <div><dt>Upstream pushed</dt><dd>7 Aug 2026</dd></div>
+    </dl>
+    <a class="ext" href="https://github.com/serhiileniv/skills/tree/main/skills/own-this" rel="noopener">https://github.com/serhiileniv/skills/tree/main/skills/own-this</a>
+    
+    <div class="prose">
+<h3>Why</h3>
+<p>Shipping with an agent leaves a specific gap: the work is correct and you can&#x27;t fully explain it. That&#x27;s fine until a reviewer asks, or an interviewer does.</p>
+<p><code>/own-this</code> closes it by writing a self-contained HTML study guide for a finished piece of work, structured on how people actually retain things rather than how a diff is ordered: the concepts and system map you need <em>before</em> the story, context through one analogy, the fix stated in one sentence before any detail, the hardest subtlety told as a story, guided code reading with plain-English translations, a mini-glossary, and a <strong>&quot;defend it&quot;</strong> part — self-check questions with hidden answers, the challenges a reviewer is likely to raise, and a speakable 30-second answer.</p>
+<p>It&#x27;s user-invocable only (<code>disable-model-invocation: true</code>). It should never fire on its own — it&#x27;s something you reach for after the work is done.</p>
+<h3>Setup</h3>
+<pre><code class="lang-bash">cp -r skills/own-this ~/.claude/skills/own-this</code></pre>
+<p>Restart the session, then <code>/own-this</code>. Takes an optional target (PR URL, commit range, topic — defaults to the session&#x27;s main work) and <code>lang: uk</code> for a Ukrainian guide.</p>
+<h3>Watch out for</h3>
+<p>The skill is a directory, not one file: <code>SKILL.md</code> plus <code>STYLE.md</code>, <code>template.html</code> and <code>example.html</code> that it loads on demand. Copy the whole directory or the output loses its shape.</p>
+    </div>
+  </div>
+  
+</article>
+</main>
+<footer class="site">
+  <div class="wrap">
+    <p><strong>Why the dates.</strong> Every <em>awesome-</em> list is undated, so within months
+       you can't tell what still works. A date you can weigh beats a recommendation you can't.</p>
+    <p><strong>No schedule.</strong> I re-check in bursts. An entry marked overdue may still be
+       right — I just haven't confirmed it lately, and I'd rather say so than hide it.</p>
+    <p class="fine">Serhii Leniv · built 30 August 2026</p>
+  </div>
+</footer>
+</body>
+</html>

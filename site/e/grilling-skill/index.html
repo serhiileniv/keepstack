@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>grilling — a skill that interviews you before it builds — AI Hub</title>
+<meta name="description" content="Claude Code skill that stress-tests a plan by asking every open question in rounds before writing any code Verdict: using. Last checked 30 Aug 2026 against claude-code 2.1.251, opus-5.">
+<link rel="canonical" href="https://ai-hub-dg0.pages.dev/e/grilling-skill/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="grilling — a skill that interviews you before it builds — AI Hub">
+<meta property="og:description" content="Claude Code skill that stress-tests a plan by asking every open question in rounds before writing any code Verdict: using. Last checked 30 Aug 2026 against claude-code 2.1.251, opus-5.">
+<meta property="og:url" content="https://ai-hub-dg0.pages.dev/e/grilling-skill/">
+<meta property="og:site_name" content="AI Hub">
+<meta name="twitter:card" content="summary">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../style.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"TechArticle",
+"headline":"grilling — a skill that interviews you before it builds","description":"Claude Code skill that stress-tests a plan by asking every open question in rounds before writing any code",
+"dateModified":"2026-08-30",
+"author":{"@type":"Person","name":"Serhii Leniv"}}
+</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site">
+  <div class="wrap">
+    <a class="brand" href="../../">AI Hub</a>
+    <nav><a href="../../#using">Using</a><a href="../../#dropped">Dropped</a><a href="../../#watching">Watching</a></nav>
+  </div>
+</header>
+<main id="main">
+<article class="entry">
+  <div class="wrap narrow">
+    <p class="crumb"><a href="../../">AI Hub</a> ›
+       <a href="../../#using">Using</a></p>
+    <h1>grilling — a skill that interviews you before it builds</h1>
+    <p class="lede">Claude Code skill that stress-tests a plan by asking every open question in rounds before writing any code</p>
+    <dl class="facts">
+      <div><dt>Verdict</dt><dd class="v-using">using</dd></div>
+      <div><dt>Kind</dt><dd>skill</dd></div>
+      <div><dt>Last checked</dt><dd class="date fresh">30 Aug 2026</dd></div>
+      <div><dt>Checked against</dt><dd>claude-code 2.1.251, opus-5</dd></div>
+      <div><dt>Upstream pushed</dt><dd>7 Aug 2026</dd></div>
+    </dl>
+    <a class="ext" href="https://github.com/serhiileniv/skills/tree/main/skills/grilling" rel="noopener">https://github.com/serhiileniv/skills/tree/main/skills/grilling</a>
+    
+    <div class="prose">
+<h3>Why</h3>
+<p>The failure mode I kept hitting wasn&#x27;t bad code — it was code built correctly against an assumption I was never asked to confirm. Agents fill gaps silently, and you find out three files later.</p>
+<p>This skill inverts that. It models the plan as a design tree and works it in <strong>rounds</strong>: every question whose prerequisites are already settled gets asked at once, each with a recommended answer, then it stops and waits. Answers reshape the tree and push the frontier outward. It&#x27;s done when the frontier is empty — every branch visited, nothing silently assumed.</p>
+<p>The clause that makes it worth keeping is the last one: <em>finding facts is the agent&#x27;s job, never mine.</em> If a question needs something from the filesystem or a tool, it dispatches a sub-agent rather than asking me — and doesn&#x27;t block on it, so the rest of the round still gets asked. Without that line the round degenerates into a quiz about my own repo.</p>
+<h3>Setup</h3>
+<pre><code class="lang-bash">cp -r skills/grilling ~/.claude/skills/grilling</code></pre>
+<p>A second one-line skill with <code>disable-model-invocation: true</code> whose body is just <code>Run a /grilling session.</code> gives you <code>/grill-me</code> as an explicit slash command.</p>
+<h3>Watch out for</h3>
+<p>It&#x27;s genuinely relentless — that&#x27;s the point, but it makes it the wrong skill for a task you&#x27;ve already decided. Invoke it for the decision, not for the implementation.</p>
+    </div>
+  </div>
+  
+</article>
+</main>
+<footer class="site">
+  <div class="wrap">
+    <p><strong>Why the dates.</strong> Every <em>awesome-</em> list is undated, so within months
+       you can't tell what still works. A date you can weigh beats a recommendation you can't.</p>
+    <p><strong>No schedule.</strong> I re-check in bursts. An entry marked overdue may still be
+       right — I just haven't confirmed it lately, and I'd rather say so than hide it.</p>
+    <p class="fine">Serhii Leniv · built 30 August 2026</p>
+  </div>
+</footer>
+</body>
+</html>

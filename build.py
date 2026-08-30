@@ -6,6 +6,8 @@ Stdlib only, on purpose — no install step, nothing to rot in six months.
     python3 build.py            build README.md + site/
     python3 build.py --stale    what's overdue for a re-check
     python3 build.py --check    validate entries, exit 1 on problems
+    python3 build.py --sync     pull link + short description from upstream into entries
+    python3 build.py --drift    upstreams that moved since last_checked (exit 1 if any)
     python3 build.py --serve    build, then serve site/ on :8000
 """
 import sys, re, html, datetime, pathlib, shutil
@@ -14,7 +16,7 @@ ROOT = pathlib.Path(__file__).parent
 ENTRIES, LIBRARY, SITE = ROOT / "entries", ROOT / "library", ROOT / "site"
 
 # Set this before the first deploy — it drives canonical URLs and sitemap.xml.
-SITE_URL = "https://ai-hub.pages.dev"
+SITE_URL = "https://ai-hub-dg0.pages.dev"
 SITE_NAME = "AI Hub"
 AUTHOR = "Serhii Leniv"
 TAGLINE = ("The AI tooling I actually run — plus what I tried and dropped. "
@@ -234,6 +236,147 @@ def cmd_stale(items, days):
 
 
 # ------------------------------------------------------------------ rendering
+
+# --- sync --------------------------------------------------------------------
+# The facts about an upstream go stale on their own; my verdict does not. So this
+# refreshes only the two machine-knowable fields — `what` (the repo's own one-line
+# description) and `upstream_pushed` — and never touches verdict, the body,
+# last_checked or checked_against. Opt an entry out with `sync: false`.
+
+SYNCED = ("what", "upstream_pushed")
+
+
+def _set_fm(path, updates):
+    """Rewrite frontmatter keys in place. Line-based, to match the parser above."""
+    text = path.read_text(encoding="utf-8")
+    head, fm, body = text.split("---", 2)
+    lines = fm.splitlines()
+    for key, val in updates.items():
+        val = '"%s"' % str(val).replace('"', "'") if key == "what" else str(val)
+        for i, line in enumerate(lines):
+            if line.split(":", 1)[0].strip() == key:
+                lines[i] = "%s: %s" % (key, val)
+                break
+        else:
+            anchor = next((i for i, l in enumerate(lines)
+                           if l.split(":", 1)[0].strip() == "last_checked"), len(lines) - 1)
+            lines.insert(anchor + 1, "%s: %s" % (key, val))
+    path.write_text("---".join([head, "\n".join(lines) + "\n", body]), encoding="utf-8")
+
+
+def cmd_sync(items):
+    import urllib.error
+    changed = skipped = 0
+    for e in items:
+        repo = _gh_repo(e.get("url", ""))
+        if not repo or e.get("sync") is False:
+            skipped += 1
+            continue
+        try:
+            data = _api("https://api.github.com/repos/%s/%s" % repo[:2])
+        except (urllib.error.URLError, urllib.error.HTTPError, OSError) as ex:
+            print("✗ %-28s %s" % (e["_slug"], str(ex)[:60]))
+            continue
+        updates = {}
+        desc = (data.get("description") or "").strip()
+        if repo[2] and desc and desc != e.get("what"):
+            updates["what"] = desc
+        pushed = (data.get("pushed_at") or "")[:10]
+        if pushed and pushed != str(e.get("upstream_pushed", "")):
+            updates["upstream_pushed"] = pushed
+        if updates:
+            _set_fm(ENTRIES / e["_file"], updates)
+            changed += 1
+            for k, v in updates.items():
+                print("→ %-28s %s: %s" % (e["_slug"], k, v))
+    print("\n%d entr%s updated, %d not syncable (no GitHub URL, or sync: false)."
+          % (changed, "y" if changed == 1 else "ies", skipped))
+    if changed:
+        print("Descriptions and upstream dates only — no verdict and no date of mine "
+              "was touched. Re-run `python3 build.py` to publish.")
+    return 0
+
+
+# --- drift -------------------------------------------------------------------
+# Has an upstream moved since I last checked it?
+#
+# This NEVER writes last_checked. That date means *I* looked at the thing; a machine
+# bumping it would make every date on the site a lie, which is the one failure this
+# project cannot survive. Drift only ever reports — the re-check stays manual.
+
+def _gh_repo(url):
+    """(owner, repo, is_root). is_root is False for a URL pointing inside the repo —
+    a single skill in a monorepo, whose description is not the repo's description."""
+    m = re.match(r"https?://github\.com/([^/]+)/([^/#?]+)(/[^#?]*)?", url or "")
+    if not m:
+        return None
+    name = m.group(2)
+    rest = (m.group(3) or "").strip("/")
+    return (m.group(1), name[:-4] if name.endswith(".git") else name, not rest)
+
+
+def _api(url):
+    import urllib.request, json, os
+    req = urllib.request.Request(url, headers={"Accept": "application/vnd.github+json",
+                                               "User-Agent": "ai-hub-drift"})
+    tok = os.environ.get("GITHUB_TOKEN")
+    if tok:
+        req.add_header("Authorization", "Bearer " + tok)
+    with urllib.request.urlopen(req, timeout=20) as r:
+        return json.load(r)
+
+
+def cmd_drift(items):
+    import urllib.error
+    moved, broken, opaque = [], [], []
+    for e in items:
+        repo = _gh_repo(e.get("url", ""))
+        checked = as_date(e.get("last_checked"))
+        if not repo:
+            opaque.append(e)
+            continue
+        try:
+            data = _api("https://api.github.com/repos/%s/%s" % repo[:2])
+        except urllib.error.HTTPError as ex:
+            broken.append((e, "HTTP %s" % ex.code))
+            continue
+        except Exception as ex:
+            broken.append((e, str(ex)[:70]))
+            continue
+        pushed = as_date((data.get("pushed_at") or "")[:10])
+        if pushed and checked and pushed > checked:
+            moved.append((e, pushed, (pushed - checked).days))
+
+    out = []
+    if moved:
+        out.append("### Upstream moved since I last checked\n")
+        out.append("| Entry | Last checked | Upstream pushed | Gap |")
+        out.append("|---|---|---|---|")
+        for e, pushed, gap in sorted(moved, key=lambda r: -r[2]):
+            out.append("| [%s](entries/%s.md) | %s | %s | %d days |"
+                       % (e.get("name"), e["_slug"], fmt_date(e.get("last_checked")),
+                          fmt_date(pushed), gap))
+        out.append("")
+    if broken:
+        out.append("### Link no longer resolves\n")
+        for e, why in broken:
+            out.append("- **%s** — `%s` (%s)" % (e.get("name"), e.get("url"), why))
+        out.append("")
+    if opaque:
+        out.append("<sub>Not checkable automatically (no GitHub URL): %s</sub>"
+                   % ", ".join(e.get("name", "?") for e in opaque))
+
+    if not moved and not broken:
+        print("No upstream has moved since its last_checked. %d entries, "
+              "%d not auto-checkable." % (len(items), len(opaque)))
+        return 0
+
+    print("\n".join(out))
+    print("\nRe-check these by hand, then bump `last_checked` and `checked_against` "
+          "yourself. Nothing here has been dated for you.")
+    return 1
+
+
 def page(title, desc, body, path, extra_head=""):
     """path is the site-relative directory, '' for the root."""
     canonical = f"{SITE_URL}/{path}".rstrip("/") + ("/" if path else "")
@@ -331,6 +474,9 @@ def build_entry(e):
     a = age_days(e)
     cls = "stale" if is_stale(e) else "fresh"
     against = ", ".join(e.get("checked_against") or []) or "—"
+    upstream = (f"\n      <div><dt>Upstream pushed</dt>"
+                f"<dd>{html.escape(fmt_date(e.get('upstream_pushed')))}</dd></div>"
+                if e.get("upstream_pushed") else "")
     link = (f'<a class="ext" href="{html.escape(e["url"])}" rel="noopener">'
             f'{html.escape(e["url"])}</a>' if e.get("url") else "")
     note = ('<p class="notice">I have not re-checked this in over 90 days. It may well still be '
@@ -363,7 +509,7 @@ def build_entry(e):
       <div><dt>Verdict</dt><dd class="v-{e.get('verdict')}">{html.escape(str(e.get('verdict','')))}</dd></div>
       <div><dt>Kind</dt><dd>{html.escape(str(e.get('kind','')))}</dd></div>
       <div><dt>Last checked</dt><dd class="date {cls}">{html.escape(fmt_date(e.get('last_checked')))}</dd></div>
-      <div><dt>Checked against</dt><dd>{html.escape(against)}</dd></div>
+      <div><dt>Checked against</dt><dd>{html.escape(against)}</dd></div>{upstream}
     </dl>
     {link}
     {note}
@@ -449,6 +595,10 @@ def main():
     items = entries()
     if args and args[0] == "--check":
         return cmd_check(items)
+    if args and args[0] == "--sync":
+        return cmd_sync(items)
+    if args and args[0] == "--drift":
+        return cmd_drift(items)
     if args and args[0] == "--stale":
         return cmd_stale(items, int(args[1]) if len(args) > 1 else STALE_AFTER_DAYS)
 

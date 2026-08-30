@@ -1,0 +1,70 @@
+# Keep the machine-knowable half of every entry current, and flag the half only I
+# can judge.
+#
+#   --sync   pulls each upstream's own one-line description and last-push date into
+#            the entry, and commits. Never touches verdict, body, last_checked or
+#            checked_against.
+#   --drift  lists entries whose upstream moved after the date I last checked them,
+#            and opens ONE issue. It does not bump a date: `last_checked` means *I*
+#            looked, and a bot writing that date would make every date on the site a
+#            lie — which is the only claim this project makes.
+name: sync
+
+on:
+  schedule:
+    - cron: '0 6 * * 1'        # Mondays, 06:00 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  issues: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Pull upstream descriptions and dates
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python3 build.py --sync
+
+      - name: Rebuild and commit
+        run: |
+          python3 build.py --check
+          python3 build.py
+          if git diff --quiet; then
+            echo "No upstream metadata changed."
+            exit 0
+          fi
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -am "Sync upstream descriptions [skip ci]"
+          git push
+
+      - name: What needs a human re-check
+        id: drift
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          if python3 build.py --drift > drift.md; then
+            echo "found=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "found=true" >> "$GITHUB_OUTPUT"
+          fi
+          cat drift.md
+
+      - name: Open or update the re-check issue
+        if: steps.drift.outputs.found == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          TITLE="Re-check due: upstreams moved since I last looked"
+          NUM=$(gh issue list --state open --search "$TITLE in:title" \
+                  --json number --jq '.[0].number // empty')
+          if [ -n "$NUM" ]; then
+            gh issue edit "$NUM" --body-file drift.md
+          else
+            gh issue create --title "$TITLE" --body-file drift.md --label re-check
+          fi

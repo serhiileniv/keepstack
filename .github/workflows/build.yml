@@ -1,0 +1,36 @@
+# Rebuild README.md + site/ whenever an entry changes, so the published hub can
+# never drift from entries/. Purely mechanical — it renders, it doesn't decide.
+name: build
+
+on:
+  push:
+    branches: [main]
+    paths: ['entries/**', 'library/**', '_intro.md', 'build.py']
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Validate entries
+        run: python3 build.py --check
+
+      - name: Render
+        run: python3 build.py
+
+      - name: Commit if anything changed
+        run: |
+          if git diff --quiet -- README.md site/; then
+            echo "Nothing to publish."
+            exit 0
+          fi
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add README.md site/
+          git commit -m "Rebuild hub [skip ci]"
+          git push
