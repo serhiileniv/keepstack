@@ -1,11 +1,10 @@
-# Rebuild README.md + site/ whenever an entry changes, so the published hub can
-# never drift from entries/. Purely mechanical — it renders, it doesn't decide.
+# Rebuild README.md + site/ on every push, then publish site/ to Cloudflare Pages.
+# Purely mechanical — it renders and ships, it doesn't decide anything.
 name: build
 
 on:
   push:
     branches: [main]
-    paths: ['entries/**', 'library/**', '_intro.md', 'build.py']
   workflow_dispatch:
 
 permissions:
@@ -34,3 +33,10 @@ jobs:
           git add README.md site/
           git commit -m "Rebuild hub [skip ci]"
           git push
+
+      - name: Publish to Cloudflare Pages
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy site --project-name=ai-hub --branch=main
