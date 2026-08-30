@@ -214,3 +214,26 @@ traffic arrives costs far more than the registration ever does. Until then the s
 **Migration:** GitHub redirects `serhiileniv/ai-hub` to the new name indefinitely, so old repo
 links and existing clones keep working. The old Pages project keeps serving until it's pointed at
 the new one; nothing was indexed under it long enough to matter.
+
+---
+
+## D14 — It's a stash, not a personal rotation. Narrows D9 *(2026-08-30)*
+
+The site collects **good** agent tooling. It does not claim every entry is in daily use.
+
+**Why:** D9 said nothing gets published that I haven't personally run, and D10 replaced verdicts
+with "if it's here, I use it". Together those made the hub a list of what one person happens to
+have installed this month — which is both smaller and less useful than what it should be. The
+value is the curation: finding the good ones and saying what they're for.
+
+**What still holds from D9:** no fabricated experience. An entry describes what a tool does and
+what to watch out for, drawn from the tool itself. It never invents an anecdote about using it,
+never claims a result I didn't see, and never dresses up a guess as a verdict.
+
+**What changes:** an entry no longer implies daily use, so no copy on the site says it does. The
+hero says *tools, skills and workflows worth keeping*, and that's the claim — worth keeping, not
+currently in my terminal.
+
+**The dates still mean what they always meant:** the day I last confirmed the entry is accurate,
+against the named versions. That's a claim about the entry, not about my habits, so it survives
+this unchanged.
