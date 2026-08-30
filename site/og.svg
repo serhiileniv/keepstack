@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#0a0a0a"/>
+  <g transform="translate(96,120) scale(4.2)">
+    <path d="M23 12h9l4 5-8.5 12L19 17Z" fill="#C4304A"/>
+    <path d="M9 10h11l5 6-10.5 15L4 16Z" fill="#2ECC94"/>
+    <path d="M4 16h21" stroke="#0a0a0a" stroke-width="1.8" opacity=".5"/>
+  </g>
+  <text x="96" y="410" font-family="Helvetica" font-size="94" font-weight="bold" fill="#ffffff">Keepstack</text>
+  <text x="96" y="474" font-family="Helvetica" font-size="34" fill="#a3a3a3">Tools, skills and workflows worth keeping.</text>
+  <rect x="96" y="516" width="1008" height="1" fill="#1f1f1f"/>
+  <text x="96" y="562" font-family="Courier" font-size="25" fill="#2ECC94">keepstack.pages.dev</text>
+</svg>

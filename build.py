@@ -32,6 +32,8 @@ MARK = ('<svg class="mark" width="32" height="32" viewBox="0 0 40 40" aria-hidde
         '<path d="M4 16h21" stroke="#0a0a0a" stroke-width="1.8" opacity=".5"/></svg>')
 
 AUTHOR = "Serhii Leniv"
+# Already public in every commit of this public repo, so the footer adds no exposure.
+EMAIL = "leniv.tech@gmail.com"
 TAGLINE = ("A collection of tools, skills and workflows worth keeping — searchable, tagged, "
            "and every one dated with the day I last confirmed it works.")
 
@@ -411,7 +413,11 @@ def page(title, desc, body, path, extra_head="", groups=()):
 <meta property="og:description" content="{html.escape(desc)}">
 <meta property="og:url" content="{canonical}">
 <meta property="og:site_name" content="{html.escape(SITE_NAME)}">
-<meta name="twitter:card" content="summary">
+<meta property="og:image" content="{SITE_URL}/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="{SITE_URL}/og.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <meta name="theme-color" content="#0a0a0a">
@@ -434,7 +440,8 @@ def page(title, desc, body, path, extra_head="", groups=()):
   <div class="wrap">
     <div class="ends">
       <span>{html.escape(AUTHOR)} &middot; <a href="{REPO_URL}/blob/main/LICENSE" rel="noopener">MIT</a></span>
-      <a href="{REPO_URL}/issues/new" rel="noopener">Something out of date? Tell me &#8599;</a>
+      <span><a href="{REPO_URL}/issues/new" rel="noopener">Out of date? Open an issue</a>
+        &middot; <a href="mailto:{EMAIL}">{EMAIL}</a></span>
     </div>
   </div>
 </footer>
@@ -674,6 +681,14 @@ def build_site(items):
         "# Group pages existed briefly (/g/planning/, ...). Search replaced them.\n"
         "# Anything still pointing there lands on the index, which can find it.\n"
         "/g/*    /    301\n", encoding="utf-8")
+    (SITE / "404.html").write_text(page(
+        f"Not found — {SITE_NAME}", "That page doesn't exist.",
+        """<section class="hero">
+  <div class="wrap"><div class="inner">
+    <h1>Nothing here.<span>Try the search.</span></h1>
+    <p class="lede" style="margin-top:20px"><a class="btn s" href="/">Back to everything</a></p>
+  </div></div>
+</section>""", ""), encoding="utf-8")
     (SITE / "robots.txt").write_text(
         f"User-agent: *\nAllow: /\n\nSitemap: {SITE_URL}/sitemap.xml\n", encoding="utf-8")
 
