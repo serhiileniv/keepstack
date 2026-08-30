@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>llm-council — AI Hub</title>
+<meta name="description" content="Runs a decision past five advisors with different lenses, has them peer-review, then a chairman gives the verdict Last checked 30 Aug 2026 against claude-code 2.1.251, opus-5.">
+<link rel="canonical" href="https://ai-hub-dg0.pages.dev/e/llm-council/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="llm-council — AI Hub">
+<meta property="og:description" content="Runs a decision past five advisors with different lenses, has them peer-review, then a chairman gives the verdict Last checked 30 Aug 2026 against claude-code 2.1.251, opus-5.">
+<meta property="og:url" content="https://ai-hub-dg0.pages.dev/e/llm-council/">
+<meta property="og:site_name" content="AI Hub">
+<meta name="twitter:card" content="summary">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<meta name="theme-color" content="#0a0a0a">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../style.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"TechArticle",
+"headline":"llm-council","description":"Runs a decision past five advisors with different lenses, has them peer-review, then a chairman gives the verdict",
+"dateModified":"2026-08-30",
+"author":{"@type":"Person","name":"Serhii Leniv"}}
+</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site">
+  <div class="wrap">
+    <a class="logo" href="../../"><svg class="mark" width="32" height="32" viewBox="0 0 40 40" aria-hidden="true"><path d="M23 12h9l4 5-8.5 12L19 17Z" fill="#C4304A"/><path d="M9 10h11l5 6-10.5 15L4 16Z" fill="#2ECC94"/><path d="M4 16h21" stroke="#0a0a0a" stroke-width="1.8" opacity=".5"/></svg><span class="name">AI Hub</span></a>
+    <a class="ghost" href="https://github.com/serhiileniv/ai-hub" rel="noopener">GitHub &#8599;</a>
+  </div>
+</header>
+<main id="main">
+<article class="entry">
+  <div class="wrap narrow">
+    <p class="crumb"><a href="../../">AI Hub</a> &rsaquo;
+       <span>Planning</span></p>
+    <h1>llm-council</h1>
+    <p class="lede">Runs a decision past five advisors with different lenses, has them peer-review, then a chairman gives the verdict</p>
+    <dl class="facts">
+      <div><dt>Kind</dt><dd>skill</dd></div>
+      <div><dt>Last checked</dt><dd class="fresh">30 Aug 2026</dd></div>
+      <div><dt>Checked against</dt><dd>claude-code 2.1.251, opus-5</dd></div>
+    </dl>
+    <a class="ext" href="https://github.com/aiwithremy/claude-skills-llm-council" rel="noopener">https://github.com/aiwithremy/claude-skills-llm-council</a>
+    
+    <div class="prose">
+<h3>Why</h3>
+<p>Ask one model a question and you get one answer. It might be excellent. You have no way to tell, because you only saw one.</p>
+<p>This runs the question past five advisors who each think from a deliberately different angle, has them peer-review each other anonymously, then a chairman synthesises the lot — telling you where they agreed, where they clashed, and what to actually do. It&#x27;s Karpathy&#x27;s LLM Council method, but where he dispatches to five different <em>models</em>, this uses sub-agents with five different <em>lenses</em> inside Claude. No API keys, no second provider, no cost beyond the tokens.</p>
+<p>The disagreement is the product. A single answer reads as confident whether or not it should; five that split three-two tell you the decision is genuinely close, which is the thing you actually needed to know.</p>
+<p>It&#x27;s honest about its own scope, which is rare — the skill&#x27;s own description refuses to fire on factual lookups, creation tasks or a &quot;should I&quot; with no real tradeoff. Reach for it when being wrong is expensive and you&#x27;re weighing options, not when you want a second opinion on a one-liner.</p>
+<p>Pairs with <a href="../grilling-skill/">grilling</a>: grilling finds the questions you haven&#x27;t answered, this one argues about the answer once you have it.</p>
+<h3>Setup</h3>
+<p>One file, no terminal:</p>
+<pre><code class="lang-bash">mkdir -p ~/.claude/skills/llm-council
+curl -o ~/.claude/skills/llm-council/SKILL.md \
+  https://raw.githubusercontent.com/aiwithremy/claude-skills-llm-council/main/SKILL.md</code></pre>
+<p>Trigger it with &quot;council this&quot;, &quot;pressure-test this&quot;, or &quot;war room this&quot;.</p>
+<h3>Watch out for</h3>
+<p><strong>No licence file.</strong> The repo has none, which means default copyright — you can read it, but you have no granted right to redistribute or adapt it. Fine for personal use, a problem if you were going to fork it into something you ship.</p>
+<p><strong>Five advisors plus peer review plus synthesis is a lot of tokens</strong> for one question. That&#x27;s the correct trade for a real decision and a waste on anything else, which is exactly why the trigger list is written as narrowly as it is.</p>
+    </div>
+  </div>
+  
+</article>
+</main>
+<footer class="site">
+  <div class="wrap">
+    <div class="ends">
+      <span>Serhii Leniv &middot; <a href="https://github.com/serhiileniv/ai-hub/blob/main/LICENSE" rel="noopener">MIT</a></span>
+      <a href="https://github.com/serhiileniv/ai-hub/issues/new" rel="noopener">Something out of date? Tell me &#8599;</a>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
