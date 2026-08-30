@@ -216,11 +216,9 @@ header.site nav a:hover{color:var(--fg);background:var(--card-hi)}
 
 /* --------------------------------------------------------------- footer -- */
 footer.site{flex-shrink:0;border-top:1px solid var(--line);margin-top:80px;
-  padding:34px 0 72px;background:var(--bg-2)}
-footer.site .claim{color:var(--muted);font-size:14.5px;max-width:62ch;margin:0 0 24px}
+  padding:26px 0 70px;background:var(--bg-2)}
 footer.site .ends{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
-  font-family:var(--f-mono);font-size:12px;color:var(--dim);
-  border-top:1px solid var(--line);padding-top:18px}
+  font-family:var(--f-mono);font-size:12px;color:var(--dim)}
 footer.site a{color:var(--accent-hi)}
 footer.site a:hover{color:var(--fg)}
 .empty{color:var(--dim);font-size:14.5px;font-family:var(--f-mono)}
