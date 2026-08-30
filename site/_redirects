@@ -1,0 +1,3 @@
+# Group pages existed briefly (/g/planning/, ...). Search replaced them.
+# Anything still pointing there lands on the index, which can find it.
+/g/*    /    301

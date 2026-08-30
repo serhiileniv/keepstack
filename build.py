@@ -674,6 +674,10 @@ def build_site(items):
         '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
         + "".join(f"  <url><loc>{u}</loc><lastmod>{today}</lastmod></url>\n" for u in urls)
         + "</urlset>\n", encoding="utf-8")
+    (SITE / "_redirects").write_text(
+        "# Group pages existed briefly (/g/planning/, ...). Search replaced them.\n"
+        "# Anything still pointing there lands on the index, which can find it.\n"
+        "/g/*    /    301\n", encoding="utf-8")
     (SITE / "robots.txt").write_text(
         f"User-agent: *\nAllow: /\n\nSitemap: {SITE_URL}/sitemap.xml\n", encoding="utf-8")
 
