@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Name &amp; accent</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0a0a0a;--card:#111;--card-hi:#141414;--line:#1f1f1f;--line-2:#262626;--line-3:#333;
+  --fg:#fff;--muted:#a3a3a3;--dim:#6b6b6b;
+  --f-brand:'Montserrat',sans-serif;--f-ui:'Inter',system-ui,sans-serif;
+  --f-mono:'JetBrains Mono',ui-monospace,Menlo,monospace;
+}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--f-ui);font-size:15px;
+  line-height:1.6;-webkit-font-smoothing:antialiased}
+h1,h2,h3{margin:0;letter-spacing:-.02em;line-height:1.15}
+p{margin:0}
+.wrap{max-width:1140px;margin:0 auto;padding:0 28px}
+header{border-bottom:1px solid var(--line);padding:46px 0 32px}
+header h1{font-family:var(--f-brand);font-size:30px}
+header p{color:var(--muted);margin-top:11px;max-width:64ch}
+h2.sec{font-family:var(--f-brand);font-size:22px;margin:46px 0 6px}
+p.lead{color:var(--muted);margin-bottom:22px;max-width:70ch}
+
+/* ---- names ---- */
+.names{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:14px}
+.n{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px 22px;
+  display:flex;flex-direction:column;gap:14px}
+.n:hover{border-color:var(--line-3);background:var(--card-hi)}
+.n .lock{display:flex;align-items:center;gap:11px}
+.n .lock .nm{font-family:var(--f-brand);font-weight:700;font-size:21px;letter-spacing:-.025em}
+.n .dom{font-family:var(--f-mono);font-size:12px;color:var(--accent,#6F9EAA)}
+.n .why{color:var(--muted);font-size:13.5px}
+.n .tag{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--dim);border:1px solid var(--line-2);border-radius:4px;padding:2px 7px;
+  align-self:flex-start}
+.n.pick{border-color:rgba(111,158,170,.45)}
+.n.pick .tag{color:#9FC4CE;border-color:rgba(111,158,170,.4);background:rgba(111,158,170,.13)}
+
+/* ---- accents ---- */
+.acc{display:grid;grid-template-columns:repeat(auto-fill,minmax(268px,1fr));gap:14px}
+.a{background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.a .demo{padding:20px 22px;border-bottom:1px solid var(--line);background:#0d0d0d}
+.a .lock{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.a .lock .nm{font-family:var(--f-brand);font-weight:700;font-size:18px;letter-spacing:-.02em}
+.a .h{font-family:var(--f-brand);font-size:19px;font-weight:700;letter-spacing:-.02em}
+.a .h span{display:block}
+.a .chip{display:inline-block;font-family:var(--f-mono);font-size:10.5px;padding:3px 8px;
+  border-radius:5px;margin-top:12px}
+.a .meta{padding:16px 22px;display:flex;justify-content:space-between;align-items:baseline;
+  gap:12px;font-family:var(--f-mono);font-size:12px}
+.a .meta .hex{color:var(--fg)}
+.a .meta .cr{color:var(--dim)}
+.a .note{padding:0 22px 18px;color:var(--muted);font-size:13px}
+footer{padding:60px 0 90px}
+</style>
+</head>
+<body>
+
+<header class="wrap">
+  <h1>Name &amp; accent</h1>
+  <p>Everything below is shown with the mark you picked. Names first, then accent colours against
+     the real header lockup and a real headline.</p>
+</header>
+
+<div class="wrap">
+
+<h2 class="sec">Name</h2>
+<p class="lead">“AI Hub” describes a category, not a thing — thousands of pages could carry it, and
+   it's the half of a title that survives no trim. These all name the specific idea instead.</p>
+
+<div class="names">
+
+  <div class="n pick">
+    <span class="tag">my pick</span>
+    <div class="lock">
+      <svg width="30" height="30" viewBox="0 0 40 40"><path d="M11 7h18v27l-9-7-9 7Z" fill="#6F9EAA"/><path d="M15.5 17.5 19 21l6-6.5" fill="none" stroke="#0a0a0a" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span class="nm">Kept</span>
+    </div>
+    <span class="dom">kept.tools · kept.dev</span>
+    <p class="why">The icon <em>is</em> this word — a bookmark with a tick. One syllable, and it
+      states the entire filter: out of everything I tried, these are the ones I kept. It also
+      survives the hub growing, because “kept” is a past act, not a claim about today.</p>
+  </div>
+
+  <div class="n">
+    <span class="tag">runner-up</span>
+    <div class="lock">
+      <svg width="30" height="30" viewBox="0 0 40 40"><path d="M11 7h18v27l-9-7-9 7Z" fill="#6F9EAA"/><path d="M15.5 17.5 19 21l6-6.5" fill="none" stroke="#0a0a0a" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span class="nm">Still Works</span>
+    </div>
+    <span class="dom">stillworks.dev</span>
+    <p class="why">Names the dating mechanic directly, and it's the exact phrase someone types when
+      they don't trust a list. Slightly defensive as an identity, and two words where one would do.</p>
+  </div>
+
+  <div class="n">
+    <span class="tag">alt</span>
+    <div class="lock">
+      <svg width="30" height="30" viewBox="0 0 40 40"><path d="M11 7h18v27l-9-7-9 7Z" fill="#6F9EAA"/><path d="M15.5 17.5 19 21l6-6.5" fill="none" stroke="#0a0a0a" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span class="nm">Daily Driver</span>
+    </div>
+    <span class="dom">dailydriver.tools</span>
+    <p class="why">Exactly what the hub is — the stuff you actually run, not the stuff you starred.
+      Warm and human. Slightly car-shaped, and it fights the word “hub” if you ever want both.</p>
+  </div>
+
+  <div class="n">
+    <span class="tag">alt</span>
+    <div class="lock">
+      <svg width="30" height="30" viewBox="0 0 40 40"><path d="M11 7h18v27l-9-7-9 7Z" fill="#6F9EAA"/><path d="M15.5 17.5 19 21l6-6.5" fill="none" stroke="#0a0a0a" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span class="nm">Shortlist</span>
+    </div>
+    <span class="dom">shortlist.tools</span>
+    <p class="why">Carries the cap (D8: 15–30 entries) inside the name — a shortlist that grew to
+      200 would obviously be broken, which keeps you honest. Reads slightly corporate.</p>
+  </div>
+
+  <div class="n">
+    <span class="tag">alt</span>
+    <div class="lock">
+      <svg width="30" height="30" viewBox="0 0 40 40"><path d="M11 7h18v27l-9-7-9 7Z" fill="#6F9EAA"/><path d="M15.5 17.5 19 21l6-6.5" fill="none" stroke="#0a0a0a" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span class="nm">Bench</span>
+    </div>
+    <span class="dom">bench.tools</span>
+    <p class="why">A workbench: the tools within reach. Short, calm, developer-native. Collides
+      with “benchmark” in this field, which is a different promise entirely.</p>
+  </div>
+
+  <div class="n">
+    <span class="tag">keep it</span>
+    <div class="lock">
+      <svg width="30" height="30" viewBox="0 0 40 40"><path d="M11 7h18v27l-9-7-9 7Z" fill="#6F9EAA"/><path d="M15.5 17.5 19 21l6-6.5" fill="none" stroke="#0a0a0a" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span class="nm">AI Hub</span>
+    </div>
+    <span class="dom">the repo is already this</span>
+    <p class="why">Costs nothing to keep and search engines understand it. But it's a category
+      label, so it can never be distinctive, and every renaming gets more expensive from here.</p>
+  </div>
+
+</div>
+
+<h2 class="sec">Accent</h2>
+<p class="lead">All five clear WCAG AA as text on <code style="font-family:var(--f-mono)">#0a0a0a</code>.
+   Contrast ratio is listed on each so you can see what you're trading.</p>
+
+<div class="acc">
+
+  <div class="a" style="--acc:#6F9EAA">
+    <div class="demo">
+      <div class="lock"><svg width="27" height="27" viewBox="0 0 40 40"><path d="M11 7h18v27l-9-7-9 7Z" fill="#6F9EAA"/><path d="M15.5 17.5 19 21l6-6.5" fill="none" stroke="#0a0a0a" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="nm">Kept</span></div>
+      <div class="h">Agent tooling that earned<span style="color:#6F9EAA">a permanent place.</span></div>
+      <span class="chip" style="color:#9FC4CE;background:rgba(111,158,170,.13);border:1px solid rgba(111,158,170,.28)">mine</span>
+    </div>
+    <div class="meta"><span class="hex">#6F9EAA</span><span class="cr">7.4:1 · current</span></div>
+    <p class="note">Your brand Muted Blue. Only value carried over from the light kit, so it's the
+      one choice that keeps the two surfaces related.</p>
+  </div>
+
+  <div class="a">
+    <div class="demo">
+      <div class="lock"><svg width="27" height="27" viewBox="0 0 40 40"><path d="M11 7h18v27l-9-7-9 7Z" fill="#8FBCC7"/><path d="M15.5 17.5 19 21l6-6.5" fill="none" stroke="#0a0a0a" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="nm">Kept</span></div>
+      <div class="h">Agent tooling that earned<span style="color:#8FBCC7">a permanent place.</span></div>
+      <span class="chip" style="color:#BEDCE4;background:rgba(143,188,199,.13);border:1px solid rgba(143,188,199,.3)">mine</span>
+    </div>
+    <div class="meta"><span class="hex">#8FBCC7</span><span class="cr">10.4:1</span></div>
+    <p class="note">The same hue lifted toward Mist Blue. Brighter and more confident on black
+      without becoming a different colour. Safest upgrade.</p>
+  </div>
+
+  <div class="a">
+    <div class="demo">
+      <div class="lock"><svg width="27" height="27" viewBox="0 0 40 40"><path d="M11 7h18v27l-9-7-9 7Z" fill="#5FBFA8"/><path d="M15.5 17.5 19 21l6-6.5" fill="none" stroke="#0a0a0a" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="nm">Kept</span></div>
+      <div class="h">Agent tooling that earned<span style="color:#5FBFA8">a permanent place.</span></div>
+      <span class="chip" style="color:#8FD8C6;background:rgba(95,191,168,.13);border:1px solid rgba(95,191,168,.3)">mine</span>
+    </div>
+    <div class="meta"><span class="hex">#5FBFA8</span><span class="cr">9.2:1</span></div>
+    <p class="note">Teal. More energy, reads “alive and maintained”. It is a different brand
+      colour though — this breaks the link to your light palette.</p>
+  </div>
+
+  <div class="a">
+    <div class="demo">
+      <div class="lock"><svg width="27" height="27" viewBox="0 0 40 40"><path d="M11 7h18v27l-9-7-9 7Z" fill="#C08A6E"/><path d="M15.5 17.5 19 21l6-6.5" fill="none" stroke="#0a0a0a" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="nm">Kept</span></div>
+      <div class="h">Agent tooling that earned<span style="color:#C08A6E">a permanent place.</span></div>
+      <span class="chip" style="color:#D7AB94;background:rgba(192,138,110,.13);border:1px solid rgba(192,138,110,.3)">mine</span>
+    </div>
+    <div class="meta"><span class="hex">#C08A6E</span><span class="cr">7.6:1</span></div>
+    <p class="note">Your Soft Brown, lifted. Warm and unusual for dev tooling — nobody else in the
+      category looks like this. Currently used for stale dates, so it'd need a new warning colour.</p>
+  </div>
+
+  <div class="a">
+    <div class="demo">
+      <div class="lock"><svg width="27" height="27" viewBox="0 0 40 40"><path d="M11 7h18v27l-9-7-9 7Z" fill="#E6EDEF"/><path d="M15.5 17.5 19 21l6-6.5" fill="none" stroke="#0a0a0a" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="nm">Kept</span></div>
+      <div class="h">Agent tooling that earned<span style="color:#E6EDEF">a permanent place.</span></div>
+      <span class="chip" style="color:#E6EDEF;background:rgba(230,237,239,.09);border:1px solid #333">mine</span>
+    </div>
+    <div class="meta"><span class="hex">#E6EDEF</span><span class="cr">17.1:1</span></div>
+    <p class="note">No accent at all — the mark is the only colour on the page. Most restrained,
+      and the hardest to get wrong. Also the least memorable.</p>
+  </div>
+
+</div>
+
+<footer></footer>
+</div>
+</body>
+</html>

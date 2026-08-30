@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AI Hub — icon options</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0a0a0a;--card:#111;--card-hi:#141414;--line:#1f1f1f;--line-2:#262626;--line-3:#333;
+  --fg:#fff;--muted:#a3a3a3;--dim:#6b6b6b;--accent:#6F9EAA;--accent-hi:#9FC4CE;
+  --f-brand:'Montserrat',sans-serif;--f-ui:'Inter',system-ui,sans-serif;
+  --f-mono:'JetBrains Mono',ui-monospace,Menlo,monospace;
+}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--f-ui);font-size:15px;
+  line-height:1.6;-webkit-font-smoothing:antialiased}
+h1,h2,h3{margin:0;letter-spacing:-.02em;line-height:1.15}
+p{margin:0}
+.wrap{max-width:1140px;margin:0 auto;padding:0 28px}
+
+header{border-bottom:1px solid var(--line);padding:48px 0 34px}
+header h1{font-family:var(--f-brand);font-size:32px}
+header p{color:var(--muted);margin-top:12px;max-width:62ch}
+header .note{font-family:var(--f-mono);font-size:12px;color:var(--dim);margin-top:16px}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:16px;
+  padding:32px 0 80px}
+.opt{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:22px;
+  display:flex;flex-direction:column;gap:18px}
+.opt:hover{border-color:var(--line-3);background:var(--card-hi)}
+.opt .hd{display:flex;align-items:baseline;justify-content:space-between;gap:12px}
+.opt h3{font-size:17px}
+.opt .id{font-family:var(--f-mono);font-size:11px;color:var(--accent);
+  border:1px solid rgba(111,158,170,.3);border-radius:4px;padding:2px 8px}
+.opt .desc{color:var(--muted);font-size:13.5px}
+
+/* the three contexts an icon has to survive */
+.sizes{display:flex;align-items:center;gap:22px;padding:20px;border:1px solid var(--line);
+  border-radius:8px;background:#0d0d0d}
+.sizes .s{display:flex;flex-direction:column;align-items:center;gap:7px}
+.sizes .s span{font-family:var(--f-mono);font-size:9.5px;color:var(--dim)}
+.lockup{display:flex;align-items:center;gap:11px;padding:14px 18px;border:1px solid var(--line);
+  border-radius:8px;background:#0d0d0d}
+.lockup .name{font-family:var(--f-brand);font-weight:700;font-size:19px;letter-spacing:-.02em}
+
+svg{display:block}
+.tile{border-radius:9px;background:linear-gradient(145deg,var(--accent),#3F6873);
+  display:grid;place-items:center;flex:none}
+.plain{flex:none}
+</style>
+</head>
+<body>
+
+<header class="wrap">
+  <h1>Icon options</h1>
+  <p>Ten marks for AI Hub. Each is shown at 40px, at 32px, at 16px favicon size, and in the real
+     nav lockup — because most of these die at 16px and you should see that before choosing.</p>
+  <p class="note">Pure SVG, no font dependency. Tell me a number and I'll wire it in as the nav
+     mark, favicon and OG image.</p>
+</header>
+
+<div class="wrap">
+<div class="grid">
+
+  <!-- 01 ────────────────────────────────────────────── current -->
+  <div class="opt">
+    <div class="hd"><h3>Triangle tile</h3><span class="id">01 · current</span></div>
+    <p class="desc">What's on the site now. Reads at any size, means nothing in particular.</p>
+    <div class="sizes">
+      <div class="s"><div class="tile" style="width:40px;height:40px"><svg width="18" height="18" viewBox="0 0 24 24" fill="#08161A"><path d="M12 4 21 20H3Z"/></svg></div><span>40</span></div>
+      <div class="s"><div class="tile" style="width:32px;height:32px"><svg width="14" height="14" viewBox="0 0 24 24" fill="#08161A"><path d="M12 4 21 20H3Z"/></svg></div><span>32</span></div>
+      <div class="s"><div class="tile" style="width:16px;height:16px;border-radius:4px"><svg width="8" height="8" viewBox="0 0 24 24" fill="#08161A"><path d="M12 4 21 20H3Z"/></svg></div><span>16</span></div>
+    </div>
+    <div class="lockup">
+      <div class="tile" style="width:34px;height:34px"><svg width="15" height="15" viewBox="0 0 24 24" fill="#08161A"><path d="M12 4 21 20H3Z"/></svg></div>
+      <span class="name">AI Hub</span>
+    </div>
+  </div>
+
+  <!-- 02 ────────────────────────────────────────────── hub node -->
+  <div class="opt">
+    <div class="hd"><h3>Hub node</h3><span class="id">02</span></div>
+    <p class="desc">One centre, three things connected to it. Literally a hub; the accent dot is the centre.</p>
+    <div class="sizes">
+      <div class="s"><svg class="plain" width="40" height="40" viewBox="0 0 40 40"><g stroke="#6F9EAA" stroke-width="2" fill="none"><path d="M20 20 8 11M20 20l12-9M20 20v13"/></g><circle cx="20" cy="20" r="5" fill="#6F9EAA"/><g fill="#fff"><circle cx="8" cy="11" r="3"/><circle cx="32" cy="11" r="3"/><circle cx="20" cy="33" r="3"/></g></svg><span>40</span></div>
+      <div class="s"><svg class="plain" width="32" height="32" viewBox="0 0 40 40"><g stroke="#6F9EAA" stroke-width="2.4" fill="none"><path d="M20 20 8 11M20 20l12-9M20 20v13"/></g><circle cx="20" cy="20" r="5" fill="#6F9EAA"/><g fill="#fff"><circle cx="8" cy="11" r="3.2"/><circle cx="32" cy="11" r="3.2"/><circle cx="20" cy="33" r="3.2"/></g></svg><span>32</span></div>
+      <div class="s"><svg class="plain" width="16" height="16" viewBox="0 0 40 40"><g stroke="#6F9EAA" stroke-width="3.6" fill="none"><path d="M20 20 8 11M20 20l12-9M20 20v13"/></g><circle cx="20" cy="20" r="6" fill="#6F9EAA"/><g fill="#fff"><circle cx="8" cy="11" r="4"/><circle cx="32" cy="11" r="4"/><circle cx="20" cy="33" r="4"/></g></svg><span>16</span></div>
+    </div>
+    <div class="lockup">
+      <svg class="plain" width="34" height="34" viewBox="0 0 40 40"><g stroke="#6F9EAA" stroke-width="2.2" fill="none"><path d="M20 20 8 11M20 20l12-9M20 20v13"/></g><circle cx="20" cy="20" r="5" fill="#6F9EAA"/><g fill="#fff"><circle cx="8" cy="11" r="3"/><circle cx="32" cy="11" r="3"/><circle cx="20" cy="33" r="3"/></g></svg>
+      <span class="name">AI Hub</span>
+    </div>
+  </div>
+
+  <!-- 03 ────────────────────────────────────────────── checked -->
+  <div class="opt">
+    <div class="hd"><h3>Tick on a rule</h3><span class="id">03</span></div>
+    <p class="desc">A check mark whose tail becomes a date line. The one idea the whole site is about.</p>
+    <div class="sizes">
+      <div class="s"><svg class="plain" width="40" height="40" viewBox="0 0 40 40" fill="none"><path d="M8 20.5 15.5 28 32 11" stroke="#6F9EAA" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 34h22" stroke="#fff" stroke-width="3" stroke-linecap="round"/></svg><span>40</span></div>
+      <div class="s"><svg class="plain" width="32" height="32" viewBox="0 0 40 40" fill="none"><path d="M8 20.5 15.5 28 32 11" stroke="#6F9EAA" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 34h22" stroke="#fff" stroke-width="3.4" stroke-linecap="round"/></svg><span>32</span></div>
+      <div class="s"><svg class="plain" width="16" height="16" viewBox="0 0 40 40" fill="none"><path d="M8 20.5 15.5 28 32 11" stroke="#6F9EAA" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 34h22" stroke="#fff" stroke-width="5" stroke-linecap="round"/></svg><span>16</span></div>
+    </div>
+    <div class="lockup">
+      <svg class="plain" width="34" height="34" viewBox="0 0 40 40" fill="none"><path d="M8 20.5 15.5 28 32 11" stroke="#6F9EAA" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 34h22" stroke="#fff" stroke-width="3.2" stroke-linecap="round"/></svg>
+      <span class="name">AI Hub</span>
+    </div>
+  </div>
+
+  <!-- 04 ────────────────────────────────────────────── prompt -->
+  <div class="opt">
+    <div class="hd"><h3>Prompt</h3><span class="id">04</span></div>
+    <p class="desc">A terminal caret and cursor. Says "developer tooling" before a word is read.</p>
+    <div class="sizes">
+      <div class="s"><svg class="plain" width="40" height="40" viewBox="0 0 40 40" fill="none"><path d="M9 11 19 20 9 29" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><path d="M23 29h9" stroke="#6F9EAA" stroke-width="4" stroke-linecap="round"/></svg><span>40</span></div>
+      <div class="s"><svg class="plain" width="32" height="32" viewBox="0 0 40 40" fill="none"><path d="M9 11 19 20 9 29" stroke="#fff" stroke-width="4.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M23 29h9" stroke="#6F9EAA" stroke-width="4.6" stroke-linecap="round"/></svg><span>32</span></div>
+      <div class="s"><svg class="plain" width="16" height="16" viewBox="0 0 40 40" fill="none"><path d="M9 12 18 20 9 28" stroke="#fff" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/><path d="M24 28h8" stroke="#6F9EAA" stroke-width="6" stroke-linecap="round"/></svg><span>16</span></div>
+    </div>
+    <div class="lockup">
+      <svg class="plain" width="34" height="34" viewBox="0 0 40 40" fill="none"><path d="M9 11 19 20 9 29" stroke="#fff" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M23 29h9" stroke="#6F9EAA" stroke-width="4.2" stroke-linecap="round"/></svg>
+      <span class="name">AI Hub</span>
+    </div>
+  </div>
+
+  <!-- 05 ────────────────────────────────────────────── stack -->
+  <div class="opt">
+    <div class="hd"><h3>Stack</h3><span class="id">05</span></div>
+    <p class="desc">A curated stack, top plate lit. Collection without the shopping-cart feeling.</p>
+    <div class="sizes">
+      <div class="s"><svg class="plain" width="40" height="40" viewBox="0 0 40 40"><path d="M20 6 34 13 20 20 6 13Z" fill="#6F9EAA"/><path d="M6 20.5 20 27.5 34 20.5" stroke="#fff" stroke-width="2.6" fill="none" stroke-linejoin="round"/><path d="M6 27.5 20 34.5 34 27.5" stroke="#5b6b71" stroke-width="2.6" fill="none" stroke-linejoin="round"/></svg><span>40</span></div>
+      <div class="s"><svg class="plain" width="32" height="32" viewBox="0 0 40 40"><path d="M20 6 34 13 20 20 6 13Z" fill="#6F9EAA"/><path d="M6 20.5 20 27.5 34 20.5" stroke="#fff" stroke-width="3" fill="none" stroke-linejoin="round"/><path d="M6 27.5 20 34.5 34 27.5" stroke="#5b6b71" stroke-width="3" fill="none" stroke-linejoin="round"/></svg><span>32</span></div>
+      <div class="s"><svg class="plain" width="16" height="16" viewBox="0 0 40 40"><path d="M20 5 35 13 20 21 5 13Z" fill="#6F9EAA"/><path d="M5 21 20 29 35 21" stroke="#fff" stroke-width="4.5" fill="none" stroke-linejoin="round"/><path d="M5 29.5 20 37 35 29.5" stroke="#5b6b71" stroke-width="4.5" fill="none" stroke-linejoin="round"/></svg><span>16</span></div>
+    </div>
+    <div class="lockup">
+      <svg class="plain" width="34" height="34" viewBox="0 0 40 40"><path d="M20 6 34 13 20 20 6 13Z" fill="#6F9EAA"/><path d="M6 20.5 20 27.5 34 20.5" stroke="#fff" stroke-width="2.8" fill="none" stroke-linejoin="round"/><path d="M6 27.5 20 34.5 34 27.5" stroke="#5b6b71" stroke-width="2.8" fill="none" stroke-linejoin="round"/></svg>
+      <span class="name">AI Hub</span>
+    </div>
+  </div>
+
+  <!-- 06 ────────────────────────────────────────────── monogram -->
+  <div class="opt">
+    <div class="hd"><h3>Monogram tile</h3><span class="id">06</span></div>
+    <p class="desc">Mono <code style="font-family:var(--f-mono);font-size:12px">ah</code> on the accent tile. Boring, and boring survives 16px better than anything else here.</p>
+    <div class="sizes">
+      <div class="s"><div class="tile" style="width:40px;height:40px"><svg width="40" height="40" viewBox="0 0 40 40"><text x="20" y="26.5" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="18" font-weight="500" fill="#08161A">ah</text></svg></div><span>40</span></div>
+      <div class="s"><div class="tile" style="width:32px;height:32px"><svg width="32" height="32" viewBox="0 0 40 40"><text x="20" y="26.5" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="18" font-weight="500" fill="#08161A">ah</text></svg></div><span>32</span></div>
+      <div class="s"><div class="tile" style="width:16px;height:16px;border-radius:4px"><svg width="16" height="16" viewBox="0 0 40 40"><text x="20" y="27" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="20" font-weight="500" fill="#08161A">ah</text></svg></div><span>16</span></div>
+    </div>
+    <div class="lockup">
+      <div class="tile" style="width:34px;height:34px"><svg width="34" height="34" viewBox="0 0 40 40"><text x="20" y="26.5" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="18" font-weight="500" fill="#08161A">ah</text></svg></div>
+      <span class="name">AI Hub</span>
+    </div>
+  </div>
+
+  <!-- 07 ────────────────────────────────────────────── signal -->
+  <div class="opt">
+    <div class="hd"><h3>Signal</h3><span class="id">07</span></div>
+    <p class="desc">Arcs radiating from a source — freshness, something still broadcasting. Softest of the set.</p>
+    <div class="sizes">
+      <div class="s"><svg class="plain" width="40" height="40" viewBox="0 0 40 40" fill="none"><circle cx="11" cy="29" r="4" fill="#6F9EAA"/><path d="M11 20a9 9 0 0 1 9 9" stroke="#fff" stroke-width="3" stroke-linecap="round"/><path d="M11 11a18 18 0 0 1 18 18" stroke="#5b6b71" stroke-width="3" stroke-linecap="round"/></svg><span>40</span></div>
+      <div class="s"><svg class="plain" width="32" height="32" viewBox="0 0 40 40" fill="none"><circle cx="11" cy="29" r="4.4" fill="#6F9EAA"/><path d="M11 20a9 9 0 0 1 9 9" stroke="#fff" stroke-width="3.6" stroke-linecap="round"/><path d="M11 11a18 18 0 0 1 18 18" stroke="#5b6b71" stroke-width="3.6" stroke-linecap="round"/></svg><span>32</span></div>
+      <div class="s"><svg class="plain" width="16" height="16" viewBox="0 0 40 40" fill="none"><circle cx="11" cy="29" r="5.5" fill="#6F9EAA"/><path d="M11 19a10 10 0 0 1 10 10" stroke="#fff" stroke-width="5" stroke-linecap="round"/><path d="M11 9a20 20 0 0 1 20 20" stroke="#5b6b71" stroke-width="5" stroke-linecap="round"/></svg><span>16</span></div>
+    </div>
+    <div class="lockup">
+      <svg class="plain" width="34" height="34" viewBox="0 0 40 40" fill="none"><circle cx="11" cy="29" r="4.2" fill="#6F9EAA"/><path d="M11 20a9 9 0 0 1 9 9" stroke="#fff" stroke-width="3.2" stroke-linecap="round"/><path d="M11 11a18 18 0 0 1 18 18" stroke="#5b6b71" stroke-width="3.2" stroke-linecap="round"/></svg>
+      <span class="name">AI Hub</span>
+    </div>
+  </div>
+
+  <!-- 08 ────────────────────────────────────────────── brackets -->
+  <div class="opt">
+    <div class="hd"><h3>Brackets</h3><span class="id">08</span></div>
+    <p class="desc">A held thing. Reads as config, as code, and as a container all at once.</p>
+    <div class="sizes">
+      <div class="s"><svg class="plain" width="40" height="40" viewBox="0 0 40 40" fill="none"><path d="M15 8h-6v24h6M25 8h6v24h-6" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="20" cy="20" r="4.5" fill="#6F9EAA"/></svg><span>40</span></div>
+      <div class="s"><svg class="plain" width="32" height="32" viewBox="0 0 40 40" fill="none"><path d="M15 8h-6v24h6M25 8h6v24h-6" stroke="#fff" stroke-width="3.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="20" cy="20" r="5" fill="#6F9EAA"/></svg><span>32</span></div>
+      <div class="s"><svg class="plain" width="16" height="16" viewBox="0 0 40 40" fill="none"><path d="M14 7H7v26h7M26 7h7v26h-7" stroke="#fff" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="20" cy="20" r="6" fill="#6F9EAA"/></svg><span>16</span></div>
+    </div>
+    <div class="lockup">
+      <svg class="plain" width="34" height="34" viewBox="0 0 40 40" fill="none"><path d="M15 8h-6v24h6M25 8h6v24h-6" stroke="#fff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="20" cy="20" r="4.6" fill="#6F9EAA"/></svg>
+      <span class="name">AI Hub</span>
+    </div>
+  </div>
+
+  <!-- 09 ────────────────────────────────────────────── grid -->
+  <div class="opt">
+    <div class="hd"><h3>Four up</h3><span class="id">09</span></div>
+    <p class="desc">A small set, one of them yours. The card grid the site is actually made of.</p>
+    <div class="sizes">
+      <div class="s"><svg class="plain" width="40" height="40" viewBox="0 0 40 40"><rect x="7" y="7" width="12" height="12" rx="3" fill="#6F9EAA"/><rect x="21" y="7" width="12" height="12" rx="3" fill="#fff"/><rect x="7" y="21" width="12" height="12" rx="3" fill="#fff"/><rect x="21" y="21" width="12" height="12" rx="3" fill="#3f4b50"/></svg><span>40</span></div>
+      <div class="s"><svg class="plain" width="32" height="32" viewBox="0 0 40 40"><rect x="7" y="7" width="12" height="12" rx="3" fill="#6F9EAA"/><rect x="21" y="7" width="12" height="12" rx="3" fill="#fff"/><rect x="7" y="21" width="12" height="12" rx="3" fill="#fff"/><rect x="21" y="21" width="12" height="12" rx="3" fill="#3f4b50"/></svg><span>32</span></div>
+      <div class="s"><svg class="plain" width="16" height="16" viewBox="0 0 40 40"><rect x="5" y="5" width="14" height="14" rx="3" fill="#6F9EAA"/><rect x="21" y="5" width="14" height="14" rx="3" fill="#fff"/><rect x="5" y="21" width="14" height="14" rx="3" fill="#fff"/><rect x="21" y="21" width="14" height="14" rx="3" fill="#3f4b50"/></svg><span>16</span></div>
+    </div>
+    <div class="lockup">
+      <svg class="plain" width="34" height="34" viewBox="0 0 40 40"><rect x="7" y="7" width="12" height="12" rx="3" fill="#6F9EAA"/><rect x="21" y="7" width="12" height="12" rx="3" fill="#fff"/><rect x="7" y="21" width="12" height="12" rx="3" fill="#fff"/><rect x="21" y="21" width="12" height="12" rx="3" fill="#3f4b50"/></svg>
+      <span class="name">AI Hub</span>
+    </div>
+  </div>
+
+  <!-- 10 ────────────────────────────────────────────── pin -->
+  <div class="opt">
+    <div class="hd"><h3>Kept</h3><span class="id">10</span></div>
+    <p class="desc">A bookmark with a tick cut into it. "Earned a permanent place", as one shape.</p>
+    <div class="sizes">
+      <div class="s"><svg class="plain" width="40" height="40" viewBox="0 0 40 40" fill="none"><path d="M11 7h18v27l-9-7-9 7Z" fill="#6F9EAA"/><path d="M15.5 17.5 19 21l6-6.5" stroke="#08161A" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>40</span></div>
+      <div class="s"><svg class="plain" width="32" height="32" viewBox="0 0 40 40" fill="none"><path d="M11 7h18v27l-9-7-9 7Z" fill="#6F9EAA"/><path d="M15.5 17.5 19 21l6-6.5" stroke="#08161A" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span>32</span></div>
+      <div class="s"><svg class="plain" width="16" height="16" viewBox="0 0 40 40" fill="none"><path d="M9 5h22v31l-11-8.5L9 36Z" fill="#6F9EAA"/><path d="M15 17.5 19 21.5l6.5-7" stroke="#08161A" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg><span>16</span></div>
+    </div>
+    <div class="lockup">
+      <svg class="plain" width="34" height="34" viewBox="0 0 40 40" fill="none"><path d="M11 7h18v27l-9-7-9 7Z" fill="#6F9EAA"/><path d="M15.5 17.5 19 21l6-6.5" stroke="#08161A" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span class="name">AI Hub</span>
+    </div>
+  </div>
+
+</div>
+</div>
+
+</body>
+</html>

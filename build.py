@@ -19,6 +19,13 @@ ENTRIES, LIBRARY, SITE = ROOT / "entries", ROOT / "library", ROOT / "site"
 SITE_URL = "https://ai-hub-dg0.pages.dev"
 SITE_NAME = "AI Hub"
 REPO_URL = "https://github.com/serhiileniv/ai-hub"
+
+# A bookmark with a tick cut into it — "earned a permanent place", as one shape.
+# Inline rather than an <img> so it needs no second request and inherits nothing.
+MARK = ('<svg class="mark" width="32" height="32" viewBox="0 0 40 40" aria-hidden="true">'
+        '<path d="M11 7h18v27l-9-7-9 7Z" fill="#6F9EAA"/>'
+        '<path d="M15.5 17.5 19 21l6-6.5" fill="none" stroke="#0a0a0a" stroke-width="3.3" '
+        'stroke-linecap="round" stroke-linejoin="round"/></svg>')
 AUTHOR = "Serhii Leniv"
 TAGLINE = ("Agent skills, configs and tools I run on real work. Nothing ranked, "
            "nothing filler — every entry carries the day I last confirmed it works.")
@@ -404,6 +411,7 @@ def page(title, desc, body, path, extra_head="", groups=()):
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <meta name="theme-color" content="#0a0a0a">
+<link rel="icon" href="{depth}favicon.svg" type="image/svg+xml">
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="{depth}style.css">
 {extra_head}</head>
@@ -411,9 +419,7 @@ def page(title, desc, body, path, extra_head="", groups=()):
 <a class="skip" href="#main">Skip to content</a>
 <header class="site">
   <div class="wrap">
-    <a class="logo" href="{depth or '/'}">
-      <span class="mark">&#9650;</span><span class="name">{html.escape(SITE_NAME)}</span>
-    </a>
+    <a class="logo" href="{depth or '/'}">{MARK}<span class="name">{html.escape(SITE_NAME)}</span></a>
     <nav>{nav}</nav>
     <a class="ghost" href="{REPO_URL}" rel="noopener">GitHub &#8599;</a>
   </div>
