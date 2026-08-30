@@ -488,7 +488,6 @@ def build_index(items):
   <div class="wrap">
     <div class="inner">
       <h1>Tools, skills and workflows<span>worth keeping.</span></h1>
-      <p class="tag">Everything here I use. Each entry says when I last checked it.</p>
     </div>
   </div>
 </section>"""
