@@ -9,7 +9,8 @@ mine: false
 last_checked: 2026-08-30
 upstream_pushed: 2026-08-06
 checked_against: ["claude-code 2.1.251", "opus-5"]
-tags: [claude-code, skill, writing, codex]
+tags: [writing, editing, prose, skill]
+caveman: "TAKE ROBOT WORDS. REMOVE ROBOT SMELL. WORDS SOUND LIKE HUMAN."
 ---
 
 ## Why

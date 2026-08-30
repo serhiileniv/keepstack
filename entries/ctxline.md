@@ -9,7 +9,8 @@ mine: true
 last_checked: 2026-08-30
 upstream_pushed: 2026-08-21
 checked_against: ["claude-code 2.1.251", "opus-5"]
-tags: [claude-code, statusline, rust, context]
+tags: [statusline, context, rust, terminal]
+caveman: "SMALL BAR SHOW HOW FULL BRAIN. NOT FULL, KEEP GOING."
 ---
 
 ## Why

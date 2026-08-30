@@ -29,8 +29,8 @@ MARK = ('<svg class="mark" width="32" height="32" viewBox="0 0 40 40" aria-hidde
         '<path d="M4 16h21" stroke="#0a0a0a" stroke-width="1.8" opacity=".5"/></svg>')
 
 AUTHOR = "Serhii Leniv"
-TAGLINE = ("Agent skills, configs and tools I run on real work. Nothing ranked, "
-           "nothing filler — every entry carries the day I last confirmed it works.")
+TAGLINE = ("A collection of tools, skills and workflows worth keeping — searchable, tagged, "
+           "and every one dated with the day I last confirmed it works.")
 
 STALE_AFTER_DAYS = 90
 KINDS = ("skill", "mcp", "config", "workflow", "tool", "model", "prompt")
@@ -394,8 +394,8 @@ def page(title, desc, body, path, extra_head="", groups=()):
     """path is the site-relative directory, '' for the root."""
     canonical = f"{SITE_URL}/{path}".rstrip("/") + ("/" if path else "")
     depth = "../" * (len(pathlib.PurePath(path).parts)) if path else ""
-    shown = groups or GROUPS
-    nav = "".join(f'<a href="{depth}g/{k}/">{html.escape(t)}</a>' for k, t in shown)
+    nav = f'<a href="{depth or "/"}">All tools</a><a href="{REPO_URL}" rel="noopener">Source</a>'
+    _ = groups
     return f"""<!doctype html>
 <html lang="en">
 <head>
@@ -443,15 +443,25 @@ def page(title, desc, body, path, extra_head="", groups=()):
 def card(e, depth=""):
     pill = ('<span class="pill mine">mine</span>' if e.get("mine")
             else f'<span class="pill">{html.escape(e.get("kind",""))}</span>')
-    src = e.get("url") or e.get("source") or ""
+    src = (e.get("url") or e.get("source") or "")
     src = src.replace("https://github.com/", "").split("/tree/")[0]
     when = fmt_date(e.get("last_checked")).rsplit(" ", 1)[0]
-    return f"""      <a class="card" href="{depth}e/{e['_slug']}/">
+    tags = [str(t) for t in (e.get("tags") or [])]
+    # everything searchable, lowercased once at build time
+    hay = " ".join([str(e.get("name", "")), str(e.get("what", "")), str(e.get("kind", "")),
+                    str(e.get("group", "")), src, *tags]).lower()
+    chips = "".join(f'<span class="tag">{html.escape(t)}</span>' for t in tags[:3])
+    cave = html.escape(str(e.get("caveman") or e.get("what", "")))
+    return f"""      <a class="card" href="{depth}e/{e['_slug']}/"
+         data-hay="{html.escape(hay)}" data-group="{html.escape(str(e.get('group','')))}"
+         data-tags="{html.escape(' '.join(tags))}">
         <div class="top">
           <h3>{html.escape(e.get('name',''))}</h3>
           {pill}
         </div>
         <p class="what">{html.escape(e.get('what',''))}</p>
+        <p class="cave">{cave}</p>
+        <div class="tags">{chips}</div>
         <div class="foot">
           <span>{html.escape(src)}</span>
           <span class="d{' stale' if is_stale(e) else ''}">{html.escape(when)}</span>
@@ -460,64 +470,103 @@ def card(e, depth=""):
 
 
 def build_index(items):
+    items = sorted(items, key=lambda x: str(x.get("name", "")).lower())
     present = [(k, t) for k, t in GROUPS if any(e.get("group") == k for e in items)]
-    newest = max((as_date(e.get("last_checked")) for e in items
-                  if as_date(e.get("last_checked"))), default=None)
+    tags = sorted({str(t) for e in items for t in (e.get("tags") or [])})
 
-    hero = f"""<section class="hero">
+    filters = ['<button class="f on" data-f="*">All <span>%d</span></button>' % len(items)]
+    for key, title in present:
+        n = sum(1 for e in items if e.get("group") == key)
+        filters.append(f'<button class="f" data-f="g:{key}">{html.escape(title)} '
+                       f'<span>{n}</span></button>')
+    tagrow = "".join(f'<button class="f t" data-f="t:{html.escape(t)}">{html.escape(t)}</button>'
+                     for t in tags)
+    cards = "\n".join(card(e) for e in items)
+
+    hero = """<section class="hero">
   <div class="wrap">
     <div class="inner">
-      <h1>Agent tooling that earned<span>a permanent place.</span></h1>
-      <p class="tag">Skills, configs and small tools I run on real work. Nothing ranked &mdash;
-         if it's here, I use it. Every entry says the day I last confirmed it works.</p>
+      <h1>Tools, skills and workflows<span>worth keeping.</span></h1>
+      <p class="tag">A collection I actually use on real work. Search it by name, by what it does,
+         or by tag &mdash; and every entry says the day I last confirmed it still works.</p>
     </div>
   </div>
 </section>"""
-
-    rows = []
-    for key, title in present:
-        b = sorted([e for e in items if e.get("group") == key],
-                   key=lambda x: str(x.get("name", "")).lower())
-        names = " &middot; ".join(html.escape(e.get("name", "")) for e in b)
-        rows.append(f"""      <a class="gcard" href="g/{key}/">
-        <div class="top"><h2>{html.escape(title)}</h2>
-          <span class="count">{len(b)}</span></div>
-        <p class="names">{names}</p>
-      </a>""")
 
     body = f"""{hero}
-<section class="group">
+<section class="tools">
   <div class="wrap">
-    <div class="gindex">
-{chr(10).join(rows)}
+    <div class="controls">
+      <div class="searchbox">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <input id="q" type="search" placeholder="Search {len(items)} tools&hellip;"
+               autocomplete="off" aria-label="Search tools">
+        <button id="clear" type="button" aria-label="Clear search" hidden>&times;</button>
+      </div>
+      <button id="cave" class="cavebtn" type="button" aria-pressed="false"
+              title="Short words only">Caveman mode</button>
     </div>
-  </div>
-</section>"""
-    return page(f"{SITE_NAME} — agent skills, configs and tools, dated and checked",
-                TAGLINE, body, "", groups=present)
-
-
-def build_group(key, title, items):
-    b = sorted([e for e in items if e.get("group") == key],
-               key=lambda x: str(x.get("name", "")).lower())
-    present = [(k, t) for k, t in GROUPS if any(e.get("group") == k for e in items)]
-    cards = "\n".join(card(e, depth="../../") for e in b)
-    body = f"""<section class="ghead">
-  <div class="wrap">
-    <p class="crumb"><a href="../../">{html.escape(SITE_NAME)}</a></p>
-    <h1>{html.escape(title)}</h1>
-  </div>
-</section>
-<section class="group">
-  <div class="wrap">
-    <div class="grid">
+    <div class="filters">{''.join(filters)}</div>
+    <div class="filters tagrow">{tagrow}</div>
+    <p id="none" class="empty" hidden>Nothing matches. <button id="reset" type="button">Show everything</button></p>
+    <div class="grid" id="grid">
 {cards}
     </div>
   </div>
 </section>"""
-    return page(f"{title} — {SITE_NAME}",
-                f"{title}: {len(b)} tools I run, each dated and checked against named versions.",
-                body, f"g/{key}", groups=present)
+
+    js = """<script>
+(function(){
+  var grid=document.getElementById('grid'),q=document.getElementById('q'),
+      cards=[].slice.call(grid.querySelectorAll('.card')),
+      fbtns=[].slice.call(document.querySelectorAll('.f')),
+      none=document.getElementById('none'),clear=document.getElementById('clear'),
+      cave=document.getElementById('cave'),filter='*';
+
+  function apply(){
+    var term=(q.value||'').trim().toLowerCase(), shown=0;
+    clear.hidden=!term;
+    cards.forEach(function(c){
+      var okF = filter==='*' ? true
+        : filter.indexOf('g:')===0 ? c.dataset.group===filter.slice(2)
+        : (' '+c.dataset.tags+' ').indexOf(' '+filter.slice(2)+' ')>-1;
+      var okQ = !term || c.dataset.hay.indexOf(term)>-1;
+      var on = okF && okQ;
+      c.hidden = !on; if(on) shown++;
+    });
+    none.hidden = shown>0;
+  }
+  q.addEventListener('input',apply);
+  clear.addEventListener('click',function(){q.value='';q.focus();apply();});
+  document.getElementById('reset').addEventListener('click',function(){
+    q.value='';filter='*';fbtns.forEach(function(b){b.classList.toggle('on',b.dataset.f==='*');});
+    apply();
+  });
+  fbtns.forEach(function(b){
+    b.addEventListener('click',function(){
+      filter = (filter===b.dataset.f && b.dataset.f!=='*') ? '*' : b.dataset.f;
+      fbtns.forEach(function(x){x.classList.toggle('on',x.dataset.f===filter);});
+      apply();
+    });
+  });
+  document.addEventListener('keydown',function(e){
+    if(e.key==='/'&&document.activeElement!==q){e.preventDefault();q.focus();}
+    if(e.key==='Escape'&&document.activeElement===q){q.value='';q.blur();apply();}
+  });
+
+  function setCave(on){
+    document.body.classList.toggle('caveman',on);
+    cave.setAttribute('aria-pressed',on?'true':'false');
+    try{localStorage.setItem('caveman',on?'1':'0');}catch(e){}
+  }
+  var stored='0'; try{stored=localStorage.getItem('caveman')||'0';}catch(e){}
+  setCave(stored==='1');
+  cave.addEventListener('click',function(){setCave(!document.body.classList.contains('caveman'));});
+})();
+</script>
+"""
+    return page(f"{SITE_NAME} — tools, skills and workflows worth keeping",
+                TAGLINE, body + js, "", groups=present)
 
 
 def build_entry(e):
@@ -554,7 +603,7 @@ def build_entry(e):
     body = f"""<article class="entry">
   <div class="wrap narrow">
     <p class="crumb"><a href="../../">{html.escape(SITE_NAME)}</a> &rsaquo;
-       <a href="../../g/{e.get('group')}/">{html.escape(gtitle)}</a></p>
+       <span>{html.escape(gtitle)}</span></p>
     <h1>{html.escape(e.get('name',''))}{' <span class="pill mine">mine</span>' if e.get('mine') else ''}</h1>
     <p class="lede">{html.escape(e.get('what',''))}</p>
     <dl class="facts">
@@ -621,18 +670,11 @@ def build_readme(items):
 
 def build_site(items):
     SITE.mkdir(exist_ok=True)
-    for pat in ("e/*", "g/*"):
-        for old in SITE.glob(pat):
-            shutil.rmtree(old, ignore_errors=True)
+    for old in SITE.glob("e/*"):
+        shutil.rmtree(old, ignore_errors=True)
+    shutil.rmtree(SITE / "g", ignore_errors=True)   # group pages are gone; search replaced them
     (SITE / "index.html").write_text(build_index(items), encoding="utf-8")
     urls = [f"{SITE_URL}/"]
-    for key, title in GROUPS:
-        if not any(e.get("group") == key for e in items):
-            continue
-        d = SITE / "g" / key
-        d.mkdir(parents=True, exist_ok=True)
-        (d / "index.html").write_text(build_group(key, title, items), encoding="utf-8")
-        urls.append(f"{SITE_URL}/g/{key}/")
     for e in items:
         d = SITE / "e" / e["_slug"]
         d.mkdir(parents=True, exist_ok=True)

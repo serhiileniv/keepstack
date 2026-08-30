@@ -3,12 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>AI Hub — agent skills, configs and tools, dated and checked</title>
-<meta name="description" content="Agent skills, configs and tools I run on real work. Nothing ranked, nothing filler — every entry carries the day I last confirmed it works.">
+<title>AI Hub — tools, skills and workflows worth keeping</title>
+<meta name="description" content="A collection of tools, skills and workflows worth keeping — searchable, tagged, and every one dated with the day I last confirmed it works.">
 <link rel="canonical" href="https://ai-hub-dg0.pages.dev">
 <meta property="og:type" content="website">
-<meta property="og:title" content="AI Hub — agent skills, configs and tools, dated and checked">
-<meta property="og:description" content="Agent skills, configs and tools I run on real work. Nothing ranked, nothing filler — every entry carries the day I last confirmed it works.">
+<meta property="og:title" content="AI Hub — tools, skills and workflows worth keeping">
+<meta property="og:description" content="A collection of tools, skills and workflows worth keeping — searchable, tagged, and every one dated with the day I last confirmed it works.">
 <meta property="og:url" content="https://ai-hub-dg0.pages.dev">
 <meta property="og:site_name" content="AI Hub">
 <meta name="twitter:card" content="summary">
@@ -24,7 +24,7 @@
 <header class="site">
   <div class="wrap">
     <a class="logo" href="/"><svg class="mark" width="32" height="32" viewBox="0 0 40 40" aria-hidden="true"><path d="M23 12h9l4 5-8.5 12L19 17Z" fill="#C4304A"/><path d="M9 10h11l5 6-10.5 15L4 16Z" fill="#2ECC94"/><path d="M4 16h21" stroke="#0a0a0a" stroke-width="1.8" opacity=".5"/></svg><span class="name">AI Hub</span></a>
-    <nav><a href="g/planning/">Planning</a><a href="g/writing/">Writing &amp; review</a><a href="g/terminal/">Terminal</a></nav>
+    <nav><a href="/">All tools</a><a href="https://github.com/serhiileniv/ai-hub" rel="noopener">Source</a></nav>
     <a class="ghost" href="https://github.com/serhiileniv/ai-hub" rel="noopener">GitHub &#8599;</a>
   </div>
 </header>
@@ -32,33 +32,155 @@
 <section class="hero">
   <div class="wrap">
     <div class="inner">
-      <h1>Agent tooling that earned<span>a permanent place.</span></h1>
-      <p class="tag">Skills, configs and small tools I run on real work. Nothing ranked &mdash;
-         if it's here, I use it. Every entry says the day I last confirmed it works.</p>
+      <h1>Tools, skills and workflows<span>worth keeping.</span></h1>
+      <p class="tag">A collection I actually use on real work. Search it by name, by what it does,
+         or by tag &mdash; and every entry says the day I last confirmed it still works.</p>
     </div>
   </div>
 </section>
-<section class="group">
+<section class="tools">
   <div class="wrap">
-    <div class="gindex">
-      <a class="gcard" href="g/planning/">
-        <div class="top"><h2>Planning</h2>
-          <span class="count">1</span></div>
-        <p class="names">grilling</p>
+    <div class="controls">
+      <div class="searchbox">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <input id="q" type="search" placeholder="Search 5 tools&hellip;"
+               autocomplete="off" aria-label="Search tools">
+        <button id="clear" type="button" aria-label="Clear search" hidden>&times;</button>
+      </div>
+      <button id="cave" class="cavebtn" type="button" aria-pressed="false"
+              title="Short words only">Caveman mode</button>
+    </div>
+    <div class="filters"><button class="f on" data-f="*">All <span>5</span></button><button class="f" data-f="g:planning">Planning <span>1</span></button><button class="f" data-f="g:writing">Writing &amp; review <span>2</span></button><button class="f" data-f="g:terminal">Terminal <span>2</span></button></div>
+    <div class="filters tagrow"><button class="f t" data-f="t:context">context</button><button class="f t" data-f="t:design">design</button><button class="f t" data-f="t:editing">editing</button><button class="f t" data-f="t:git">git</button><button class="f t" data-f="t:learning">learning</button><button class="f t" data-f="t:planning">planning</button><button class="f t" data-f="t:pr">pr</button><button class="f t" data-f="t:prose">prose</button><button class="f t" data-f="t:questions">questions</button><button class="f t" data-f="t:review">review</button><button class="f t" data-f="t:rust">rust</button><button class="f t" data-f="t:skill">skill</button><button class="f t" data-f="t:statusline">statusline</button><button class="f t" data-f="t:terminal">terminal</button><button class="f t" data-f="t:usage">usage</button><button class="f t" data-f="t:writing">writing</button></div>
+    <p id="none" class="empty" hidden>Nothing matches. <button id="reset" type="button">Show everything</button></p>
+    <div class="grid" id="grid">
+      <a class="card" href="e/ccstatusline/"
+         data-hay="ccstatusline the everything status line — widgets, powerline, themes, usage meters, git and ci, all configured in a tui tool terminal sirmalloc/ccstatusline statusline terminal git usage" data-group="terminal"
+         data-tags="statusline terminal git usage">
+        <div class="top">
+          <h3>ccstatusline</h3>
+          <span class="pill">tool</span>
+        </div>
+        <p class="what">The everything status line — widgets, powerline, themes, usage meters, git and CI, all configured in a TUI</p>
+        <p class="cave">BAR SHOW EVERYTHING. PRETTY. COST LITTLE TIME EACH MESSAGE.</p>
+        <div class="tags"><span class="tag">statusline</span><span class="tag">terminal</span><span class="tag">git</span></div>
+        <div class="foot">
+          <span>sirmalloc/ccstatusline</span>
+          <span class="d">30 Aug</span>
+        </div>
       </a>
-      <a class="gcard" href="g/writing/">
-        <div class="top"><h2>Writing &amp; review</h2>
-          <span class="count">2</span></div>
-        <p class="names">no-ai-slop &middot; own-this</p>
+      <a class="card" href="e/ctxline/"
+         data-hay="ctxline model and remaining context in your status line. rust, because a slow one gets cancelled tool terminal serhiileniv/ctxline statusline context rust terminal" data-group="terminal"
+         data-tags="statusline context rust terminal">
+        <div class="top">
+          <h3>ctxline</h3>
+          <span class="pill mine">mine</span>
+        </div>
+        <p class="what">Model and remaining context in your status line. Rust, because a slow one gets cancelled</p>
+        <p class="cave">SMALL BAR SHOW HOW FULL BRAIN. NOT FULL, KEEP GOING.</p>
+        <div class="tags"><span class="tag">statusline</span><span class="tag">context</span><span class="tag">rust</span></div>
+        <div class="foot">
+          <span>serhiileniv/ctxline</span>
+          <span class="d">30 Aug</span>
+        </div>
       </a>
-      <a class="gcard" href="g/terminal/">
-        <div class="top"><h2>Terminal</h2>
-          <span class="count">2</span></div>
-        <p class="names">ccstatusline &middot; ctxline</p>
+      <a class="card" href="e/grilling-skill/"
+         data-hay="grilling asks you every open question about a plan, in rounds, before it writes a line of code skill planning mattpocock/skills planning questions design skill" data-group="planning"
+         data-tags="planning questions design skill">
+        <div class="top">
+          <h3>grilling</h3>
+          <span class="pill">skill</span>
+        </div>
+        <p class="what">Asks you every open question about a plan, in rounds, before it writes a line of code</p>
+        <p class="cave">ROBOT ASK MANY QUESTION FIRST. THEN BUILD RIGHT THING.</p>
+        <div class="tags"><span class="tag">planning</span><span class="tag">questions</span><span class="tag">design</span></div>
+        <div class="foot">
+          <span>mattpocock/skills</span>
+          <span class="d">30 Aug</span>
+        </div>
+      </a>
+      <a class="card" href="e/no-ai-slop/"
+         data-hay="no-ai-slop strips 20+ named patterns out of ai prose — the ones you can point at, not a vibe skill writing petergyang/no-ai-slop writing editing prose skill" data-group="writing"
+         data-tags="writing editing prose skill">
+        <div class="top">
+          <h3>no-ai-slop</h3>
+          <span class="pill">skill</span>
+        </div>
+        <p class="what">Strips 20+ named patterns out of AI prose — the ones you can point at, not a vibe</p>
+        <p class="cave">TAKE ROBOT WORDS. REMOVE ROBOT SMELL. WORDS SOUND LIKE HUMAN.</p>
+        <div class="tags"><span class="tag">writing</span><span class="tag">editing</span><span class="tag">prose</span></div>
+        <div class="foot">
+          <span>petergyang/no-ai-slop</span>
+          <span class="d">30 Aug</span>
+        </div>
+      </a>
+      <a class="card" href="e/own-this-skill/"
+         data-hay="own-this turns a shipped pr into a study guide, ending with the questions a reviewer will ask skill writing serhiileniv/skills review learning pr skill" data-group="writing"
+         data-tags="review learning pr skill">
+        <div class="top">
+          <h3>own-this</h3>
+          <span class="pill mine">mine</span>
+        </div>
+        <p class="what">Turns a shipped PR into a study guide, ending with the questions a reviewer will ask</p>
+        <p class="cave">ROBOT WRITE CODE. THIS MAKE YOU UNDERSTAND CODE. NOW YOU DEFEND.</p>
+        <div class="tags"><span class="tag">review</span><span class="tag">learning</span><span class="tag">pr</span></div>
+        <div class="foot">
+          <span>serhiileniv/skills</span>
+          <span class="d">30 Aug</span>
+        </div>
       </a>
     </div>
   </div>
-</section>
+</section><script>
+(function(){
+  var grid=document.getElementById('grid'),q=document.getElementById('q'),
+      cards=[].slice.call(grid.querySelectorAll('.card')),
+      fbtns=[].slice.call(document.querySelectorAll('.f')),
+      none=document.getElementById('none'),clear=document.getElementById('clear'),
+      cave=document.getElementById('cave'),filter='*';
+
+  function apply(){
+    var term=(q.value||'').trim().toLowerCase(), shown=0;
+    clear.hidden=!term;
+    cards.forEach(function(c){
+      var okF = filter==='*' ? true
+        : filter.indexOf('g:')===0 ? c.dataset.group===filter.slice(2)
+        : (' '+c.dataset.tags+' ').indexOf(' '+filter.slice(2)+' ')>-1;
+      var okQ = !term || c.dataset.hay.indexOf(term)>-1;
+      var on = okF && okQ;
+      c.hidden = !on; if(on) shown++;
+    });
+    none.hidden = shown>0;
+  }
+  q.addEventListener('input',apply);
+  clear.addEventListener('click',function(){q.value='';q.focus();apply();});
+  document.getElementById('reset').addEventListener('click',function(){
+    q.value='';filter='*';fbtns.forEach(function(b){b.classList.toggle('on',b.dataset.f==='*');});
+    apply();
+  });
+  fbtns.forEach(function(b){
+    b.addEventListener('click',function(){
+      filter = (filter===b.dataset.f && b.dataset.f!=='*') ? '*' : b.dataset.f;
+      fbtns.forEach(function(x){x.classList.toggle('on',x.dataset.f===filter);});
+      apply();
+    });
+  });
+  document.addEventListener('keydown',function(e){
+    if(e.key==='/'&&document.activeElement!==q){e.preventDefault();q.focus();}
+    if(e.key==='Escape'&&document.activeElement===q){q.value='';q.blur();apply();}
+  });
+
+  function setCave(on){
+    document.body.classList.toggle('caveman',on);
+    cave.setAttribute('aria-pressed',on?'true':'false');
+    try{localStorage.setItem('caveman',on?'1':'0');}catch(e){}
+  }
+  var stored='0'; try{stored=localStorage.getItem('caveman')||'0';}catch(e){}
+  setCave(stored==='1');
+  cave.addEventListener('click',function(){setCave(!document.body.classList.contains('caveman'));});
+})();
+</script>
+
 </main>
 <footer class="site">
   <div class="wrap">

@@ -8,7 +8,8 @@ url: ""                       # external link — OR use source: for something i
 source: ""                    # e.g. library/skills/my-skill  (rendered on the page, copy-pasteable)
 last_checked: 2026-08-30
 checked_against: []           # e.g. ["claude-code 2.1", "opus-5"] — build.py rejects an empty list
-tags: []
+tags: []                     # what someone would search for — not "claude-code", everything is
+caveman: ""                   # optional: the same thing, shouted, for caveman mode
 ---
 
 ## Why

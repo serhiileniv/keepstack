@@ -8,7 +8,8 @@ mine: true
 last_checked: 2026-08-30
 upstream_pushed: 2026-08-07
 checked_against: ["claude-code 2.1.251", "opus-5"]
-tags: [claude-code, skill, learning, review]
+tags: [review, learning, pr, skill]
+caveman: "ROBOT WRITE CODE. THIS MAKE YOU UNDERSTAND CODE. NOW YOU DEFEND."
 ---
 
 ## Why
