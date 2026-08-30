@@ -110,3 +110,45 @@ used for real.
 **Why:** the whole value is "I tried this." A fabricated verdict — even a plausible one — makes
 every other entry worthless, and it's undetectable from outside, which is exactly why the rule
 has to be absolute rather than a judgement call.
+
+---
+
+## D10 — It's a hub, not a classifier. Supersedes D4 *(2026-08-30)*
+
+No verdicts. The `using` / `dropped` / `watching` buckets are gone. Entries are grouped by the
+moment you'd reach for the thing — **planning · writing & review · working in a codebase ·
+terminal · connected services** — and nothing is ranked.
+
+**Why:** the buckets made the site a judgement of other people's work, and the reading experience
+was "here is my shelf, sorted." A hub is the opposite: everything on it is there because it's
+good, and the reader's question is *which of these do I need*, not *which does he like most*.
+Grouping by the moment of use answers that question; a verdict column doesn't.
+
+**What this costs, stated plainly:** D4 argued the `dropped` list was the differentiator — the
+one thing nobody else publishes. That's now gone, and with it the strongest SEO asset ("why I
+stopped using X" is a query with volume and almost no honest answers). Milestone 0 in `PLAN.md`
+required ≥3 dropped entries and no longer means anything.
+
+**What survives, and is now the whole claim:** `last_checked` and `checked_against`. The date
+was never a ranking, so removing the ranking doesn't touch it. Every entry still says the day I
+personally confirmed it works, and no automation ever writes that date.
+
+**Consequence for entries:** the `verdict` field is replaced by `group`, and `build.py --check`
+now rejects a thin body on *any* entry rather than only on a dropped one — under a hub, an entry
+that doesn't say why it's worth an afternoon has no reason to exist.
+
+---
+
+## D11 — Space Black, borrowed structure *(2026-08-30)*
+
+The site is dark: `#0a0a0a` ground, `#111`/`#141414` cards, `#1f1f1f`→`#333` borders, 8px radii,
+Montserrat + Inter + JetBrains Mono. The structure is Neura Market's, matched deliberately.
+
+**Why:** it's the look I want, and their token set was worth copying rather than re-deriving.
+The one substitution is the accent — their violet `#7c3aed` for my Muted Blue `#6F9EAA`.
+
+**Note for the brand kit:** `~/.claude/skills/brand` is light-mode only *by design*, and says a
+dark treatment is a decision for me rather than a value to derive. This is that decision, and it
+currently lives only in `site/style.css`. `#6F9EAA` is banned as text there (2.71:1 on off-white)
+but clears 7.4:1 on `#0a0a0a` — going dark is what makes the brand accent usable as type. If this
+sticks, it belongs back in the kit as an agreed dark set.

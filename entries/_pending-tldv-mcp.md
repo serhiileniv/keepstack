@@ -3,7 +3,7 @@ name: "tl;dv connector"
 url: "https://tldv.io/"
 what: "Pull meeting transcripts and notes into the agent"
 kind: mcp
-verdict:                       # ← using | dropped | watching
+group: services
 mine: false
 last_checked: 2026-08-30
 checked_against: ["claude-code 2.1.251", "opus-5"]

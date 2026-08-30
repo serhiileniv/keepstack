@@ -1,9 +1,10 @@
 ---
 name: "ctxline"
 url: "https://github.com/serhiileniv/ctxline"
-what: "Model and context size in your Claude Code status line. Nothing else."
+what: "Model and remaining context in your status line. Rust, because a slow one gets cancelled"
+sync: false
 kind: tool
-verdict: using
+group: terminal
 mine: true
 last_checked: 2026-08-30
 upstream_pushed: 2026-08-21

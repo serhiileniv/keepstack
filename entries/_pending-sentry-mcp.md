@@ -3,7 +3,7 @@ name: "Sentry connector"
 url: "https://docs.sentry.io/product/sentry-mcp/"
 what: "Search issues and run Seer root-cause analysis on production errors"
 kind: mcp
-verdict:                       # ← using | dropped | watching
+group: services
 mine: false
 last_checked: 2026-08-30
 checked_against: ["claude-code 2.1.251", "opus-5"]

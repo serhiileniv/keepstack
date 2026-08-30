@@ -1,9 +1,9 @@
 ---
-name: "own-this — a study guide for work you just shipped"
+name: "own-this"
 url: "https://github.com/serhiileniv/skills/tree/main/skills/own-this"
-what: "Generates a standalone HTML study guide for a finished bug fix, PR or feature so you can defend it"
+what: "Turns a shipped PR into a study guide, ending with the questions a reviewer will ask"
 kind: skill
-verdict: using
+group: writing
 mine: true
 last_checked: 2026-08-30
 upstream_pushed: 2026-08-07

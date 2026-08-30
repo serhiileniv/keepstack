@@ -3,7 +3,7 @@ name: "Todoist connector"
 url: "https://www.todoist.com/help/articles/use-todoist-with-claude"
 what: "Create, reschedule and query Todoist tasks and projects"
 kind: mcp
-verdict:                       # ← using | dropped | watching
+group: services
 mine: false
 last_checked: 2026-08-30
 checked_against: ["claude-code 2.1.251", "opus-5"]

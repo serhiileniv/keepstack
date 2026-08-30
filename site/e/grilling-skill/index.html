@@ -3,22 +3,23 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>grilling — a skill that interviews you before it builds — AI Hub</title>
-<meta name="description" content="Claude Code skill that stress-tests a plan by asking every open question in rounds before writing any code Verdict: using. Last checked 30 Aug 2026 against claude-code 2.1.251, opus-5.">
+<title>grilling — AI Hub</title>
+<meta name="description" content="Asks you every open question about a plan, in rounds, before it writes a line of code Last checked 30 Aug 2026 against claude-code 2.1.251, opus-5.">
 <link rel="canonical" href="https://ai-hub-dg0.pages.dev/e/grilling-skill/">
 <meta property="og:type" content="website">
-<meta property="og:title" content="grilling — a skill that interviews you before it builds — AI Hub">
-<meta property="og:description" content="Claude Code skill that stress-tests a plan by asking every open question in rounds before writing any code Verdict: using. Last checked 30 Aug 2026 against claude-code 2.1.251, opus-5.">
+<meta property="og:title" content="grilling — AI Hub">
+<meta property="og:description" content="Asks you every open question about a plan, in rounds, before it writes a line of code Last checked 30 Aug 2026 against claude-code 2.1.251, opus-5.">
 <meta property="og:url" content="https://ai-hub-dg0.pages.dev/e/grilling-skill/">
 <meta property="og:site_name" content="AI Hub">
 <meta name="twitter:card" content="summary">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+<meta name="theme-color" content="#0a0a0a">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../../style.css">
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"TechArticle",
-"headline":"grilling — a skill that interviews you before it builds","description":"Claude Code skill that stress-tests a plan by asking every open question in rounds before writing any code",
+"headline":"grilling","description":"Asks you every open question about a plan, in rounds, before it writes a line of code",
 "dateModified":"2026-08-30",
 "author":{"@type":"Person","name":"Serhii Leniv"}}
 </script>
@@ -27,36 +28,41 @@
 <a class="skip" href="#main">Skip to content</a>
 <header class="site">
   <div class="wrap">
-    <a class="brand" href="../../">AI Hub</a>
-    <nav><a href="../../#using">Using</a><a href="../../#dropped">Dropped</a><a href="../../#watching">Watching</a></nav>
+    <a class="logo" href="../../">
+      <span class="mark">&#9650;</span><span class="name">AI Hub</span>
+    </a>
+    <nav><a href="../../#planning">Planning</a><a href="../../#writing">Writing &amp; review</a><a href="../../#codebase">Working in a codebase</a><a href="../../#terminal">Terminal</a><a href="../../#services">Connected services</a><a href="../../#dates">The dates</a></nav>
+    <a class="ghost" href="https://github.com/serhiileniv/ai-hub" rel="noopener">GitHub &#8599;</a>
   </div>
 </header>
 <main id="main">
 <article class="entry">
   <div class="wrap narrow">
-    <p class="crumb"><a href="../../">AI Hub</a> ›
-       <a href="../../#using">Using</a></p>
-    <h1>grilling — a skill that interviews you before it builds</h1>
-    <p class="lede">Claude Code skill that stress-tests a plan by asking every open question in rounds before writing any code</p>
+    <p class="crumb"><a href="../../">AI Hub</a> &rsaquo;
+       <a href="../../#planning">Planning</a></p>
+    <h1>grilling</h1>
+    <p class="lede">Asks you every open question about a plan, in rounds, before it writes a line of code</p>
     <dl class="facts">
-      <div><dt>Verdict</dt><dd class="v-using">using</dd></div>
       <div><dt>Kind</dt><dd>skill</dd></div>
-      <div><dt>Last checked</dt><dd class="date fresh">30 Aug 2026</dd></div>
+      <div><dt>Last checked</dt><dd class="fresh">30 Aug 2026</dd></div>
       <div><dt>Checked against</dt><dd>claude-code 2.1.251, opus-5</dd></div>
-      <div><dt>Upstream pushed</dt><dd>7 Aug 2026</dd></div>
+      <div><dt>Upstream pushed</dt><dd>24 Aug 2026</dd></div>
     </dl>
-    <a class="ext" href="https://github.com/serhiileniv/skills/tree/main/skills/grilling" rel="noopener">https://github.com/serhiileniv/skills/tree/main/skills/grilling</a>
+    <a class="ext" href="https://github.com/mattpocock/skills/tree/main/skills/productivity/grilling" rel="noopener">https://github.com/mattpocock/skills/tree/main/skills/productivity/grilling</a>
     
     <div class="prose">
 <h3>Why</h3>
-<p>The failure mode I kept hitting wasn&#x27;t bad code — it was code built correctly against an assumption I was never asked to confirm. Agents fill gaps silently, and you find out three files later.</p>
-<p>This skill inverts that. It models the plan as a design tree and works it in <strong>rounds</strong>: every question whose prerequisites are already settled gets asked at once, each with a recommended answer, then it stops and waits. Answers reshape the tree and push the frontier outward. It&#x27;s done when the frontier is empty — every branch visited, nothing silently assumed.</p>
-<p>The clause that makes it worth keeping is the last one: <em>finding facts is the agent&#x27;s job, never mine.</em> If a question needs something from the filesystem or a tool, it dispatches a sub-agent rather than asking me — and doesn&#x27;t block on it, so the rest of the round still gets asked. Without that line the round degenerates into a quiz about my own repo.</p>
+<p>If you&#x27;ve ever had an agent build the wrong thing correctly, this is the fix.</p>
+<p>The failure isn&#x27;t bad code. It&#x27;s code written against an assumption nobody asked you to confirm — the agent hit a gap, filled it silently, and you find out three files later.</p>
+<p><code>grilling</code> inverts that. It maps your plan as a design tree and works it in <strong>rounds</strong>: every question whose prerequisites are already settled gets asked at once, each with a recommended answer, then it stops and waits for you. Your answers reshape the tree and push the frontier outward. It&#x27;s done when the frontier is empty — every branch visited, nothing silently assumed.</p>
+<p>The clause that makes it work is the one most people would leave out: <em>finding facts is the agent&#x27;s job, never yours.</em> When a question needs something from your filesystem, it dispatches a sub-agent instead of asking you — and doesn&#x27;t block, so the rest of the round still gets asked. Without that line it degenerates into a quiz about your own repo, and you stop using it by day three.</p>
+<p>Pair it with <code>grill-me</code> from the same directory — a one-line skill with <code>disable-model-invocation: true</code> that gives you <code>/grill-me</code> as an explicit command, so it fires when you decide, not when the model guesses.</p>
 <h3>Setup</h3>
-<pre><code class="lang-bash">cp -r skills/grilling ~/.claude/skills/grilling</code></pre>
-<p>A second one-line skill with <code>disable-model-invocation: true</code> whose body is just <code>Run a /grilling session.</code> gives you <code>/grill-me</code> as an explicit slash command.</p>
+<pre><code class="lang-bash">git clone https://github.com/mattpocock/skills
+cp -r skills/skills/productivity/grilling ~/.claude/skills/grilling
+cp -r skills/skills/productivity/grill-me ~/.claude/skills/grill-me</code></pre>
 <h3>Watch out for</h3>
-<p>It&#x27;s genuinely relentless — that&#x27;s the point, but it makes it the wrong skill for a task you&#x27;ve already decided. Invoke it for the decision, not for the implementation.</p>
+<p>It is genuinely relentless — that&#x27;s the point, and it makes it the wrong tool for work you&#x27;ve already decided on. Reach for it at the decision, not at the implementation.</p>
     </div>
   </div>
   
@@ -64,10 +70,10 @@
 </main>
 <footer class="site">
   <div class="wrap">
-    <p><strong>Why the dates.</strong> Every <em>awesome-</em> list is undated, so within months
-       you can't tell what still works. A date you can weigh beats a recommendation you can't.</p>
-    <p><strong>No schedule.</strong> I re-check in bursts. An entry marked overdue may still be
-       right — I just haven't confirmed it lately, and I'd rather say so than hide it.</p>
+    <p><strong>Nothing here is ranked.</strong> If it's on this site I use it. The only claim an
+       entry makes is the day I last confirmed it still works.</p>
+    <p><strong>No schedule.</strong> I re-check in bursts. A date older than 90
+       days may still be right — I just haven't confirmed it lately, and I'd rather say so.</p>
     <p class="fine">Serhii Leniv · built 30 August 2026</p>
   </div>
 </footer>

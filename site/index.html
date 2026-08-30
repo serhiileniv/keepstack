@@ -3,99 +3,145 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>AI Hub — AI skills, workflows and configs, dated and checked</title>
-<meta name="description" content="The AI tooling I actually run — plus what I tried and dropped. Every entry says when I last checked it, and against which versions.">
+<title>AI Hub — agent skills, configs and tools, dated and checked</title>
+<meta name="description" content="Agent skills, configs and tools I run on real work. Nothing ranked, nothing filler — every entry carries the day I last confirmed it works.">
 <link rel="canonical" href="https://ai-hub-dg0.pages.dev">
 <meta property="og:type" content="website">
-<meta property="og:title" content="AI Hub — AI skills, workflows and configs, dated and checked">
-<meta property="og:description" content="The AI tooling I actually run — plus what I tried and dropped. Every entry says when I last checked it, and against which versions.">
+<meta property="og:title" content="AI Hub — agent skills, configs and tools, dated and checked">
+<meta property="og:description" content="Agent skills, configs and tools I run on real work. Nothing ranked, nothing filler — every entry carries the day I last confirmed it works.">
 <meta property="og:url" content="https://ai-hub-dg0.pages.dev">
 <meta property="og:site_name" content="AI Hub">
 <meta name="twitter:card" content="summary">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+<meta name="theme-color" content="#0a0a0a">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
 <header class="site">
   <div class="wrap">
-    <a class="brand" href="/">AI Hub</a>
-    <nav><a href="/#using">Using</a><a href="/#dropped">Dropped</a><a href="/#watching">Watching</a></nav>
+    <a class="logo" href="/">
+      <span class="mark">&#9650;</span><span class="name">AI Hub</span>
+    </a>
+    <nav><a href="/#planning">Planning</a><a href="/#writing">Writing &amp; review</a><a href="/#terminal">Terminal</a><a href="/#dates">The dates</a></nav>
+    <a class="ghost" href="https://github.com/serhiileniv/ai-hub" rel="noopener">GitHub &#8599;</a>
   </div>
 </header>
 <main id="main">
 <section class="hero">
   <div class="wrap">
-    <h1>The AI tooling I actually run<br><span>— and what I dropped.</span></h1>
-    <p class="tag">Skills, agent configs, MCP servers and workflows, each one dated and checked
-       against named tool and model versions. Nothing here that I haven't personally used.</p>
-    <p class="stats"><span class="pill">4 entries</span>
-       <span class="pill">3 built by me</span>
-       <span class="pill">0 overdue</span></p>
+    <div class="inner">
+      <span class="eyebrow"><i></i>Last checked 30 Aug 2026 &middot; opus-5</span>
+      <h1>Agent tooling that earned<span>a permanent place.</span></h1>
+      <p class="tag">Skills, configs and small tools I run on real work. Nothing ranked,
+         nothing filler &mdash; every entry carries <b>the day I last confirmed it works</b>.</p>
+      <div class="cta">
+        <a class="btn p" href="#planning">Browse the hub</a>
+        <a class="btn s" href="#dates">Why the dates &darr;</a>
+      </div>
+      <div class="strip">
+        <div><div class="k">In the hub</div><div class="v">4 tools</div></div>
+        <div><div class="k">Built by me</div><div class="v">2</div></div>
+        <div><div class="k">Checked against</div><div class="v">claude-code 2.1.251</div></div>
+        <div><div class="k">Overdue</div><div class="v"><em>none</em></div></div>
+      </div>
+    </div>
   </div>
 </section>
-<section id="using" class="bucket">
+<section id="planning" class="group">
   <div class="wrap">
-    <h2>Using <span class="count">3</span></h2>
-    <p class="blurb">Tools and configs I actually run day to day.</p>
+    <div class="head">
+      <h2>Planning</h2>
+      <span class="count">1 tool</span>
+    </div>
     <div class="grid">
-      <a class="card" href="e/ctxline/">
-        <h3>ctxline <span class="mine" title="I built this">★</span></h3>
-        <p class="what">Model and context size in your Claude Code status line. Nothing else.</p>
-        <p class="meta"><span class="kind">tool</span>
-          <span class="date fresh">checked 30 Aug 2026</span></p>
-        <p class="against">claude-code 2.1.251, opus-5</p>
-      </a>
       <a class="card" href="e/grilling-skill/">
-        <h3>grilling — a skill that interviews you before it builds <span class="mine" title="I built this">★</span></h3>
-        <p class="what">Claude Code skill that stress-tests a plan by asking every open question in rounds before writing any code</p>
-        <p class="meta"><span class="kind">skill</span>
-          <span class="date fresh">checked 30 Aug 2026</span></p>
-        <p class="against">claude-code 2.1.251, opus-5</p>
-      </a>
-      <a class="card" href="e/own-this-skill/">
-        <h3>own-this — a study guide for work you just shipped <span class="mine" title="I built this">★</span></h3>
-        <p class="what">Generates a standalone HTML study guide for a finished bug fix, PR or feature so you can defend it</p>
-        <p class="meta"><span class="kind">skill</span>
-          <span class="date fresh">checked 30 Aug 2026</span></p>
-        <p class="against">claude-code 2.1.251, opus-5</p>
+        <div class="top">
+          <h3>grilling</h3>
+          <span class="pill">skill</span>
+        </div>
+        <p class="what">Asks you every open question about a plan, in rounds, before it writes a line of code</p>
+        <div class="foot">
+          <span>mattpocock/skills</span>
+          <span class="d">30 Aug</span>
+        </div>
       </a>
     </div>
   </div>
 </section>
-<section id="dropped" class="bucket">
+<section id="writing" class="group">
   <div class="wrap">
-    <h2>Dropped <span class="count">0</span></h2>
-    <p class="blurb">Tried these and stopped. Everyone publishes recommendations; almost nobody publishes what they abandoned — so this is usually the most useful section here.</p>
-    <div class="grid">
-      <p class="empty">Nothing here yet.</p>
+    <div class="head">
+      <h2>Writing &amp; review</h2>
+      <span class="count">2 tools</span>
     </div>
-  </div>
-</section>
-<section id="watching" class="bucket">
-  <div class="wrap">
-    <h2>Watching <span class="count">1</span></h2>
-    <p class="blurb">Looks promising, not properly tried yet. No verdict.</p>
     <div class="grid">
       <a class="card" href="e/no-ai-slop/">
-        <h3>no-ai-slop </h3>
-        <p class="what">Removes 20+ patterns of AI slop from any piece of writing.</p>
-        <p class="meta"><span class="kind">skill</span>
-          <span class="date fresh">checked 30 Aug 2026</span></p>
-        <p class="against">claude-code 2.1.251, opus-5</p>
+        <div class="top">
+          <h3>no-ai-slop</h3>
+          <span class="pill">skill</span>
+        </div>
+        <p class="what">Strips 20+ named patterns out of AI prose — the ones you can point at, not a vibe</p>
+        <div class="foot">
+          <span>petergyang/no-ai-slop</span>
+          <span class="d">30 Aug</span>
+        </div>
+      </a>
+      <a class="card" href="e/own-this-skill/">
+        <div class="top">
+          <h3>own-this</h3>
+          <span class="pill mine">mine</span>
+        </div>
+        <p class="what">Turns a shipped PR into a study guide, ending with the questions a reviewer will ask</p>
+        <div class="foot">
+          <span>serhiileniv/skills</span>
+          <span class="d">30 Aug</span>
+        </div>
       </a>
     </div>
   </div>
 </section>
+<section id="terminal" class="group">
+  <div class="wrap">
+    <div class="head">
+      <h2>Terminal</h2>
+      <span class="count">1 tool</span>
+    </div>
+    <div class="grid">
+      <a class="card" href="e/ctxline/">
+        <div class="top">
+          <h3>ctxline</h3>
+          <span class="pill mine">mine</span>
+        </div>
+        <p class="what">Model and remaining context in your status line. Rust, because a slow one gets cancelled</p>
+        <div class="foot">
+          <span>serhiileniv/ctxline</span>
+          <span class="d">30 Aug</span>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+<section class="wrap"><div class="band" id="dates">
+    <h2>Why every entry has a date</h2>
+    <dl>
+      <div class="r"><dt>Last checked</dt><dd>The day <b>I</b> confirmed it still works, against
+        the versions named on the entry. Never written by a bot.</dd></div>
+      <div class="r"><dt>Upstream</dt><dd>The day the project itself last changed. Newer than my
+        check means I'm slightly behind &mdash; the repo will tell you what moved.</dd></div>
+      <div class="r"><dt>No schedule</dt><dd>I re-check in bursts. The date is here so you never
+        have to take my word for how current this is.</dd></div>
+    </dl>
+  </div></section>
 </main>
 <footer class="site">
   <div class="wrap">
-    <p><strong>Why the dates.</strong> Every <em>awesome-</em> list is undated, so within months
-       you can't tell what still works. A date you can weigh beats a recommendation you can't.</p>
-    <p><strong>No schedule.</strong> I re-check in bursts. An entry marked overdue may still be
-       right — I just haven't confirmed it lately, and I'd rather say so than hide it.</p>
+    <p><strong>Nothing here is ranked.</strong> If it's on this site I use it. The only claim an
+       entry makes is the day I last confirmed it still works.</p>
+    <p><strong>No schedule.</strong> I re-check in bursts. A date older than 90
+       days may still be right — I just haven't confirmed it lately, and I'd rather say so.</p>
     <p class="fine">Serhii Leniv · built 30 August 2026</p>
   </div>
 </footer>

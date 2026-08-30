@@ -3,7 +3,7 @@ name: "Supabase connector"
 url: "https://supabase.com/docs/guides/getting-started/mcp"
 what: "Inspect schema, run SQL, apply migrations and deploy edge functions"
 kind: mcp
-verdict:                       # ← using | dropped | watching
+group: services
 mine: false
 last_checked: 2026-08-30
 checked_against: ["claude-code 2.1.251", "opus-5"]

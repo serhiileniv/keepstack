@@ -1,9 +1,10 @@
 ---
 name: "no-ai-slop"
 url: "https://github.com/petergyang/no-ai-slop"
-what: "Removes 20+ patterns of AI slop from any piece of writing."
+what: "Strips 20+ named patterns out of AI prose — the ones you can point at, not a vibe"
+sync: false
 kind: skill
-verdict: watching
+group: writing
 mine: false
 last_checked: 2026-08-30
 upstream_pushed: 2026-08-06
@@ -13,15 +14,17 @@ tags: [claude-code, skill, writing, codex]
 
 ## Why
 
-**No verdict yet — I found it, I haven't run my own writing through it.**
+It names the patterns instead of asking for "more human", and that's the whole difference. Binary
+contrasts ("It's not X. It's Y"), throat-clearing openers, faux-insight setups, colon reveals,
+dramatic one-line fragments, importance puffery, synonym cycling, fake-profound endings — twenty
+or so, each one a thing you can point at in a draft. A named pattern is checkable. "Sounds like
+AI" is a feeling, and you can't edit against a feeling.
 
-It's here because it names the patterns instead of saying "make it sound human": binary contrasts
-("It's not X. It's Y"), throat-clearing openers, faux-insight setups, colon reveals, dramatic
-fragments, importance puffery, synonym cycling, fake-profound endings. A named pattern is
-checkable; "sounds like AI" isn't.
+Three modes matter in practice: it edits and tells you what it removed, it detects without
+editing, and it will deliberately generate slop if you want to see the patterns exaggerated.
 
-Moves to `using` or `dropped` once I've run it on something I published — the test being whether
-its edits survive my own second read.
+**Newest thing in the hub** — added on the strength of the method, not yet on a piece I've
+published.
 
 ## Watch out for
 

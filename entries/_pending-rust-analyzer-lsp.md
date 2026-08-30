@@ -3,7 +3,7 @@ name: "rust-analyzer LSP plugin"
 url: "https://github.com/anthropics/claude-plugins"
 what: "Wires rust-analyzer into Claude Code so it gets real type info instead of grep"
 kind: config
-verdict:                       # ← using | dropped | watching
+group: codebase
 mine: false
 last_checked: 2026-08-30
 checked_against: ["claude-code 2.1.251", "opus-5"]

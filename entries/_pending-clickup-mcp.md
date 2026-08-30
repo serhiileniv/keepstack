@@ -3,7 +3,7 @@ name: "ClickUp connector"
 url: "https://clickup.com/features/ai"
 what: "Tasks, docs, time tracking and chat in ClickUp from the agent"
 kind: mcp
-verdict:                       # ← using | dropped | watching
+group: services
 mine: false
 last_checked: 2026-08-30
 checked_against: ["claude-code 2.1.251", "opus-5"]

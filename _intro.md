@@ -1,16 +1,14 @@
 # AI Hub
 
-**The AI tooling I actually run — plus what I tried and dropped.**
-Skills, agent configs, MCP servers and workflows. Every entry says when I last checked it, and
-against which tool and model versions.
+**Agent tooling that earned a permanent place.**
+Skills, configs and small tools I run on real work — Claude Code, agent CLIs, MCP servers.
 
-Every `awesome-*` list is undated, so within a few months you can't tell what still works.
-This one tells you. A date you can weigh beats a recommendation you can't.
+Nothing here is ranked and nothing is filler. If it's on this list, I use it. The only claim an
+entry makes is **the day I last confirmed it still works**, and against which tool and model
+versions.
 
-★ = something I built, and the files are in [`library/`](library/) — copy them.
-⚠️ = I haven't re-checked in 90+ days; it may still be right, I just haven't confirmed it lately.
+That's the part every `awesome-*` list leaves out, which is why you can't tell what still works
+a few months after it was written. A date you can weigh beats a recommendation you can't.
 
-**I re-check in bursts and I don't promise a schedule.** The dates are there so you never have
-to take my word for how current this is.
-
-Nothing is listed here that I haven't personally run.
+**I re-check in bursts and promise no schedule.** The dates are here so you never have to take
+my word for how current this is.

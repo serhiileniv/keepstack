@@ -2,7 +2,7 @@
 name: ""
 what: ""                      # one line: what it does, not why you like it
 kind: mcp                     # skill | mcp | config | workflow | tool | model | prompt
-verdict: using                # using | dropped | watching
+group: planning               # planning | writing | codebase | terminal | services
 mine: false                   # true if you built it
 url: ""                       # external link — OR use source: for something in library/
 source: ""                    # e.g. library/skills/my-skill  (rendered on the page, copy-pasteable)
@@ -13,9 +13,9 @@ tags: []
 
 ## Why
 
-One honest paragraph. If `verdict: dropped`, this is the most important text in the file —
-say what actually went wrong and how long it took to find out. Vague dismissals are worth
-nothing to a reader.
+One honest paragraph, written for someone who has never used it: what problem it removes, and
+what it cost you to find that out. Nothing here is ranked — if it's in the hub you use it — so
+this paragraph is the whole reason a stranger should spend their afternoon on it.
 
 ## Setup
 

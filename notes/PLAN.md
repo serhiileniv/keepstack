@@ -13,16 +13,13 @@ the model/tool versions it was checked against.
 Developers using agentic coding tools — Claude Code, Cursor, Codex, agent CLIs, MCP servers.
 Same tools I use daily, which is the only reason I can write it.
 
-## The three buckets
+## Grouping
 
-| Bucket | What | Who else publishes it |
-|---|---|---|
-| **Mine** | Tools and workflows I built and use | Some people |
-| **Using** | Third-party, tried, kept | Lots of people |
-| **Dropped** | Tried, abandoned, and why | **Almost nobody** ← the valuable one |
+**Superseded by D10.** There are no buckets and no verdicts. Entries are grouped by the moment
+you'd reach for them — planning, writing & review, working in a codebase, terminal, connected
+services — and nothing on the site is ranked. If it's listed, I use it.
 
-The dropped list is the differentiator. It's free content — the trying already happened — and
-it's what readers actually want and can't find anywhere.
+What that gave up, and why it was worth it, is written out in D10.
 
 ## The one mechanic that matters
 
@@ -54,7 +51,7 @@ batch, bump the dates.
 
 | # | Milestone | Proves |
 |---|---|---|
-| 0 | 10 entries published, all dated, including ≥3 in **dropped** | The format works |
+| 0 | 10 entries published, all dated | The format works |
 | 1 | Site live on Cloudflare Pages | It's real and shareable |
 | 2 | Posted once, somewhere it belongs (HN / Reddit / a Discord) | Anyone outside my head cares |
 | 3 | One full re-check pass, dates bumped, published | The dating claim is true, not decorative |

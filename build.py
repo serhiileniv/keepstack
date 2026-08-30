@@ -18,22 +18,26 @@ ENTRIES, LIBRARY, SITE = ROOT / "entries", ROOT / "library", ROOT / "site"
 # Set this before the first deploy — it drives canonical URLs and sitemap.xml.
 SITE_URL = "https://ai-hub-dg0.pages.dev"
 SITE_NAME = "AI Hub"
+REPO_URL = "https://github.com/serhiileniv/ai-hub"
 AUTHOR = "Serhii Leniv"
-TAGLINE = ("The AI tooling I actually run — plus what I tried and dropped. "
-           "Every entry says when I last checked it, and against which versions.")
+TAGLINE = ("Agent skills, configs and tools I run on real work. Nothing ranked, "
+           "nothing filler — every entry carries the day I last confirmed it works.")
 
 STALE_AFTER_DAYS = 90
-VERDICTS = ("using", "dropped", "watching")
 KINDS = ("skill", "mcp", "config", "workflow", "tool", "model", "prompt")
-REQUIRED = ("name", "what", "kind", "verdict", "last_checked")
+REQUIRED = ("name", "what", "kind", "group", "last_checked")
 
-BUCKETS = [
-    ("using", "Using", "Tools and configs I actually run day to day."),
-    ("dropped", "Dropped", "Tried these and stopped. Everyone publishes recommendations; "
-                           "almost nobody publishes what they abandoned — so this is usually "
-                           "the most useful section here."),
-    ("watching", "Watching", "Looks promising, not properly tried yet. No verdict."),
+# Grouped by the moment you'd reach for the thing, not by what it is and not by
+# how good it is. Nothing here is ranked — if it's in the hub, it's in use. See
+# D10 in notes/DECISIONS.md.
+GROUPS = [
+    ("planning", "Planning"),
+    ("writing", "Writing & review"),
+    ("codebase", "Working in a codebase"),
+    ("terminal", "Terminal"),
+    ("services", "Connected services"),
 ]
+GROUP_KEYS = tuple(g for g, _ in GROUPS)
 
 
 # ---------------------------------------------------------------- frontmatter
@@ -191,8 +195,8 @@ def cmd_check(items, quiet=False):
         for f in REQUIRED:
             if not e.get(f):
                 problems.append(f"{e['_file']}: missing '{f}'")
-        if e.get("verdict") not in VERDICTS:
-            problems.append(f"{e['_file']}: verdict '{e.get('verdict')}' not in {VERDICTS}")
+        if e.get("group") not in GROUP_KEYS:
+            problems.append(f"{e['_file']}: group '{e.get('group')}' not in {GROUP_KEYS}")
         if e.get("kind") not in KINDS:
             problems.append(f"{e['_file']}: kind '{e.get('kind')}' not in {KINDS}")
         if as_date(e.get("last_checked")) is None:
@@ -200,9 +204,9 @@ def cmd_check(items, quiet=False):
         if not e.get("checked_against"):
             problems.append(f"{e['_file']}: checked_against is empty — an undated claim is the "
                             "one thing this project exists not to publish")
-        if e.get("verdict") == "dropped" and len(e.get("_body", "")) < 200:
-            problems.append(f"{e['_file']}: 'dropped' with a thin explanation — that paragraph "
-                            "is the entire value of the entry")
+        if len(e.get("_body", "").strip()) < 120:
+            problems.append(f"{e['_file']}: too thin. An entry earns its place by saying why "
+                            "it's worth someone's afternoon")
         if e.get("source"):
             if not (ROOT / e["source"]).exists():
                 problems.append(f"{e['_file']}: source '{e['source']}' does not exist")
@@ -238,9 +242,9 @@ def cmd_stale(items, days):
 # ------------------------------------------------------------------ rendering
 
 # --- sync --------------------------------------------------------------------
-# The facts about an upstream go stale on their own; my verdict does not. So this
+# The facts about an upstream go stale on their own; my note about it does not. So this
 # refreshes only the two machine-knowable fields — `what` (the repo's own one-line
-# description) and `upstream_pushed` — and never touches verdict, the body,
+# description) and `upstream_pushed` — and never touches the group, the body,
 # last_checked or checked_against. Opt an entry out with `sync: false`.
 
 SYNCED = ("what", "upstream_pushed")
@@ -292,7 +296,7 @@ def cmd_sync(items):
     print("\n%d entr%s updated, %d not syncable (no GitHub URL, or sync: false)."
           % (changed, "y" if changed == 1 else "ies", skipped))
     if changed:
-        print("Descriptions and upstream dates only — no verdict and no date of mine "
+        print("Descriptions and upstream dates only — no words and no date of mine "
               "was touched. Re-run `python3 build.py` to publish.")
     return 0
 
@@ -377,10 +381,13 @@ def cmd_drift(items):
     return 1
 
 
-def page(title, desc, body, path, extra_head=""):
+def page(title, desc, body, path, extra_head="", groups=()):
     """path is the site-relative directory, '' for the root."""
     canonical = f"{SITE_URL}/{path}".rstrip("/") + ("/" if path else "")
     depth = "../" * (len(pathlib.PurePath(path).parts)) if path else ""
+    shown = groups or GROUPS
+    nav = "".join(f'<a href="{depth or "/"}#{k}">{html.escape(t)}</a>' for k, t in shown)
+    nav += f'<a href="{depth or "/"}#dates">The dates</a>' 
     return f"""<!doctype html>
 <html lang="en">
 <head>
@@ -397,15 +404,19 @@ def page(title, desc, body, path, extra_head=""):
 <meta name="twitter:card" content="summary">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+<meta name="theme-color" content="#0a0a0a">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="{depth}style.css">
 {extra_head}</head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
 <header class="site">
   <div class="wrap">
-    <a class="brand" href="{depth or '/'}">{html.escape(SITE_NAME)}</a>
-    <nav><a href="{depth or '/'}#using">Using</a><a href="{depth or '/'}#dropped">Dropped</a><a href="{depth or '/'}#watching">Watching</a></nav>
+    <a class="logo" href="{depth or '/'}">
+      <span class="mark">&#9650;</span><span class="name">{html.escape(SITE_NAME)}</span>
+    </a>
+    <nav>{nav}</nav>
+    <a class="ghost" href="{REPO_URL}" rel="noopener">GitHub &#8599;</a>
   </div>
 </header>
 <main id="main">
@@ -413,10 +424,10 @@ def page(title, desc, body, path, extra_head=""):
 </main>
 <footer class="site">
   <div class="wrap">
-    <p><strong>Why the dates.</strong> Every <em>awesome-</em> list is undated, so within months
-       you can't tell what still works. A date you can weigh beats a recommendation you can't.</p>
-    <p><strong>No schedule.</strong> I re-check in bursts. An entry marked overdue may still be
-       right — I just haven't confirmed it lately, and I'd rather say so than hide it.</p>
+    <p><strong>Nothing here is ranked.</strong> If it's on this site I use it. The only claim an
+       entry makes is the day I last confirmed it still works.</p>
+    <p><strong>No schedule.</strong> I re-check in bursts. A date older than {STALE_AFTER_DAYS}
+       days may still be right — I just haven't confirmed it lately, and I'd rather say so.</p>
     <p class="fine">{html.escape(AUTHOR)} · built {datetime.date.today().strftime('%-d %B %Y')}</p>
   </div>
 </footer>
@@ -426,48 +437,86 @@ def page(title, desc, body, path, extra_head=""):
 
 
 def card(e, depth=""):
-    a = age_days(e)
-    cls = "stale" if is_stale(e) else "fresh"
-    mine = '<span class="mine" title="I built this">★</span>' if e.get("mine") else ""
-    against = html.escape(", ".join(e.get("checked_against") or []) or "—")
+    pill = ('<span class="pill mine">mine</span>' if e.get("mine")
+            else f'<span class="pill">{html.escape(e.get("kind",""))}</span>')
+    src = e.get("url") or e.get("source") or ""
+    src = src.replace("https://github.com/", "").split("/tree/")[0]
+    when = fmt_date(e.get("last_checked")).rsplit(" ", 1)[0]
     return f"""      <a class="card" href="{depth}e/{e['_slug']}/">
-        <h3>{html.escape(e.get('name',''))} {mine}</h3>
+        <div class="top">
+          <h3>{html.escape(e.get('name',''))}</h3>
+          {pill}
+        </div>
         <p class="what">{html.escape(e.get('what',''))}</p>
-        <p class="meta"><span class="kind">{html.escape(e.get('kind',''))}</span>
-          <span class="date {cls}">checked {html.escape(fmt_date(e.get('last_checked')))}</span></p>
-        <p class="against">{against}</p>
+        <div class="foot">
+          <span>{html.escape(src)}</span>
+          <span class="d{' stale' if is_stale(e) else ''}">{html.escape(when)}</span>
+        </div>
       </a>"""
 
 
 def build_index(items):
     stale_n = sum(1 for e in items if is_stale(e))
     mine_n = sum(1 for e in items if e.get("mine"))
+    newest = max((as_date(e.get("last_checked")) for e in items
+                  if as_date(e.get("last_checked"))), default=None)
+    against = sorted({v for e in items for v in (e.get("checked_against") or [])})
+    tool = next((v for v in against if not v.startswith(("opus", "sonnet", "haiku"))), "—")
+
+    present = [(k, t) for k, t in GROUPS if any(e.get("group") == k for e in items)]
+
     hero = f"""<section class="hero">
   <div class="wrap">
-    <h1>The AI tooling I actually run<br><span>— and what I dropped.</span></h1>
-    <p class="tag">Skills, agent configs, MCP servers and workflows, each one dated and checked
-       against named tool and model versions. Nothing here that I haven't personally used.</p>
-    <p class="stats"><span class="pill">{len(items)} {'entry' if len(items)==1 else 'entries'}</span>
-       <span class="pill">{mine_n} built by me</span>
-       <span class="pill{' warn' if stale_n else ''}">{stale_n} overdue</span></p>
+    <div class="inner">
+      <span class="eyebrow"><i></i>Last checked {html.escape(fmt_date(newest))} &middot; {html.escape(', '.join(v for v in against if v.startswith(('opus','sonnet','haiku'))) or '—')}</span>
+      <h1>Agent tooling that earned<span>a permanent place.</span></h1>
+      <p class="tag">Skills, configs and small tools I run on real work. Nothing ranked,
+         nothing filler &mdash; every entry carries <b>the day I last confirmed it works</b>.</p>
+      <div class="cta">
+        <a class="btn p" href="#{present[0][0] if present else 'dates'}">Browse the hub</a>
+        <a class="btn s" href="#dates">Why the dates &darr;</a>
+      </div>
+      <div class="strip">
+        <div><div class="k">In the hub</div><div class="v">{len(items)} {'tool' if len(items)==1 else 'tools'}</div></div>
+        <div><div class="k">Built by me</div><div class="v">{mine_n}</div></div>
+        <div><div class="k">Checked against</div><div class="v">{html.escape(tool)}</div></div>
+        <div><div class="k">Overdue</div><div class="v{' warn' if stale_n else ''}">{'<em>none</em>' if not stale_n else stale_n}</div></div>
+      </div>
+    </div>
   </div>
 </section>"""
+
     secs = []
-    for verdict, title, blurb in BUCKETS:
-        b = sorted([e for e in items if e.get("verdict") == verdict],
+    for key, title in present:
+        b = sorted([e for e in items if e.get("group") == key],
                    key=lambda x: str(x.get("name", "")).lower())
-        cards = "\n".join(card(e) for e in b) or '      <p class="empty">Nothing here yet.</p>'
-        secs.append(f"""<section id="{verdict}" class="bucket">
+        cards = "\n".join(card(e) for e in b)
+        secs.append(f"""<section id="{key}" class="group">
   <div class="wrap">
-    <h2>{title} <span class="count">{len(b)}</span></h2>
-    <p class="blurb">{blurb}</p>
+    <div class="head">
+      <h2>{html.escape(title)}</h2>
+      <span class="count">{len(b)} {'tool' if len(b)==1 else 'tools'}</span>
+    </div>
     <div class="grid">
 {cards}
     </div>
   </div>
 </section>""")
-    return page(f"{SITE_NAME} — AI skills, workflows and configs, dated and checked",
-                TAGLINE, hero + "\n" + "\n".join(secs), "")
+
+    secs.append(f"""<section class="wrap"><div class="band" id="dates">
+    <h2>Why every entry has a date</h2>
+    <dl>
+      <div class="r"><dt>Last checked</dt><dd>The day <b>I</b> confirmed it still works, against
+        the versions named on the entry. Never written by a bot.</dd></div>
+      <div class="r"><dt>Upstream</dt><dd>The day the project itself last changed. Newer than my
+        check means I'm slightly behind &mdash; the repo will tell you what moved.</dd></div>
+      <div class="r"><dt>No schedule</dt><dd>I re-check in bursts. The date is here so you never
+        have to take my word for how current this is.</dd></div>
+    </dl>
+  </div></section>""")
+
+    return page(f"{SITE_NAME} — agent skills, configs and tools, dated and checked",
+                TAGLINE, hero + "\n" + "\n".join(secs), "", groups=present)
 
 
 def build_entry(e):
@@ -479,8 +528,9 @@ def build_entry(e):
                 if e.get("upstream_pushed") else "")
     link = (f'<a class="ext" href="{html.escape(e["url"])}" rel="noopener">'
             f'{html.escape(e["url"])}</a>' if e.get("url") else "")
-    note = ('<p class="notice">I have not re-checked this in over 90 days. It may well still be '
-            'right — I just haven\'t confirmed it lately.</p>' if is_stale(e) else "")
+    note = (f'<p class="notice">I have not re-checked this in over {STALE_AFTER_DAYS} days. It '
+            'may well still be right — I just haven\'t confirmed it lately.</p>'
+            if is_stale(e) else "")
 
     src = ""
     if e.get("source"):
@@ -499,16 +549,16 @@ def build_entry(e):
                    '<p class="blurb">Copy these straight into your setup.</p>'
                    + "\n".join(blocks) + "</section>")
 
+    gtitle = dict(GROUPS).get(e.get("group"), "")
     body = f"""<article class="entry">
   <div class="wrap narrow">
-    <p class="crumb"><a href="../../">{html.escape(SITE_NAME)}</a> ›
-       <a href="../../#{e.get('verdict')}">{html.escape(str(e.get('verdict','')).title())}</a></p>
-    <h1>{html.escape(e.get('name',''))}</h1>
+    <p class="crumb"><a href="../../">{html.escape(SITE_NAME)}</a> &rsaquo;
+       <a href="../../#{e.get('group')}">{html.escape(gtitle)}</a></p>
+    <h1>{html.escape(e.get('name',''))}{' <span class="pill mine">mine</span>' if e.get('mine') else ''}</h1>
     <p class="lede">{html.escape(e.get('what',''))}</p>
     <dl class="facts">
-      <div><dt>Verdict</dt><dd class="v-{e.get('verdict')}">{html.escape(str(e.get('verdict','')))}</dd></div>
       <div><dt>Kind</dt><dd>{html.escape(str(e.get('kind','')))}</dd></div>
-      <div><dt>Last checked</dt><dd class="date {cls}">{html.escape(fmt_date(e.get('last_checked')))}</dd></div>
+      <div><dt>Last checked</dt><dd class="{cls}">{html.escape(fmt_date(e.get('last_checked')))}</dd></div>
       <div><dt>Checked against</dt><dd>{html.escape(against)}</dd></div>{upstream}
     </dl>
     {link}
@@ -527,8 +577,8 @@ def build_entry(e):
 </script>
 """
     return page(f"{e.get('name','')} — {SITE_NAME}",
-                f"{e.get('what','')} Verdict: {e.get('verdict')}. "
-                f"Last checked {fmt_date(e.get('last_checked'))} against {against}.",
+                f"{e.get('what','')} Last checked {fmt_date(e.get('last_checked'))} "
+                f"against {against}.",
                 body, f"e/{e['_slug']}", jsonld)
 
 
@@ -539,30 +589,31 @@ def _j(s):
 def build_readme(items):
     intro = ROOT / "_intro.md"
     parts = [intro.read_text(encoding="utf-8").rstrip() if intro.exists() else f"# {SITE_NAME}", ""]
-    for verdict, title, blurb in BUCKETS:
-        b = sorted([e for e in items if e.get("verdict") == verdict],
+    for key, title in GROUPS:
+        b = sorted([e for e in items if e.get("group") == key],
                    key=lambda x: str(x.get("name", "")).lower())
-        parts += [f"## {title} ({len(b)})", "", blurb, ""]
         if not b:
-            parts += ["_Nothing here yet._", ""]
             continue
-        parts += ["| | What | Kind | Last checked |", "|---|---|---|---|"]
+        parts += [f"## {title}", ""]
+        parts += ["| | What | Last checked |", "|---|---|---|"]
         for e in b:
             name = e.get("name", "")
             target = e.get("url") or (e.get("source") or "")
             link = f"[{name}]({target})" if target else name
-            parts.append(f"| **{link}**{' ★' if e.get('mine') else ''} | {e.get('what','')} | "
-                         f"`{e.get('kind','')}` | {fmt_date(e.get('last_checked'))}"
-                         f"{' ⚠️' if is_stale(e) else ''}"
+            parts.append(f"| **{link}**{' &middot; mine' if e.get('mine') else ''} | "
+                         f"{e.get('what','')} | {fmt_date(e.get('last_checked'))}"
+                         f"{' &#9888;' if is_stale(e) else ''}"
                          f"<br><sub>{', '.join(e.get('checked_against') or []) or '—'}</sub> |")
         parts.append("")
     stale_n = sum(1 for e in items if is_stale(e))
     parts += ["---", "",
-              f"**{len(items)} {'entry' if len(items)==1 else 'entries'} · {stale_n} overdue for "
-              f"a re-check.** ⚠️ means the date is more than {STALE_AFTER_DAYS} days old — the "
-              "entry may still be right, but I haven't confirmed it lately. That's the point of "
-              "showing the date.", "",
-              f"<sub>Generated by `build.py` on {datetime.date.today().isoformat()}. "
+              "**How to read the dates.** `Last checked` is the day I personally confirmed the "
+              "entry still works, against the versions beneath it — a machine never writes that "
+              f"date. &#9888; means it's more than {STALE_AFTER_DAYS} days old: the entry may "
+              "still be right, I just haven't confirmed it lately. I re-check in bursts and "
+              "promise no schedule, which is exactly why the date is shown.", "",
+              f"<sub>{len(items)} {'entry' if len(items)==1 else 'entries'}, {stale_n} overdue. "
+              f"Generated by `build.py` on {datetime.date.today().isoformat()}. "
               "Don't edit this file by hand.</sub>", ""]
     return "\n".join(parts)
 
