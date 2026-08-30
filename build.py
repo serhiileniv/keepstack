@@ -512,6 +512,7 @@ def build_index(items):
     </div>
     <div class="filters">{''.join(filters)}</div>
     <div class="filters tagrow">{tagrow}</div>
+    <p id="count" class="sr" role="status" aria-live="polite"></p>
     <p id="none" class="empty" hidden>Nothing matches. <button id="reset" type="button">Show everything</button></p>
     <div class="grid" id="grid">
 {cards}
@@ -527,6 +528,16 @@ def build_index(items):
       none=document.getElementById('none'),clear=document.getElementById('clear'),
       filter='*';
 
+  function sync(push){
+    // A filtered view must survive being copied out of the address bar.
+    var p=new URLSearchParams();
+    if(q.value.trim()) p.set('q',q.value.trim());
+    if(filter.indexOf('t:')===0) p.set('tag',filter.slice(2));
+    else if(filter.indexOf('g:')===0) p.set('in',filter.slice(2));
+    var url=location.pathname+(p.toString()?'?'+p:'');
+    try{ history[push?'pushState':'replaceState'](null,'',url); }catch(e){}
+  }
+
   function apply(){
     var term=(q.value||'').trim().toLowerCase(), shown=0;
     clear.hidden=!term;
@@ -539,33 +550,72 @@ def build_index(items):
       c.hidden = !on; if(on) shown++;
     });
     none.hidden = shown>0;
+    document.getElementById('count').textContent =
+      shown+(shown===1?' tool':' tools')+' shown';
   }
-  q.addEventListener('input',apply);
-  clear.addEventListener('click',function(){q.value='';q.focus();apply();});
+  q.addEventListener('input',function(){apply();sync(false);});
+  clear.addEventListener('click',function(){q.value='';q.focus();apply();sync(false);});
   document.getElementById('reset').addEventListener('click',function(){
     q.value='';filter='*';fbtns.forEach(function(b){b.classList.toggle('on',b.dataset.f==='*');});
-    apply();
+    apply();sync(true);
   });
   fbtns.forEach(function(b){
     b.addEventListener('click',function(){
       filter = (filter===b.dataset.f && b.dataset.f!=='*') ? '*' : b.dataset.f;
       fbtns.forEach(function(x){x.classList.toggle('on',x.dataset.f===filter);});
-      apply();
+      apply();sync(true);
     });
   });
+
+  function fromURL(){
+    var p=new URLSearchParams(location.search);
+    q.value=p.get('q')||'';
+    filter = p.get('tag') ? 't:'+p.get('tag') : p.get('in') ? 'g:'+p.get('in') : '*';
+    fbtns.forEach(function(x){x.classList.toggle('on',x.dataset.f===filter);});
+    apply();
+  }
+  window.addEventListener('popstate',fromURL);
+  fromURL();
   document.addEventListener('keydown',function(e){
     if(e.key==='/'&&document.activeElement!==q){e.preventDefault();q.focus();}
-    if(e.key==='Escape'&&document.activeElement===q){q.value='';q.blur();apply();}
+    if(e.key==='Escape'&&document.activeElement===q){q.value='';q.blur();apply();sync(false);}
   });
 
 })();
 </script>
 """
+    listing = ",".join(
+        '{"@type":"ListItem","position":%d,"url":%s,"name":%s}'
+        % (i, _j(f"{SITE_URL}/e/{e['_slug']}/"), _j(e.get("name", "")))
+        for i, e in enumerate(items, 1))
+    ld = ('<script type="application/ld+json">\n'
+          '{"@context":"https://schema.org","@type":"CollectionPage",'
+          f'"name":{_j(SITE_NAME)},"description":{_j(TAGLINE)},'
+          f'"url":{_j(SITE_URL + "/")},'
+          f'"author":{{"@type":"Person","name":{_j(AUTHOR)}}},'
+          f'"mainEntity":{{"@type":"ItemList","numberOfItems":{len(items)},'
+          f'"itemListElement":[{listing}]}}}}\n</script>\n')
     return page(f"{SITE_NAME} — tools, skills and workflows worth keeping",
-                TAGLINE, body + js, "", groups=present)
+                TAGLINE, body + js, "", extra_head=ld, groups=present)
 
 
-def build_entry(e):
+def _related(e, items, n=3):
+    """Closest entries by shared tags, then same group. An entry page is where
+    people land from search, so it must offer somewhere to go next."""
+    mine = set(str(t) for t in (e.get("tags") or []))
+    scored = []
+    for o in items:
+        if o["_slug"] == e["_slug"]:
+            continue
+        overlap = len(mine & set(str(t) for t in (o.get("tags") or [])))
+        same = 1 if o.get("group") == e.get("group") else 0
+        if overlap or same:
+            scored.append((overlap * 2 + same, str(o.get("name", "")).lower(), o))
+    scored.sort(key=lambda r: (-r[0], r[1]))
+    return [o for _, _, o in scored[:n]]
+
+
+def build_entry(e, items=()):
     a = age_days(e)
     cls = "stale" if is_stale(e) else "fresh"
     against = ", ".join(e.get("checked_against") or []) or "—"
@@ -595,6 +645,19 @@ def build_entry(e):
                    + "\n".join(blocks) + "</section>")
 
     gtitle = dict(GROUPS).get(e.get("group"), "")
+    tags = [str(t) for t in (e.get("tags") or [])]
+    taglinks = ('<div class="tags entry-tags">'
+                + "".join(f'<a class="tag" href="../../?tag={html.escape(t)}">{html.escape(t)}</a>'
+                          for t in tags) + "</div>") if tags else ""
+
+    rel = _related(e, items)
+    related = (f"""<section class="related"><div class="wrap narrow">
+    <h2>Also in the stash</h2>
+    <div class="grid">
+{chr(10).join(card(o, depth="../../") for o in rel)}
+    </div>
+  </div></section>""" if rel else "")
+
     body = f"""<article class="entry">
   <div class="wrap narrow">
     <p class="crumb"><a href="../../">{html.escape(SITE_NAME)}</a> &rsaquo;
@@ -611,7 +674,9 @@ def build_entry(e):
     <div class="prose">
 {render_md(e.get('_body',''), shift=1)}
     </div>
+    {taglinks}
   </div>
+  {related}
   {f'<div class="wrap narrow">{src}</div>' if src else ''}
 </article>"""
     jsonld = f"""<script type="application/ld+json">
@@ -669,7 +734,7 @@ def build_site(items):
     for e in items:
         d = SITE / "e" / e["_slug"]
         d.mkdir(parents=True, exist_ok=True)
-        (d / "index.html").write_text(build_entry(e), encoding="utf-8")
+        (d / "index.html").write_text(build_entry(e, items), encoding="utf-8")
         urls.append(f"{SITE_URL}/e/{e['_slug']}/")
     today = datetime.date.today().isoformat()
     (SITE / "sitemap.xml").write_text(

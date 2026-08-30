@@ -22,6 +22,9 @@
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"CollectionPage","name":"Keepstack","description":"A collection of tools, skills and workflows worth keeping — searchable, tagged, and every one dated with the day I last confirmed it works.","url":"https://keepstack.pages.dev/","author":{"@type":"Person","name":"Serhii Leniv"},"mainEntity":{"@type":"ItemList","numberOfItems":7,"itemListElement":[{"@type":"ListItem","position":1,"url":"https://keepstack.pages.dev/e/caveman/","name":"caveman"},{"@type":"ListItem","position":2,"url":"https://keepstack.pages.dev/e/ccstatusline/","name":"ccstatusline"},{"@type":"ListItem","position":3,"url":"https://keepstack.pages.dev/e/ctxline/","name":"ctxline"},{"@type":"ListItem","position":4,"url":"https://keepstack.pages.dev/e/grilling-skill/","name":"grilling"},{"@type":"ListItem","position":5,"url":"https://keepstack.pages.dev/e/llm-council/","name":"llm-council"},{"@type":"ListItem","position":6,"url":"https://keepstack.pages.dev/e/no-ai-slop/","name":"no-ai-slop"},{"@type":"ListItem","position":7,"url":"https://keepstack.pages.dev/e/own-this-skill/","name":"own-this"}]}}
+</script>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -51,6 +54,7 @@
     </div>
     <div class="filters"><button class="f on" data-f="*">All <span>7</span></button><button class="f" data-f="g:planning">Planning <span>2</span></button><button class="f" data-f="g:writing">Writing &amp; review <span>2</span></button><button class="f" data-f="g:terminal">Terminal <span>3</span></button></div>
     <div class="filters tagrow"><button class="f t" data-f="t:context">context</button><button class="f t" data-f="t:cost">cost</button><button class="f t" data-f="t:decisions">decisions</button><button class="f t" data-f="t:design">design</button><button class="f t" data-f="t:editing">editing</button><button class="f t" data-f="t:git">git</button><button class="f t" data-f="t:learning">learning</button><button class="f t" data-f="t:planning">planning</button><button class="f t" data-f="t:pr">pr</button><button class="f t" data-f="t:prose">prose</button><button class="f t" data-f="t:questions">questions</button><button class="f t" data-f="t:review">review</button><button class="f t" data-f="t:rust">rust</button><button class="f t" data-f="t:skill">skill</button><button class="f t" data-f="t:statusline">statusline</button><button class="f t" data-f="t:terminal">terminal</button><button class="f t" data-f="t:tokens">tokens</button><button class="f t" data-f="t:usage">usage</button><button class="f t" data-f="t:writing">writing</button></div>
+    <p id="count" class="sr" role="status" aria-live="polite"></p>
     <p id="none" class="empty" hidden>Nothing matches. <button id="reset" type="button">Show everything</button></p>
     <div class="grid" id="grid">
       <a class="card" href="e/caveman/"
@@ -161,6 +165,16 @@
       none=document.getElementById('none'),clear=document.getElementById('clear'),
       filter='*';
 
+  function sync(push){
+    // A filtered view must survive being copied out of the address bar.
+    var p=new URLSearchParams();
+    if(q.value.trim()) p.set('q',q.value.trim());
+    if(filter.indexOf('t:')===0) p.set('tag',filter.slice(2));
+    else if(filter.indexOf('g:')===0) p.set('in',filter.slice(2));
+    var url=location.pathname+(p.toString()?'?'+p:'');
+    try{ history[push?'pushState':'replaceState'](null,'',url); }catch(e){}
+  }
+
   function apply(){
     var term=(q.value||'').trim().toLowerCase(), shown=0;
     clear.hidden=!term;
@@ -173,23 +187,35 @@
       c.hidden = !on; if(on) shown++;
     });
     none.hidden = shown>0;
+    document.getElementById('count').textContent =
+      shown+(shown===1?' tool':' tools')+' shown';
   }
-  q.addEventListener('input',apply);
-  clear.addEventListener('click',function(){q.value='';q.focus();apply();});
+  q.addEventListener('input',function(){apply();sync(false);});
+  clear.addEventListener('click',function(){q.value='';q.focus();apply();sync(false);});
   document.getElementById('reset').addEventListener('click',function(){
     q.value='';filter='*';fbtns.forEach(function(b){b.classList.toggle('on',b.dataset.f==='*');});
-    apply();
+    apply();sync(true);
   });
   fbtns.forEach(function(b){
     b.addEventListener('click',function(){
       filter = (filter===b.dataset.f && b.dataset.f!=='*') ? '*' : b.dataset.f;
       fbtns.forEach(function(x){x.classList.toggle('on',x.dataset.f===filter);});
-      apply();
+      apply();sync(true);
     });
   });
+
+  function fromURL(){
+    var p=new URLSearchParams(location.search);
+    q.value=p.get('q')||'';
+    filter = p.get('tag') ? 't:'+p.get('tag') : p.get('in') ? 'g:'+p.get('in') : '*';
+    fbtns.forEach(function(x){x.classList.toggle('on',x.dataset.f===filter);});
+    apply();
+  }
+  window.addEventListener('popstate',fromURL);
+  fromURL();
   document.addEventListener('keydown',function(e){
     if(e.key==='/'&&document.activeElement!==q){e.preventDefault();q.focus();}
-    if(e.key==='Escape'&&document.activeElement===q){q.value='';q.blur();apply();}
+    if(e.key==='Escape'&&document.activeElement===q){q.value='';q.blur();apply();sync(false);}
   });
 
 })();
