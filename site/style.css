@@ -1,0 +1,129 @@
+/* AI Hub — Serhii Leniv brand palette. Light mode only, per the brand kit. */
+:root{
+  --bg:#F4F6F5; --surface:#FFFFFF; --text:#172B35; --muted:#69757A;
+  --border:#C7DDE2; --accent:#6F9EAA; --warm:#795F50;
+  --font-heading:'Montserrat','Helvetica Neue',Arial,sans-serif;
+  --font-body:'Open Sans','Helvetica Neue',Arial,sans-serif;
+  --mono:ui-monospace,SFMono-Regular,'SF Mono',Menlo,Consolas,monospace;
+  --radius:10px;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--text);font-family:var(--font-body);
+  font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased;
+  min-height:100vh;display:flex;flex-direction:column}
+main{flex:1 0 auto}
+footer.site{flex-shrink:0}
+h1,h2,h3,h4{font-family:var(--font-heading);font-weight:700;line-height:1.2;
+  margin:0;letter-spacing:-.015em}
+p{margin:0 0 1em}
+a{color:inherit;text-decoration:underline;text-decoration-color:var(--accent);
+  text-underline-offset:3px;text-decoration-thickness:1.5px}
+a:hover{text-decoration-color:var(--text)}
+code{font-family:var(--mono);font-size:.88em;background:var(--border);
+  padding:.12em .38em;border-radius:4px}
+pre{background:var(--text);color:#EEF3F4;border-radius:var(--radius);padding:18px 20px;
+  overflow-x:auto;margin:0 0 1.2em;font-size:13.5px;line-height:1.6}
+pre code{background:none;padding:0;color:inherit;font-size:inherit}
+hr{border:0;border-top:1px solid var(--border);margin:2em 0}
+.wrap{max-width:1040px;margin:0 auto;padding:0 24px}
+.wrap.narrow{max-width:720px}
+.skip{position:absolute;left:-9999px}
+.skip:focus{left:16px;top:16px;background:var(--surface);padding:10px 16px;
+  border:2px solid var(--text);border-radius:6px;z-index:10}
+
+/* ---- header / footer ---- */
+header.site{border-bottom:1px solid var(--border);background:var(--surface)}
+header.site .wrap{display:flex;align-items:center;justify-content:space-between;
+  gap:20px;min-height:64px;flex-wrap:wrap}
+.brand{font-family:var(--font-heading);font-weight:700;font-size:17px;text-decoration:none;
+  letter-spacing:-.02em}
+header.site nav{display:flex;gap:22px;font-size:14.5px;font-weight:600}
+header.site nav a{text-decoration:none;color:var(--text)}
+header.site nav a:hover{color:var(--text)}
+footer.site{border-top:1px solid var(--border);margin-top:72px;padding:36px 0 72px;
+  background:var(--surface);font-size:14.5px;color:var(--muted)}
+footer.site p{max-width:66ch;margin:0 0 10px}
+footer.site strong{color:var(--text)}
+footer.site .fine{margin-top:20px;font-size:13px}
+
+/* ---- hero ---- */
+.hero{padding:76px 0 56px;border-bottom:1px solid var(--border)}
+.hero h1{font-size:clamp(30px,5.2vw,50px)}
+.hero h1 span{color:var(--accent)}
+.hero h1::after{content:'';display:block;width:64px;height:4px;
+  background:var(--accent);border-radius:2px;margin-top:26px}
+.hero .tag{margin:22px 0 0;font-size:clamp(16px,2.2vw,18.5px);max-width:60ch;color:var(--text)}
+.stats{margin:28px 0 0;display:flex;flex-wrap:wrap;gap:8px}
+.pill{background:var(--border);color:var(--text);font-size:13px;font-weight:600;
+  padding:4px 12px;border-radius:999px}
+.pill.warn{background:transparent;border:1px solid var(--warm);color:var(--warm)}
+
+/* ---- buckets ---- */
+.bucket{padding:52px 0 44px}
+#dropped{background:var(--surface);border-block:1px solid var(--border)}
+.bucket h2{font-size:26px;display:flex;align-items:baseline;gap:10px}
+.count{font-family:var(--font-body);font-size:13.5px;font-weight:600;color:var(--text);
+  background:var(--border);border-radius:999px;padding:2px 10px}
+/* --muted fails AA on --bg for small text (4.37:1); only used on white surfaces. */
+.blurb{color:var(--text);max-width:64ch;margin:12px 0 26px;font-size:15px}
+.grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fill,minmax(292px,1fr))}
+.card{display:block;background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--radius);padding:20px 22px;text-decoration:none;
+  transition:border-color .14s ease,transform .14s ease}
+.card:hover{border-color:var(--accent);transform:translateY(-2px)}
+.card h3{font-size:17px;margin-bottom:7px}
+.card .what{margin:0 0 15px;font-size:15px;color:var(--text)}
+.card .meta{margin:0;display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.card .against{margin:9px 0 0;font-size:12.5px;color:var(--muted);font-variant-numeric:tabular-nums}
+.mine{color:var(--warm)}
+.empty{color:var(--text);opacity:.72;font-style:italic}
+.kind{background:var(--accent);color:var(--text);font-size:12px;font-weight:600;
+  padding:3px 9px;border-radius:5px}
+.date{font-size:12.5px;font-weight:600;padding:3px 9px;border-radius:5px;
+  border:1px solid var(--border);color:var(--text);font-variant-numeric:tabular-nums}
+.date.stale{border-color:var(--warm);color:var(--warm)}
+
+/* ---- entry page ---- */
+.entry{padding:44px 0 0}
+.crumb{font-size:14px;color:var(--text);margin-bottom:20px}
+.crumb a{color:var(--text)}
+.entry h1{font-size:clamp(26px,4.4vw,38px)}
+.lede{font-size:18.5px;margin:16px 0 28px;color:var(--text)}
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1px;
+  background:var(--border);border:1px solid var(--border);border-radius:var(--radius);
+  overflow:hidden;margin:0 0 26px}
+.facts>div{background:var(--surface);padding:14px 16px}
+.facts dt{font-size:12px;font-weight:600;color:var(--muted);text-transform:uppercase;
+  letter-spacing:.06em;margin-bottom:5px}
+.facts dd{margin:0;font-size:14.5px;font-weight:600}
+.facts dd.date{display:inline-block}
+.v-using{color:var(--text)}
+.v-dropped{color:var(--warm)}
+.v-watching{color:var(--muted)}
+.ext{display:inline-block;font-size:14.5px;word-break:break-all;margin-bottom:22px}
+.notice{background:var(--surface);border-left:3px solid var(--warm);padding:14px 18px;
+  border-radius:0 var(--radius) var(--radius) 0;font-size:15px;color:var(--text)}
+.prose{font-size:16.5px}
+.prose h2{font-size:23px;margin:40px 0 14px}
+.prose h3{font-size:18px;margin:30px 0 10px}
+.prose ul,.prose ol{padding-left:22px;margin:0 0 1.2em}
+.prose li{margin-bottom:.45em}
+.prose blockquote{margin:0 0 1.3em;padding:2px 0 2px 20px;border-left:3px solid var(--accent);
+  color:var(--text)}
+.tablewrap{overflow-x:auto;margin:0 0 1.4em}
+.prose table{border-collapse:collapse;width:100%;font-size:15px}
+.prose th,.prose td{text-align:left;padding:10px 14px;border-bottom:1px solid var(--border);
+  vertical-align:top}
+.prose th{font-family:var(--font-heading);font-weight:600;font-size:13.5px;
+  text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+.source{margin-top:48px;padding-top:32px;border-top:1px solid var(--border)}
+.source h2{font-size:23px}
+.srcname{font-family:var(--mono);font-size:13px;font-weight:600;color:var(--muted);
+  margin:24px 0 8px}
+
+@media(max-width:640px){
+  .hero{padding:48px 0 36px}
+  .bucket{padding:40px 0 4px}
+  header.site .wrap{min-height:56px;padding-top:8px;padding-bottom:8px}
+}
