@@ -9,7 +9,6 @@ last_checked: 2026-08-30
 upstream_pushed: 2026-08-24
 checked_against: ["claude-code 2.1.251", "opus-5"]
 tags: [planning, questions, design, skill]
-caveman: "ROBOT ASK MANY QUESTION FIRST. THEN BUILD RIGHT THING."
 ---
 
 ## Why

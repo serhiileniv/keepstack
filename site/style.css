@@ -115,13 +115,6 @@ header.site nav a:hover{color:var(--fg);background:var(--card-hi)}
   background:transparent;color:var(--dim);font-size:19px;line-height:1;cursor:pointer}
 .searchbox #clear:hover{color:var(--fg);background:var(--line-2)}
 
-.cavebtn{border:1px solid var(--line-2);background:var(--card);color:var(--muted);
-  font-family:var(--f-mono);font-size:12.5px;border-radius:var(--r);padding:13px 16px;
-  cursor:pointer;transition:.18s;white-space:nowrap}
-.cavebtn:hover{border-color:var(--line-3);color:var(--fg)}
-.cavebtn[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);
-  color:#08170F;font-weight:500}
-
 .filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}
 .filters.tagrow{margin-bottom:26px;padding-top:2px}
 .f{border:1px solid var(--line-2);background:var(--card);color:var(--muted);cursor:pointer;
@@ -152,20 +145,11 @@ header.site nav a:hover{color:var(--fg);background:var(--card-hi)}
 .card h3{font-size:18.5px;letter-spacing:-.015em}
 .card:hover h3{color:var(--accent-hi)}
 .card .what{color:var(--muted);font-size:14.5px;margin:0}
-.card .cave{display:none;margin:0;font-family:var(--f-mono);font-size:13px;line-height:1.55;
-  color:var(--accent-hi);letter-spacing:.01em}
 .card .tags{display:flex;gap:6px;flex-wrap:wrap}
 .tag{font-family:var(--f-mono);font-size:10.5px;color:var(--dim);background:var(--card-hi);
   border:1px solid var(--line);border-radius:4px;padding:2px 7px}
 .tag::before{content:'#';opacity:.5}
 
-/* caveman mode: short words only */
-body.caveman .card .what{display:none}
-body.caveman .card .cave{display:block}
-body.caveman .hero .tag{display:none}
-body.caveman .hero h1::after{content:'GOOD TOOL. ME USE. ME CHECK DATE.';display:block;
-  font-family:var(--f-mono);font-size:14px;color:var(--muted);margin-top:20px;
-  letter-spacing:.02em;-webkit-text-fill-color:currentColor}
 .card .foot{margin-top:auto;padding-top:15px;border-top:1px solid var(--line);
   display:flex;align-items:center;justify-content:space-between;gap:10px;
   font-family:var(--f-mono);font-size:11.5px;color:var(--dim)}

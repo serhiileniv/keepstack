@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>caveman — AI Hub</title>
+<meta name="description" content="Makes the agent answer in compressed, telegraphic English — same information, far fewer tokens Last checked 30 Aug 2026 against claude-code 2.1.251, opus-5.">
+<link rel="canonical" href="https://ai-hub-dg0.pages.dev/e/caveman/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="caveman — AI Hub">
+<meta property="og:description" content="Makes the agent answer in compressed, telegraphic English — same information, far fewer tokens Last checked 30 Aug 2026 against claude-code 2.1.251, opus-5.">
+<meta property="og:url" content="https://ai-hub-dg0.pages.dev/e/caveman/">
+<meta property="og:site_name" content="AI Hub">
+<meta name="twitter:card" content="summary">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<meta name="theme-color" content="#0a0a0a">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../style.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"TechArticle",
+"headline":"caveman","description":"Makes the agent answer in compressed, telegraphic English — same information, far fewer tokens",
+"dateModified":"2026-08-30",
+"author":{"@type":"Person","name":"Serhii Leniv"}}
+</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site">
+  <div class="wrap">
+    <a class="logo" href="../../"><svg class="mark" width="32" height="32" viewBox="0 0 40 40" aria-hidden="true"><path d="M23 12h9l4 5-8.5 12L19 17Z" fill="#C4304A"/><path d="M9 10h11l5 6-10.5 15L4 16Z" fill="#2ECC94"/><path d="M4 16h21" stroke="#0a0a0a" stroke-width="1.8" opacity=".5"/></svg><span class="name">AI Hub</span></a>
+    <nav><a href="../../">All tools</a><a href="https://github.com/serhiileniv/ai-hub" rel="noopener">Source</a></nav>
+    <a class="ghost" href="https://github.com/serhiileniv/ai-hub" rel="noopener">GitHub &#8599;</a>
+  </div>
+</header>
+<main id="main">
+<article class="entry">
+  <div class="wrap narrow">
+    <p class="crumb"><a href="../../">AI Hub</a> &rsaquo;
+       <span>Terminal</span></p>
+    <h1>caveman</h1>
+    <p class="lede">Makes the agent answer in compressed, telegraphic English — same information, far fewer tokens</p>
+    <dl class="facts">
+      <div><dt>Kind</dt><dd>skill</dd></div>
+      <div><dt>Last checked</dt><dd class="fresh">30 Aug 2026</dd></div>
+      <div><dt>Checked against</dt><dd>claude-code 2.1.251, opus-5</dd></div>
+    </dl>
+    <a class="ext" href="https://github.com/JuliusBrussee/caveman" rel="noopener">https://github.com/JuliusBrussee/caveman</a>
+    
+    <div class="prose">
+<h3>Why</h3>
+<p><em>&quot;Why use many token when few token do trick.&quot;</em></p>
+<p>The joke is doing real work. An agent&#x27;s default register is padded — hedges, restatements, a preamble before the answer — and you pay for every word of it twice, once in output and again when it re-reads the transcript next turn. This strips the register and keeps the content:</p>
+<blockquote><strong>Normal, 69 tokens:</strong> &quot;The reason your React component is re-rendering is likely because you&#x27;re creating a new object reference on each render cycle. When you pass an inline object as a prop, React&#x27;s shallow comparison sees it as a different object every time, which triggers a re-render. I&#x27;d recommend using useMemo to memoize the object.&quot;  <strong>caveman, 19 tokens:</strong> &quot;New object ref each render. Inline object prop = new ref = re-render. Wrap in <code>useMemo</code>.&quot;</blockquote>
+<p>Nothing was lost. The second one is arguably the better answer.</p>
+<p>Version 2 goes after the other half of the bill — what the agent <em>reads</em> — with a proxy that compresses context before the provider call and restores it byte-exactly. The repo reports 33.2% fewer provider-counted input tokens on a pinned benchmark, which is the number worth checking against your own usage rather than taking on faith.</p>
+<h3>Setup</h3>
+<p>The skill on its own, which is the part that needs no proxy and no account:</p>
+<pre><code class="lang-bash">git clone https://github.com/JuliusBrussee/caveman
+cp -r caveman/skills/caveman ~/.claude/skills/caveman</code></pre>
+<p>Or both halves, including the input-side proxy:</p>
+<pre><code class="lang-bash">npm install -g @caveman-ai/cli &amp;&amp; caveman setup --install
+caveman claude</code></pre>
+<h3>Watch out for</h3>
+<p><strong>Licensing is split</strong> — MIT on the CLI, BSL-1.1 on the proxy runtime. If you&#x27;re putting this anywhere near work code, read which half you&#x27;re actually running.</p>
+<p><strong>It changes the register everywhere, including where you don&#x27;t want it.</strong> Compressed prose is right for a diagnosis and wrong for a commit message, a PR description, or anything a colleague reads. Turn it off before you generate text that leaves your terminal.</p>
+    </div>
+  </div>
+  
+</article>
+</main>
+<footer class="site">
+  <div class="wrap">
+    <span>Serhii Leniv</span>
+    <a href="https://github.com/serhiileniv/ai-hub" rel="noopener">github.com/serhiileniv/ai-hub</a>
+  </div>
+</footer>
+</body>
+</html>

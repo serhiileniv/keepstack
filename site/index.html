@@ -43,17 +43,29 @@
     <div class="controls">
       <div class="searchbox">
         <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
-        <input id="q" type="search" placeholder="Search 5 tools&hellip;"
+        <input id="q" type="search" placeholder="Search 6 tools&hellip;"
                autocomplete="off" aria-label="Search tools">
         <button id="clear" type="button" aria-label="Clear search" hidden>&times;</button>
       </div>
-      <button id="cave" class="cavebtn" type="button" aria-pressed="false"
-              title="Short words only">Caveman mode</button>
     </div>
-    <div class="filters"><button class="f on" data-f="*">All <span>5</span></button><button class="f" data-f="g:planning">Planning <span>1</span></button><button class="f" data-f="g:writing">Writing &amp; review <span>2</span></button><button class="f" data-f="g:terminal">Terminal <span>2</span></button></div>
-    <div class="filters tagrow"><button class="f t" data-f="t:context">context</button><button class="f t" data-f="t:design">design</button><button class="f t" data-f="t:editing">editing</button><button class="f t" data-f="t:git">git</button><button class="f t" data-f="t:learning">learning</button><button class="f t" data-f="t:planning">planning</button><button class="f t" data-f="t:pr">pr</button><button class="f t" data-f="t:prose">prose</button><button class="f t" data-f="t:questions">questions</button><button class="f t" data-f="t:review">review</button><button class="f t" data-f="t:rust">rust</button><button class="f t" data-f="t:skill">skill</button><button class="f t" data-f="t:statusline">statusline</button><button class="f t" data-f="t:terminal">terminal</button><button class="f t" data-f="t:usage">usage</button><button class="f t" data-f="t:writing">writing</button></div>
+    <div class="filters"><button class="f on" data-f="*">All <span>6</span></button><button class="f" data-f="g:planning">Planning <span>1</span></button><button class="f" data-f="g:writing">Writing &amp; review <span>2</span></button><button class="f" data-f="g:terminal">Terminal <span>3</span></button></div>
+    <div class="filters tagrow"><button class="f t" data-f="t:context">context</button><button class="f t" data-f="t:cost">cost</button><button class="f t" data-f="t:design">design</button><button class="f t" data-f="t:editing">editing</button><button class="f t" data-f="t:git">git</button><button class="f t" data-f="t:learning">learning</button><button class="f t" data-f="t:planning">planning</button><button class="f t" data-f="t:pr">pr</button><button class="f t" data-f="t:prose">prose</button><button class="f t" data-f="t:questions">questions</button><button class="f t" data-f="t:review">review</button><button class="f t" data-f="t:rust">rust</button><button class="f t" data-f="t:skill">skill</button><button class="f t" data-f="t:statusline">statusline</button><button class="f t" data-f="t:terminal">terminal</button><button class="f t" data-f="t:tokens">tokens</button><button class="f t" data-f="t:usage">usage</button><button class="f t" data-f="t:writing">writing</button></div>
     <p id="none" class="empty" hidden>Nothing matches. <button id="reset" type="button">Show everything</button></p>
     <div class="grid" id="grid">
+      <a class="card" href="e/caveman/"
+         data-hay="caveman makes the agent answer in compressed, telegraphic english — same information, far fewer tokens skill terminal juliusbrussee/caveman tokens context cost skill" data-group="terminal"
+         data-tags="tokens context cost skill">
+        <div class="top">
+          <h3>caveman</h3>
+          <span class="pill">skill</span>
+        </div>
+        <p class="what">Makes the agent answer in compressed, telegraphic English — same information, far fewer tokens</p>
+        <div class="tags"><span class="tag">tokens</span><span class="tag">context</span><span class="tag">cost</span></div>
+        <div class="foot">
+          <span>JuliusBrussee/caveman</span>
+          <span class="d">30 Aug</span>
+        </div>
+      </a>
       <a class="card" href="e/ccstatusline/"
          data-hay="ccstatusline the everything status line — widgets, powerline, themes, usage meters, git and ci, all configured in a tui tool terminal sirmalloc/ccstatusline statusline terminal git usage" data-group="terminal"
          data-tags="statusline terminal git usage">
@@ -62,7 +74,6 @@
           <span class="pill">tool</span>
         </div>
         <p class="what">The everything status line — widgets, powerline, themes, usage meters, git and CI, all configured in a TUI</p>
-        <p class="cave">BAR SHOW EVERYTHING. PRETTY. COST LITTLE TIME EACH MESSAGE.</p>
         <div class="tags"><span class="tag">statusline</span><span class="tag">terminal</span><span class="tag">git</span></div>
         <div class="foot">
           <span>sirmalloc/ccstatusline</span>
@@ -77,7 +88,6 @@
           <span class="pill mine">mine</span>
         </div>
         <p class="what">Model and remaining context in your status line. Rust, because a slow one gets cancelled</p>
-        <p class="cave">SMALL BAR SHOW HOW FULL BRAIN. NOT FULL, KEEP GOING.</p>
         <div class="tags"><span class="tag">statusline</span><span class="tag">context</span><span class="tag">rust</span></div>
         <div class="foot">
           <span>serhiileniv/ctxline</span>
@@ -92,7 +102,6 @@
           <span class="pill">skill</span>
         </div>
         <p class="what">Asks you every open question about a plan, in rounds, before it writes a line of code</p>
-        <p class="cave">ROBOT ASK MANY QUESTION FIRST. THEN BUILD RIGHT THING.</p>
         <div class="tags"><span class="tag">planning</span><span class="tag">questions</span><span class="tag">design</span></div>
         <div class="foot">
           <span>mattpocock/skills</span>
@@ -107,7 +116,6 @@
           <span class="pill">skill</span>
         </div>
         <p class="what">Strips 20+ named patterns out of AI prose — the ones you can point at, not a vibe</p>
-        <p class="cave">TAKE ROBOT WORDS. REMOVE ROBOT SMELL. WORDS SOUND LIKE HUMAN.</p>
         <div class="tags"><span class="tag">writing</span><span class="tag">editing</span><span class="tag">prose</span></div>
         <div class="foot">
           <span>petergyang/no-ai-slop</span>
@@ -122,7 +130,6 @@
           <span class="pill mine">mine</span>
         </div>
         <p class="what">Turns a shipped PR into a study guide, ending with the questions a reviewer will ask</p>
-        <p class="cave">ROBOT WRITE CODE. THIS MAKE YOU UNDERSTAND CODE. NOW YOU DEFEND.</p>
         <div class="tags"><span class="tag">review</span><span class="tag">learning</span><span class="tag">pr</span></div>
         <div class="foot">
           <span>serhiileniv/skills</span>
@@ -137,7 +144,7 @@
       cards=[].slice.call(grid.querySelectorAll('.card')),
       fbtns=[].slice.call(document.querySelectorAll('.f')),
       none=document.getElementById('none'),clear=document.getElementById('clear'),
-      cave=document.getElementById('cave'),filter='*';
+      filter='*';
 
   function apply(){
     var term=(q.value||'').trim().toLowerCase(), shown=0;
@@ -170,14 +177,6 @@
     if(e.key==='Escape'&&document.activeElement===q){q.value='';q.blur();apply();}
   });
 
-  function setCave(on){
-    document.body.classList.toggle('caveman',on);
-    cave.setAttribute('aria-pressed',on?'true':'false');
-    try{localStorage.setItem('caveman',on?'1':'0');}catch(e){}
-  }
-  var stored='0'; try{stored=localStorage.getItem('caveman')||'0';}catch(e){}
-  setCave(stored==='1');
-  cave.addEventListener('click',function(){setCave(!document.body.classList.contains('caveman'));});
 })();
 </script>
 

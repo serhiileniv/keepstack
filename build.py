@@ -451,7 +451,6 @@ def card(e, depth=""):
     hay = " ".join([str(e.get("name", "")), str(e.get("what", "")), str(e.get("kind", "")),
                     str(e.get("group", "")), src, *tags]).lower()
     chips = "".join(f'<span class="tag">{html.escape(t)}</span>' for t in tags[:3])
-    cave = html.escape(str(e.get("caveman") or e.get("what", "")))
     return f"""      <a class="card" href="{depth}e/{e['_slug']}/"
          data-hay="{html.escape(hay)}" data-group="{html.escape(str(e.get('group','')))}"
          data-tags="{html.escape(' '.join(tags))}">
@@ -460,7 +459,6 @@ def card(e, depth=""):
           {pill}
         </div>
         <p class="what">{html.escape(e.get('what',''))}</p>
-        <p class="cave">{cave}</p>
         <div class="tags">{chips}</div>
         <div class="foot">
           <span>{html.escape(src)}</span>
@@ -503,8 +501,6 @@ def build_index(items):
                autocomplete="off" aria-label="Search tools">
         <button id="clear" type="button" aria-label="Clear search" hidden>&times;</button>
       </div>
-      <button id="cave" class="cavebtn" type="button" aria-pressed="false"
-              title="Short words only">Caveman mode</button>
     </div>
     <div class="filters">{''.join(filters)}</div>
     <div class="filters tagrow">{tagrow}</div>
@@ -521,7 +517,7 @@ def build_index(items):
       cards=[].slice.call(grid.querySelectorAll('.card')),
       fbtns=[].slice.call(document.querySelectorAll('.f')),
       none=document.getElementById('none'),clear=document.getElementById('clear'),
-      cave=document.getElementById('cave'),filter='*';
+      filter='*';
 
   function apply(){
     var term=(q.value||'').trim().toLowerCase(), shown=0;
@@ -554,14 +550,6 @@ def build_index(items):
     if(e.key==='Escape'&&document.activeElement===q){q.value='';q.blur();apply();}
   });
 
-  function setCave(on){
-    document.body.classList.toggle('caveman',on);
-    cave.setAttribute('aria-pressed',on?'true':'false');
-    try{localStorage.setItem('caveman',on?'1':'0');}catch(e){}
-  }
-  var stored='0'; try{stored=localStorage.getItem('caveman')||'0';}catch(e){}
-  setCave(stored==='1');
-  cave.addEventListener('click',function(){setCave(!document.body.classList.contains('caveman'));});
 })();
 </script>
 """
