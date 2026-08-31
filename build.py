@@ -34,8 +34,8 @@ MARK = ('<svg class="mark" width="32" height="32" viewBox="0 0 40 40" aria-hidde
 AUTHOR = "Serhii Leniv"
 # Already public in every commit of this public repo, so the footer adds no exposure.
 EMAIL = "leniv.tech@gmail.com"
-TAGLINE = ("A collection of tools, skills and workflows worth keeping — searchable, tagged, "
-           "and every one dated with the day I last confirmed it works.")
+TAGLINE = ("A stash of good agent tooling for Claude Code. Searchable and tagged, with the "
+           "date I last checked each one.")
 
 STALE_AFTER_DAYS = 90
 KINDS = ("skill", "mcp", "config", "workflow", "tool", "model", "prompt")
