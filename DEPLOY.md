@@ -8,7 +8,7 @@ Two surfaces, both free, one repo. Nothing here costs money per visitor.
 matter for Google. Set it before the first deploy, then rebuild.
 
 ```python
-SITE_URL = "https://keepstack.pages.dev"     # or your domain, later
+SITE_URL = "https://twostones.pages.dev"     # or your domain, later
 ```
 
 ## 2. GitHub — the repo
@@ -17,7 +17,7 @@ For this audience the repo *is* the product: stars, issues, `git clone`. `README
 generated and renders as the hub on the repo front page.
 
 ```bash
-gh repo create keepstack --public --source=. --push
+gh repo create twostones --public --source=. --push
 ```
 
 Then enable **Issues**. That's the whole feedback mechanism — `notes/PLAN.md` milestone 4 is a
@@ -38,7 +38,7 @@ changes Python versions.
 
 ```bash
 npx wrangler login          # opens a browser — run this yourself
-npx wrangler pages deploy site --project-name=keepstack
+npx wrangler pages deploy site --project-name=twostones
 ```
 
 Every push redeploys. No account system, no database, no functions.

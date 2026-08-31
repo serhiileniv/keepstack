@@ -37,7 +37,7 @@ batch, bump the dates.
 - **GitHub** — the repo. Where stars, issues and `git clone` happen. The repo *is* the product.
 - **Cloudflare Pages** — the site, built from the same repo on push. Free, unlimited bandwidth,
   and Workers on the free tier if anything dynamic is ever needed.
-- **Domain** — `keepstack.me` is free for a year in the GitHub Student Pack; `keepstack.dev`
+- **Domain** — `twostones.me` is free for a year in the GitHub Student Pack; `twostones.dev`
   is ~$12/yr at Cloudflare with no renewal markup. Both were free to register as of 30 Aug 2026.
   Whichever is chosen, the other 301s to it — two live domains means the same page ranks twice.
 

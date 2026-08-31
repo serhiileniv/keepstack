@@ -1,4 +1,4 @@
-# Keepstack — planning
+# Twostones — planning
 
 The workspace for a **pet project**: a public hub of the AI tooling I actually use, plus what
 I've tried and what I dropped — every entry dated and checked against named model versions.

@@ -237,3 +237,30 @@ currently in my terminal.
 **The dates still mean what they always meant:** the day I last confirmed the entry is accurate,
 against the named versions. That's a claim about the entry, not about my habits, so it survives
 this unchanged.
+
+---
+
+## D15 — Twostones. Supersedes D13 *(2026-08-31)*
+
+`Keepstack` → **Twostones**, one day later, before anything was shared or indexed.
+
+**Why the reversal:** a *stack* is components that work together as one system — React, Postgres,
+Vercel. This holds `grilling`, `ctxline`, `no-ai-slop`, `llm-council`: independent picks that
+share nothing and are never run together. The name asserted a coherence the contents don't have,
+and **a name that misdescribes is worse than one that describes nothing**.
+
+**On the objection that killed it in D13** — that `twostones` doesn't explain itself — that was
+a bad argument. Vercel, Linear, Stripe and Figma explain nothing either. The tagline explains;
+the name is for remembering. Comprehension was being weighed in the slot where it isn't the job,
+and `.dev` carries the developer signal the name drops.
+
+It also names the mark, which nothing else on the shortlist did. Emerald and ruby, two stones,
+already in the header and the favicon.
+
+**Cost of the second rename: near zero, and that was the deciding factor on timing.** The site
+had been live one day, nothing linked to it, nothing was indexed, it had been sent to no one.
+GitHub redirects both old repo names indefinitely, and the retired Pages projects 301 to the
+current one. The same change next month would have meant broken links in other people's notes.
+
+`twostones.dev` and `twostones.me` were both unregistered as of 31 Aug 2026. Still on
+`twostones.pages.dev` until one is bought.

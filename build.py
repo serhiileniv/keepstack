@@ -19,9 +19,9 @@ ENTRIES, LIBRARY, SITE = ROOT / "entries", ROOT / "library", ROOT / "site"
 # this, rebuild, and add the custom domain in Cloudflare Pages. If more than one
 # domain points here, only ONE goes in this constant — the others must 301 to it,
 # or the same page ranks twice and neither wins.
-SITE_URL = "https://keepstack.pages.dev"
-SITE_NAME = "Keepstack"
-REPO_URL = "https://github.com/serhiileniv/keepstack"
+SITE_URL = "https://twostones.pages.dev"
+SITE_NAME = "Twostones"
+REPO_URL = "https://github.com/serhiileniv/twostones"
 
 # Two stones: an emerald and a ruby, overlapping. Emerald is the accent throughout;
 # ruby is reserved for entries I built, so the second colour carries a meaning

@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://keepstack.pages.dev/sitemap.xml
+Sitemap: https://twostones.pages.dev/sitemap.xml
